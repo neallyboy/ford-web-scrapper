@@ -18,6 +18,10 @@ CHROME_DRIVER_PATH = os.getenv("CHROME_DRIVER_PATH")
 ESCAPE_MANUFACTURER_URL = os.getenv("ESCAPE_MANUFACTURER_URL")
 ESCAPE_DEALER_URL = os.getenv("ESCAPE_DEALER_URL")
 
+
+# ------------------------------------------
+# Get prices from ford.ca
+# ------------------------------------------
 def get_ford_mfg_escape_prices():
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
@@ -48,6 +52,9 @@ def get_ford_mfg_escape_prices():
     return escape_prices
 
 
+# ------------------------------------------
+# Get prices from fordtodealers.ca
+# ------------------------------------------
 def get_ford_dealer_escape_prices():
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)

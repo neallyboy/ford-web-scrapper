@@ -19,7 +19,9 @@ CHROME_DRIVER_PATH = os.getenv("CHROME_DRIVER_PATH")
 MUSTANG_MANUFACTURER_URL = os.getenv("MUSTANG_MANUFACTURER_URL")
 MUSTANG_DEALER_URL = os.getenv("MUSTANG_DEALER_URL")
 
+# ------------------------------------------
 # Get prices from ford.ca
+# ------------------------------------------
 def get_ford_mfg_mustang_prices():
     
     # Set up the Chrome driver
@@ -67,7 +69,9 @@ def get_ford_mfg_mustang_prices():
     return mustang_prices
 
 
+# ------------------------------------------
 # Get prices from fordtodealers.ca
+# ------------------------------------------
 def get_ford_dealer_mustang_prices():
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
@@ -116,7 +120,9 @@ def get_ford_dealer_mustang_prices():
 
     return mustang_prices
 
+# ------------------------------------------
 # Get hero image from ford.ca
+# ------------------------------------------
 def get_ford_mfg_mustang_hero_img():
     
     # Set up the Chrome driver
@@ -155,7 +161,10 @@ def get_ford_mfg_mustang_hero_img():
 
     return mustang_image
 
+
+# ------------------------------------------
 # Get hero image from ford.ca
+# ------------------------------------------
 def get_ford_dealer_mustang_hero_img():
     
     # Set up the Chrome driver
@@ -193,6 +202,14 @@ def get_ford_dealer_mustang_hero_img():
     driver.quit()
 
     return mustang_image
+
+def merge_mustang_prices():
+  
+  # Get Mustang Data
+  ford_mfr_mustangs = get_ford_mfg_mustang_prices()
+  ford_dealer_mustangs = get_ford_dealer_mustang_prices()
+
+  return mustang_df
 
 # Test Functions
 #print(get_ford_mfg_mustang_prices())

@@ -15,7 +15,7 @@ import os
 
 # Local Packages
 from escape_vehicles import get_ford_mfg_escape_prices, get_ford_dealer_escape_prices
-from mustang_vehicles import get_ford_mfg_mustang_prices, get_ford_dealer_mustang_prices
+from mustang_vehicles import *
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -26,15 +26,20 @@ EMAIL_SENDER = os.getenv("EMAIL_RECIEVER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 # Get Mustang Data
-ford_mfr_mustangs = get_ford_mfg_mustang_prices()
-ford_dealer_mustangs = get_ford_dealer_mustang_prices()
+ford_mfr_mustang_prices = get_ford_mfg_mustang_prices()
+ford_dealer_mustangs_prices = get_ford_dealer_mustang_prices()
+
+ford_mfr_mustang_image = get_ford_mfg_mustang_hero_img()
+ford_dealer_mustang_image = get_ford_dealer_mustang_hero_img()
 
 # Convert datasets to DataFrames
-df1 = pd.DataFrame(ford_mfr_mustangs, columns=['Car Model', 'Ford Manufacturer Price'])
-df2 = pd.DataFrame(ford_dealer_mustangs, columns=['Car Model', 'Ford Dealer Price'])
+mustang_mfr_prices_df = pd.DataFrame(ford_mfr_mustang_prices, columns=['Car Model', 'Ford Manufacturer Price'])
+mustang_dealer_prices_df = pd.DataFrame(ford_dealer_mustangs_prices, columns=['Car Model', 'Ford Dealer Price'])
+
+hero_image_df = pd.DataFrame({'Model Hero Image': ['Mustang'],'Ford Manufacturer Image': [ford_mfr_mustang_image],'Ford Dealer Image': [ford_dealer_mustang_image]})
 
 # Merge datasets on 'Car Model'
-merged_df = pd.merge(df1, df2, on='Car Model', how='outer', suffixes=('_ford_mfr_vehicles', '_ford_dealer_vehicles'))
+merged_df = pd.merge(mustang_mfr_prices_df, mustang_dealer_prices_df, on='Car Model', how='outer', suffixes=('_ford_mfr_vehicles', '_ford_dealer_vehicles'))
 
 # Sort
 merged_df.sort_values(by=['Ford Manufacturer Price'], inplace=True)
@@ -52,17 +57,8 @@ merged_df.reset_index(inplace=True)
 merged_df['Price Comparison'] = 'Match'
 merged_df.loc[merged_df['Ford Manufacturer Price'] != merged_df['Ford Dealer Price'], 'Price Comparison'] = 'Mismatch'
 
-# Function to apply cell coloring based on the price comparison
-def highlight_price_difference(val):
-    if isinstance(val, pd.Series):
-        return [f'background-color: {"red" if "mismatch" in v.lower() else "green" if "match" in v.lower() else ""}; color: white' for v in val]
-    else:
-        return f'background-color: {"red" if "mismatch" in val.lower() else "green" if "match" in val.lower() else ""}; color: white'
-
-# Apply styling to the DataFrame
-styled_df = merged_df.style.apply(highlight_price_difference, subset=pd.IndexSlice[:, ['Price Comparison']])
-
-# print(styled_df.to_html(classes='table', escape=False, index=False, header=False))
+hero_image_df['Image Comparison'] = 'Match'
+hero_image_df.loc[hero_image_df['Ford Manufacturer Image'] != hero_image_df['Ford Dealer Image'], 'Image Comparison'] = 'Mismatch'
 
 # Email configuration
 sender_email = EMAIL_SENDER
@@ -104,7 +100,9 @@ html_content = f"""
   </head>
   <body>
     <h2>Mustang Prices</h2>
-    {styled_df.to_html(classes='table', escape=False, index=False, header=False)}  <!-- Add index=False, header=False to exclude the index column -->
+    {merged_df.to_html(classes='table', escape=False, index=False)}
+    <h2>Model Hero Images</h2>
+    {hero_image_df.to_html(classes='table', escape=False, index=False)}
   </body>
 </html>
 """
