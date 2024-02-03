@@ -15,6 +15,8 @@ load_dotenv()
 
 # Get email configuration from environment variables
 CHROME_DRIVER_PATH = os.getenv("CHROME_DRIVER_PATH")
+ESCAPE_MANUFACTURER_URL = os.getenv("ESCAPE_MANUFACTURER_URL")
+ESCAPE_DEALER_URL = os.getenv("ESCAPE_DEALER_URL")
 
 def get_ford_mfg_escape_prices():
     # Set up the Chrome driver
@@ -23,7 +25,7 @@ def get_ford_mfg_escape_prices():
     chrome_options.add_experimental_option("detach", False)  
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    url = "https://www.ford.ca/suvs-crossovers/escape/?gnav=header-suvs-vhp"
+    url = ESCAPE_MANUFACTURER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -53,7 +55,7 @@ def get_ford_dealer_escape_prices():
     chrome_options.add_experimental_option("detach", False)  
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    url = "https://fordtodealers.ca/ford-escape/"
+    url = ESCAPE_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 

@@ -58,6 +58,13 @@ CHROME_DRIVER_PATH=/path/to/chromedriver.exe
 EMAIL_SENDER=your-email@gmail.com
 EMAIL_RECIEVER=recipient-email@gmail.com
 EMAIL_PASSWORD=your-gmail-password
+
+# URL Configuration
+MUSTANG_MANUFACTURER_URL=https://www.ford.ca/cars/mustang/?gnav=header-suvs-vhp
+MUSTANG_DEALER_URL=https://fordtodealers.ca/ford-mustang/
+
+ESCAPE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/escape/?gnav=header-suvs-vhp
+ESCAPE_DEALER_URL=https://fordtodealers.ca/ford-escape/
 ```
 
 Note the gmail password needs to be setup as an App Password. You will need to go to the account settings to set this up.
