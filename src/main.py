@@ -14,7 +14,7 @@ import smtplib
 import os
 
 # Local Packages
-from escape_vehicles import get_ford_mfg_escape_prices, get_ford_dealer_escape_prices
+from escape_vehicles import *
 from mustang_vehicles import *
 
 # Load environment variables from the .env file
@@ -26,39 +26,16 @@ EMAIL_SENDER = os.getenv("EMAIL_RECIEVER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 # Get Mustang Data
-ford_mfr_mustang_prices = get_ford_mfg_mustang_prices()
-ford_dealer_mustangs_prices = get_ford_dealer_mustang_prices()
+mustang_prices_df = create_mustang_prices_df()
+mustang_image_df = create_mustang_image_df()
 
-ford_mfr_mustang_image = get_ford_mfg_mustang_hero_img()
-ford_dealer_mustang_image = get_ford_dealer_mustang_hero_img()
+# Get Escape Data
+escape_prices_df = create_escape_prices_df()
+escape_image_df = create_escape_image_df()
 
-# Convert datasets to DataFrames
-mustang_mfr_prices_df = pd.DataFrame(ford_mfr_mustang_prices, columns=['Car Model', 'Ford Manufacturer Price'])
-mustang_dealer_prices_df = pd.DataFrame(ford_dealer_mustangs_prices, columns=['Car Model', 'Ford Dealer Price'])
+# Concatenate the Image data frames
 
-hero_image_df = pd.DataFrame({'Model Hero Image': ['Mustang'],'Ford Manufacturer Image': [ford_mfr_mustang_image],'Ford Dealer Image': [ford_dealer_mustang_image]})
-
-# Merge datasets on 'Car Model'
-merged_df = pd.merge(mustang_mfr_prices_df, mustang_dealer_prices_df, on='Car Model', how='outer', suffixes=('_ford_mfr_vehicles', '_ford_dealer_vehicles'))
-
-# Sort
-merged_df.sort_values(by=['Ford Manufacturer Price'], inplace=True)
-
-# Set the index to 'Car Model'
-merged_df.set_index('Car Model', inplace=True)
-
-# Replace NaN values with $0
-merged_df.fillna('$0', inplace=True)
-
-# Reset the index to avoid multi-level index rendering issues
-merged_df.reset_index(inplace=True)
-
-# Add a column for price comparison
-merged_df['Price Comparison'] = 'Match'
-merged_df.loc[merged_df['Ford Manufacturer Price'] != merged_df['Ford Dealer Price'], 'Price Comparison'] = 'Mismatch'
-
-hero_image_df['Image Comparison'] = 'Match'
-hero_image_df.loc[hero_image_df['Ford Manufacturer Image'] != hero_image_df['Ford Dealer Image'], 'Image Comparison'] = 'Mismatch'
+all_model_images_df = pd.concat([mustang_image_df,escape_image_df], ignore_index=True)
 
 # Email configuration
 sender_email = EMAIL_SENDER
@@ -69,7 +46,7 @@ password = EMAIL_PASSWORD
 msg = MIMEMultipart()
 msg['From'] = sender_email
 msg['To'] = receiver_email
-msg['Subject'] = "Mustang Prices Update"
+msg['Subject'] = "Ford Vehicle Prices and Image Comparison"
 
 # Customize HTML content for Gmail email
 html_content = f"""
@@ -99,10 +76,26 @@ html_content = f"""
     </style>
   </head>
   <body>
+    <p>Please find the latest price and image comparisons from Ford.ca and Fordtodealers.ca</p>
     <h2>Mustang Prices</h2>
-    {merged_df.to_html(classes='table', escape=False, index=False)}
+    Data Sources:
+    <ul>
+      <li>{MUSTANG_MANUFACTURER_URL}</li>
+      <li>{MUSTANG_DEALER_URL}</li>
+    </ul>
+    {mustang_prices_df.to_html(classes='table', escape=False, index=False)}
+    <h2>Escape Prices</h2>
+    Data Sources:
+    <ul>
+      <li>{ESCAPE_MANUFACTURER_URL}</li>
+      <li>{ESCAPE_DEALER_URL}</li>
+    </ul>
+    {escape_prices_df.to_html(classes='table', escape=False, index=False)}
+    <br>
+    <hr>
     <h2>Model Hero Images</h2>
-    {hero_image_df.to_html(classes='table', escape=False, index=False)}
+    <p>The comparisons are done based on filename and not the actual image presented.</p>
+    {all_model_images_df.to_html(classes='table', escape=False, index=False)}
   </body>
 </html>
 """

@@ -37,34 +37,46 @@ def get_ford_mfg_mustang_prices():
 
     mustang_prices = []
 
-    # Get all the buttons to scroll through the Mustang models
-    buttons = driver.find_elements(By.XPATH,"(//ol[@class='bds-carousel-indicators global-indicators to-fade-in  scrollable'])/li")   # Stop at the first ol instance
-    
-    # Loop through available carousel buttons
-    for i in range(len(buttons)):
+    try:
+      # Get all the buttons to scroll through the Mustang models
+      buttons = driver.find_elements(By.XPATH,"(//ol[@class='bds-carousel-indicators global-indicators to-fade-in  scrollable'])/li")   # Stop at the first ol instance
       
-      # Click the current carousel button
-      buttons[i].click()
-
-      # Time to load DOM
-      time.sleep(1)  
-
-      # Extract Mustang models and prices using Selenium
-      model_elements = driver.find_elements(By.XPATH, "//*[@class='fgx-brand-ds to-fade-in title-three ff-d']")
-      price_elements = driver.find_elements(By.XPATH, '//*[@class="price"]')
+      if not buttons:
+          raise Exception("Scrolling buttons not found. Page structure may have changed.")
     
-      for model, price in zip(model_elements, price_elements):
-          model_name = model.text.strip()
-          price_value = price.text.strip()
-          if model_name == '' or price_value == '':
-            continue  
-          mustang_prices.append((model_name, price_value))
+      # Loop through available carousel buttons
+      for i in range(len(buttons)):
+      
+        # Click the current carousel button
+        buttons[i].click()
 
-    # Remove possible duplicates
-    mustang_prices = list(set(mustang_prices))
+        # Time to load DOM
+        time.sleep(1)  
 
-    # Close the browser
-    driver.quit()
+        # Extract Mustang models and prices using Selenium
+        model_elements = driver.find_elements(By.XPATH, "//*[@class='fgx-brand-ds to-fade-in title-three ff-d']")
+        price_elements = driver.find_elements(By.XPATH, '//*[@class="price"]')
+
+        # Check if model or price elements are not found
+        if not model_elements or not price_elements:
+           raise Exception("Model or price elements not found. Page structure may have changed.")
+    
+        for model, price in zip(model_elements, price_elements):
+            model_name = model.text.strip()
+            price_value = price.text.strip()
+            if model_name == '' or price_value == '':           # Ignore half captured data
+              continue  
+            mustang_prices.append((model_name, price_value))
+
+      # Remove possible duplicates
+      mustang_prices = list(set(mustang_prices))
+
+    except Exception as e:
+        mustang_prices = [('Ford.ca Error', e)]
+
+    finally:
+      # Close the browser
+      driver.quit()
 
     return mustang_prices
 
@@ -85,40 +97,48 @@ def get_ford_dealer_mustang_prices():
 
     mustang_prices = []
 
-    # Get all the buttons to scroll through the Mustang models
-    buttons = driver.find_elements(By.XPATH,"(//div[@class='owl-dots'])[1]/button")   # Stop at the first div instance
+    try:
+      # Get all the buttons to scroll through the Mustang models
+      buttons = driver.find_elements(By.XPATH,"(//div[@class='owl-dots'])[1]/button")   # Stop at the first div instance
+      
+      if not buttons:
+        raise Exception("Scrolling buttons not found. Page structure may have changed.")
     
-    # Loop through available carousel buttons
-    for i in range(len(buttons)):
+      # Loop through available carousel buttons
+      for i in range(len(buttons)):
       
-      # Click the current carousel button
-      buttons[i].click()
+        # Click the current carousel button
+        buttons[i].click()
       
-      # Time to load DOM
-      time.sleep(1)
+        # Time to load DOM
+        time.sleep(1)
       
-      try:
         # Extract Mustang models and prices
         model_elements = driver.find_elements(By.XPATH, "//*[contains(@class,'modelChecker')]")
-        price_elements = driver.find_elements(By.XPATH, "//*[contains(@class,'priceChecker')]")      
+        price_elements = driver.find_elements(By.XPATH, "//*[contains(@class,'priceChecker')]")
+
+        # Check if model or price elements are not found
+        if not model_elements or not price_elements:
+           raise Exception("Model or price elements not found. Page structure may have changed.")
 
         for model, price in zip(model_elements, price_elements):
             model_name = model.text.strip()
             price_value = price.text.strip()
-            if model_name == '' or price_value == '':
+            if model_name == '' or price_value == '':           # Ignore half captured data
               continue  
             mustang_prices.append((model_name, price_value))
 
         # Remove possible duplicates
         mustang_prices = list(set(mustang_prices))
 
-      except Exception as e:
-        mustang_image
+    except Exception as e:
+      mustang_prices = [('Fordtodealers.ca Error', e)]
 
     # Close the browser
     driver.quit()
 
     return mustang_prices
+
 
 # ------------------------------------------
 # Get hero image from ford.ca
@@ -163,7 +183,7 @@ def get_ford_mfg_mustang_hero_img():
 
 
 # ------------------------------------------
-# Get hero image from ford.ca
+# Get hero image from fordtodealers.ca
 # ------------------------------------------
 def get_ford_dealer_mustang_hero_img():
     
@@ -185,8 +205,8 @@ def get_ford_dealer_mustang_hero_img():
       img_element = driver.find_element(By.XPATH,'//div[@class="row-bg using-image"]')
       img_src = img_element.get_attribute('style')
 
-      # Extract the part of the URL containing ".jpg" using regular expressions
-      match = re.search(r'\/([^\/]+\.jpg)', img_src)
+      # Extract the part of the URL containing ".jpg" or "jpeg" using regular expressions
+      match = re.search(r'\/([^\/]+\.jpe?g)', img_src)
 
       if match:
         # Get the matched group (filename with .jpg)
@@ -203,16 +223,63 @@ def get_ford_dealer_mustang_hero_img():
 
     return mustang_image
 
-def merge_mustang_prices():
+
+# ------------------------------------------
+# Create Model Prices data frame
+# ------------------------------------------
+def create_mustang_prices_df():
   
   # Get Mustang Data
-  ford_mfr_mustangs = get_ford_mfg_mustang_prices()
-  ford_dealer_mustangs = get_ford_dealer_mustang_prices()
+  ford_mfr_mustang_prices = get_ford_mfg_mustang_prices()
+  ford_dealer_mustangs_prices = get_ford_dealer_mustang_prices()
 
-  return mustang_df
+  # Convert datasets to DataFrames
+  mustang_mfr_prices_df = pd.DataFrame(ford_mfr_mustang_prices, columns=['Car Model', 'Ford Manufacturer Price'])
+  mustang_dealer_prices_df = pd.DataFrame(ford_dealer_mustangs_prices, columns=['Car Model', 'Ford Dealer Price'])
+
+  # Merge datasets on 'Car Model'
+  merged_df = pd.merge(mustang_mfr_prices_df, mustang_dealer_prices_df, on='Car Model', how='outer', suffixes=('_ford_mfr_vehicles', '_ford_dealer_vehicles'))
+
+  # Sort
+  merged_df.sort_values(by=['Ford Manufacturer Price'], inplace=True)
+
+  # Set the index to 'Car Model'
+  merged_df.set_index('Car Model', inplace=True)
+
+  # Replace NaN values with $0
+  merged_df.fillna('$0', inplace=True)
+
+  # Reset the index to avoid multi-level index rendering issues
+  merged_df.reset_index(inplace=True)
+
+  # Add a column for price comparison
+  merged_df['Price Comparison'] = 'Match'
+  merged_df.loc[merged_df['Ford Manufacturer Price'] != merged_df['Ford Dealer Price'], 'Price Comparison'] = 'Mismatch'
+
+  return merged_df
+
+
+# ------------------------------------------
+# Create Model Image data frame
+# ------------------------------------------
+def create_mustang_image_df():
+  
+  # Get Mustang Data
+  ford_mfr_mustang_image = get_ford_mfg_mustang_hero_img()
+  ford_dealer_mustang_image = get_ford_dealer_mustang_hero_img()
+
+  # Convert datasets to DataFrames
+  hero_image_df = pd.DataFrame({'Model Hero Image': ['Mustang'],'Ford Manufacturer Image': [ford_mfr_mustang_image],'Ford Dealer Image': [ford_dealer_mustang_image]})
+
+  # Add a column for price comparison
+  hero_image_df['Image Comparison'] = 'Match'
+  hero_image_df.loc[hero_image_df['Ford Manufacturer Image'] != hero_image_df['Ford Dealer Image'], 'Image Comparison'] = 'Mismatch'
+
+  return hero_image_df
 
 # Test Functions
 #print(get_ford_mfg_mustang_prices())
 #print(get_ford_dealer_mustang_prices())
 #print(get_ford_mfg_mustang_hero_img())
 #print(get_ford_dealer_mustang_hero_img())
+#print(create_mustang_prices_df())

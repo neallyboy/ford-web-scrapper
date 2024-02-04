@@ -1,8 +1,8 @@
-# My Project
+# Data Scraping Ford Vehicles
 
 ## Overview
 
-This project scrapes Mustang prices from Ford's official website and a dealer website, compares the prices, and sends an email notification.
+This project scrapes Ford vehicle prices and hero images from Ford's official website and a dealer website, compares the prices, and sends an email notification.
 
 ## Prerequisites
 
