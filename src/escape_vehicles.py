@@ -28,6 +28,11 @@ def get_ford_mfg_escape_prices():
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
     chrome_options = Options()
     chrome_options.add_experimental_option("detach", False)  
+    # Check if CHROME_HEADLESS_MODE is set to 'True' in the environment
+    headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
+    if headless_mode:
+        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+        chrome_options.add_argument("--disable-gpu")  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     url = ESCAPE_MANUFACTURER_URL
@@ -70,6 +75,11 @@ def get_ford_dealer_escape_prices():
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
     chrome_options = Options()
     chrome_options.add_experimental_option("detach", False)  
+    # Check if CHROME_HEADLESS_MODE is set to 'True' in the environment
+    headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
+    if headless_mode:
+        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+        chrome_options.add_argument("--disable-gpu")  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     url = ESCAPE_DEALER_URL
@@ -113,6 +123,11 @@ def get_ford_mfg_escape_hero_img():
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
     chrome_options = Options()
     chrome_options.add_experimental_option("detach", False)
+    # Check if CHROME_HEADLESS_MODE is set to 'True' in the environment
+    headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
+    if headless_mode:
+        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+        chrome_options.add_argument("--disable-gpu")  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     url = ESCAPE_MANUFACTURER_URL
@@ -154,6 +169,11 @@ def get_ford_dealer_escape_hero_img():
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
     chrome_options = Options()
     chrome_options.add_experimental_option("detach", False)
+    # Check if CHROME_HEADLESS_MODE is set to 'True' in the environment
+    headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
+    if headless_mode:
+        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+        chrome_options.add_argument("--disable-gpu")  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     url = ESCAPE_DEALER_URL

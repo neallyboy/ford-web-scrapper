@@ -16,13 +16,13 @@ load_dotenv()
 
 # Get email configuration from environment variables
 CHROME_DRIVER_PATH = os.getenv("CHROME_DRIVER_PATH")
-MUSTANG_MANUFACTURER_URL = os.getenv("MUSTANG_MANUFACTURER_URL")
-MUSTANG_DEALER_URL = os.getenv("MUSTANG_DEALER_URL")
+EDGE_MANUFACTURER_URL = os.getenv("EDGE_MANUFACTURER_URL")
+EDGE_DEALER_URL = os.getenv("EDGE_DEALER_URL")
 
 # ------------------------------------------
 # Get prices from ford.ca
 # ------------------------------------------
-def get_ford_mfg_mustang_prices():
+def get_ford_mfg_edge_prices():
     
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
@@ -35,15 +35,15 @@ def get_ford_mfg_mustang_prices():
         chrome_options.add_argument("--disable-gpu")  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    # Mustangs URL
-    url = MUSTANG_MANUFACTURER_URL
+    # Edge URL
+    url = EDGE_MANUFACTURER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
-    mustang_prices = []
+    edge_prices = []
 
     try:
-      # Get all the buttons to scroll through the Mustang models
+      # Get all the buttons to scroll through the Edge models
       buttons = driver.find_elements(By.XPATH,"(//ol[@class='bds-carousel-indicators global-indicators to-fade-in  scrollable'])/li")   # Stop at the first ol instance
       
       if not buttons:
@@ -71,25 +71,25 @@ def get_ford_mfg_mustang_prices():
             price_value = price.text.strip()
             if model_name == '' or price_value == '':           # Ignore half captured data
               continue  
-            mustang_prices.append((model_name, price_value))
+            edge_prices.append((model_name, price_value))
 
       # Remove possible duplicates
-      mustang_prices = list(set(mustang_prices))
+      edge_prices = list(set(edge_prices))
 
     except Exception as e:
-        mustang_prices = [('Ford.ca Error', e)]
+        edge_prices = [('Ford.ca Error', e)]
 
     finally:
       # Close the browser
       driver.quit()
 
-    return mustang_prices
+    return edge_prices
 
 
 # ------------------------------------------
 # Get prices from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_mustang_prices():
+def get_ford_dealer_edge_prices():
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
     chrome_options = Options()
@@ -101,7 +101,7 @@ def get_ford_dealer_mustang_prices():
         chrome_options.add_argument("--disable-gpu")  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    url = MUSTANG_DEALER_URL
+    url = EDGE_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -123,7 +123,7 @@ def get_ford_dealer_mustang_prices():
         # Time to load DOM
         time.sleep(1)
       
-        # Extract Mustang models and prices
+        # Extract Edge models and prices
         model_elements = driver.find_elements(By.XPATH, "//*[contains(@class,'modelChecker')]")
         price_elements = driver.find_elements(By.XPATH, "//*[contains(@class,'priceChecker')]")
 
@@ -136,18 +136,18 @@ def get_ford_dealer_mustang_prices():
             price_value = price.text.strip()
             if model_name == '' or price_value == '':           # Ignore half captured data
               continue  
-            mustang_prices.append((model_name, price_value))
+            edge_prices.append((model_name, price_value))
 
         # Remove possible duplicates
-        mustang_prices = list(set(mustang_prices))
+        edge_prices = list(set(edge_prices))
 
     except Exception as e:
-      mustang_prices = [('Fordtodealers.ca Error', e)]
+      edge_prices = [('Fordtodealers.ca Error', e)]
 
     # Close the browser
     driver.quit()
 
-    return mustang_prices
+    return edge_prices
 
 
 # ------------------------------------------
@@ -167,7 +167,7 @@ def get_ford_mfg_mustang_hero_img():
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     # Mustangs URL
-    url = MUSTANG_MANUFACTURER_URL
+    url = EDGE_MANUFACTURER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -214,7 +214,7 @@ def get_ford_dealer_mustang_hero_img():
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     # Mustangs URL
-    url = MUSTANG_DEALER_URL
+    url = EDGE_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -298,7 +298,7 @@ def create_mustang_image_df():
   return hero_image_df
 
 # Test Functions
-#print(get_ford_mfg_mustang_prices())
+print(get_ford_mfg_edge_prices())
 #print(get_ford_dealer_mustang_prices())
 #print(get_ford_mfg_mustang_hero_img())
 #print(get_ford_dealer_mustang_hero_img())

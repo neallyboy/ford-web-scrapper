@@ -14,8 +14,8 @@ import smtplib
 import os
 
 # Local Packages
-from escape_vehicles import *
-from mustang_vehicles import *
+from src.escape_vehicles import *
+from src.mustang_vehicles import *
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -33,8 +33,10 @@ mustang_image_df = create_mustang_image_df()
 escape_prices_df = create_escape_prices_df()
 escape_image_df = create_escape_image_df()
 
+# --------------------------------------------------#
 # Concatenate the Image data frames
-
+# - Merge all the Images to a single data frame
+# --------------------------------------------------#
 all_model_images_df = pd.concat([mustang_image_df,escape_image_df], ignore_index=True)
 
 # Email configuration

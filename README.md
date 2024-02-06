@@ -65,6 +65,9 @@ MUSTANG_DEALER_URL=https://fordtodealers.ca/ford-mustang/
 
 ESCAPE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/escape/?gnav=header-suvs-vhp
 ESCAPE_DEALER_URL=https://fordtodealers.ca/ford-escape/
+
+EDGE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/edge/?gnav=header-suvs-vhp
+EDGE_DEALER_URL=https://fordtodealers.ca/ford-edge/
 ```
 
 Note the gmail password needs to be setup as an App Password. You will need to go to the account settings to set this up.
