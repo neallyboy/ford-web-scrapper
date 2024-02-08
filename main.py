@@ -16,6 +16,7 @@ import os
 # Local Packages
 from src.escape_vehicles import *
 from src.mustang_vehicles import *
+from src.navigation_menu import *
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -24,6 +25,9 @@ load_dotenv()
 EMAIL_RECIEVER = os.getenv("EMAIL_RECIEVER")
 EMAIL_SENDER = os.getenv("EMAIL_RECIEVER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
+# Get Navigation Data
+nav_prices_df = create_navigation_prices_df()
 
 # Get Mustang Data
 mustang_prices_df = create_mustang_prices_df()
@@ -37,7 +41,7 @@ escape_image_df = create_escape_image_df()
 # Concatenate the Image data frames
 # - Merge all the Images to a single data frame
 # --------------------------------------------------#
-all_model_images_df = pd.concat([mustang_image_df,escape_image_df], ignore_index=True)
+all_model_images_df = pd.concat([mustang_image_df, escape_image_df], ignore_index=True)
 
 # Email configuration
 sender_email = EMAIL_SENDER
@@ -46,9 +50,9 @@ password = EMAIL_PASSWORD
 
 # Create the message
 msg = MIMEMultipart()
-msg['From'] = sender_email
-msg['To'] = receiver_email
-msg['Subject'] = "Ford Vehicle Prices and Image Comparison"
+msg["From"] = sender_email
+msg["To"] = receiver_email
+msg["Subject"] = "Ford Vehicle Prices and Image Comparison"
 
 # Customize HTML content for Gmail email
 html_content = f"""
@@ -79,6 +83,13 @@ html_content = f"""
   </head>
   <body>
     <p>Please find the latest price and image comparisons from Ford.ca and Fordtodealers.ca</p>
+    <h2>Navigation Menu Prices</h2>
+    Data Sources:
+    <ul>
+      <li>{MAIN_MANUFACTURER_URL}</li>
+      <li>{MAIN_DEALER_URL}</li>
+    </ul>
+    {nav_prices_df.to_html(classes='table', escape=False, index=False)}
     <h2>Mustang Prices</h2>
     Data Sources:
     <ul>
@@ -102,10 +113,10 @@ html_content = f"""
 </html>
 """
 
-msg.attach(MIMEText(html_content, 'html'))
+msg.attach(MIMEText(html_content, "html"))
 
 # Connect to the SMTP server
-with smtplib.SMTP('smtp.gmail.com', 587) as server:
+with smtplib.SMTP("smtp.gmail.com", 587) as server:
     server.starttls()
     server.login(sender_email, password)
     server.sendmail(sender_email, receiver_email, msg.as_string())
