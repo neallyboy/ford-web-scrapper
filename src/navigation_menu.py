@@ -240,17 +240,8 @@ def create_navigation_prices_df():
         suffixes=("_ford_mfr_vehicles", "_ford_dealer_vehicles"),
     )
 
-    # Sort
-    # merged_df.sort_values(by=["Ford Manufacturer Price"], inplace=True)
-
-    # Set the index to 'Car Model'
-    # merged_df.set_index("Car Model", inplace=True)
-
     # Replace NaN values with $0
     merged_df.fillna("$0", inplace=True)
-
-    # Reset the index to avoid multi-level index rendering issues
-    # merged_df.reset_index(inplace=True)
 
     # Add a column for price comparison
     merged_df["Price Comparison"] = "Match"

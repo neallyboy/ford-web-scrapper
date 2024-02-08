@@ -54,6 +54,14 @@ msg["From"] = sender_email
 msg["To"] = receiver_email
 msg["Subject"] = "Ford Vehicle Prices and Image Comparison"
 
+
+# Change the colour background to Red if found the word Mismatch.
+def redden(x):
+    if x == "Mismatch":
+        return f'<span style="background-color: red; color: white; padding: 2px 5px; border-radius: 3px;">{x}</span>'
+    return str(x)
+
+
 # Customize HTML content for Gmail email
 html_content = f"""
 <html>
@@ -83,32 +91,32 @@ html_content = f"""
   </head>
   <body>
     <p>Please find the latest price and image comparisons from Ford.ca and Fordtodealers.ca</p>
-    <h2>Navigation Menu Prices</h2>
+    <h2>NAVIGATION MENU PRICES</h2>
     Data Sources:
     <ul>
       <li>{MAIN_MANUFACTURER_URL}</li>
       <li>{MAIN_DEALER_URL}</li>
     </ul>
-    {nav_prices_df.to_html(classes='table', escape=False, index=False)}
-    <h2>Mustang Prices</h2>
+    {nav_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+    <h2>MUSTANG PRICES</h2>
     Data Sources:
     <ul>
       <li>{MUSTANG_MANUFACTURER_URL}</li>
       <li>{MUSTANG_DEALER_URL}</li>
     </ul>
-    {mustang_prices_df.to_html(classes='table', escape=False, index=False)}
-    <h2>Escape Prices</h2>
+    {mustang_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+    <h2>ESCAPE PRICES</h2>
     Data Sources:
     <ul>
       <li>{ESCAPE_MANUFACTURER_URL}</li>
       <li>{ESCAPE_DEALER_URL}</li>
     </ul>
-    {escape_prices_df.to_html(classes='table', escape=False, index=False)}
+    {escape_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
     <br>
     <hr>
-    <h2>Model Hero Images</h2>
+    <h2>MODEL HERO IMAGES</h2>
     <p>The comparisons are done based on filename and not the actual image presented.</p>
-    {all_model_images_df.to_html(classes='table', escape=False, index=False)}
+    {all_model_images_df.to_html(classes='table', escape=False, index=False, formatters={'Image Comparison': redden})}
   </body>
 </html>
 """
