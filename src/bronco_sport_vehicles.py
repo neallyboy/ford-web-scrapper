@@ -16,14 +16,18 @@ load_dotenv()
 
 # Get email configuration from environment variables
 CHROME_DRIVER_PATH = os.getenv("CHROME_DRIVER_PATH")
-EDGE_MANUFACTURER_URL = os.getenv("EDGE_MANUFACTURER_URL")
-EDGE_DEALER_URL = os.getenv("EDGE_DEALER_URL")
+BRONCO_SPORT_MANUFACTURER_URL = os.getenv("BRONCO_SPORT_MANUFACTURER_URL")
+BRONCO_SPORT_MANUFACTURER_IMAGE_URL = os.getenv("BRONCO_SPORT_MANUFACTURER_IMAGE_URL")
+BRONCO_SPORT_DEALER_URL = os.getenv("BRONCO_SPORT_DEALER_URL")
+
+# Record the start time
+start_time = time.time()
 
 
 # ------------------------------------------
 # Get prices from ford.ca
 # ------------------------------------------
-def get_ford_mfg_edge_prices():
+def get_ford_mfg_bronco_sport_prices():
 
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
@@ -38,15 +42,15 @@ def get_ford_mfg_edge_prices():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    # Edge URL
-    url = EDGE_MANUFACTURER_URL
+    # Vehicle URL
+    url = BRONCO_SPORT_MANUFACTURER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
-    edge_prices = []
+    vehicle_prices = []
 
     try:
-        # Get all the buttons to scroll through the Edge models
+        # Get all the buttons to scroll through the Mustang models
         buttons = driver.find_elements(
             By.XPATH,
             "(//ol[@class='bds-carousel-indicators global-indicators to-fade-in  scrollable'])/li",
@@ -83,25 +87,25 @@ def get_ford_mfg_edge_prices():
                 price_value = price.text.strip()
                 if model_name == "" or price_value == "":  # Ignore half captured data
                     continue
-                edge_prices.append((model_name, price_value))
+                vehicle_prices.append((model_name, price_value))
 
         # Remove possible duplicates
-        edge_prices = list(set(edge_prices))
+        vehicle_prices = list(set(vehicle_prices))
 
     except Exception as e:
-        edge_prices = [("Ford.ca Error", e)]
+        vehicle_prices = [("Ford.ca Error", e)]
 
     finally:
         # Close the browser
         driver.quit()
 
-    return edge_prices
+    return vehicle_prices
 
 
 # ------------------------------------------
 # Get prices from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_edge_prices():
+def get_ford_dealer_bronco_sport_prices():
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
     chrome_options = Options()
@@ -115,11 +119,11 @@ def get_ford_dealer_edge_prices():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    url = EDGE_DEALER_URL
+    url = BRONCO_SPORT_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
-    mustang_prices = []
+    vehicle_prices = []
 
     try:
         # Get all the buttons to scroll through the Mustang models
@@ -141,7 +145,7 @@ def get_ford_dealer_edge_prices():
             # Time to load DOM
             time.sleep(1)
 
-            # Extract Edge models and prices
+            # Extract Mustang models and prices
             model_elements = driver.find_elements(
                 By.XPATH, "//*[contains(@class,'modelChecker')]"
             )
@@ -160,24 +164,24 @@ def get_ford_dealer_edge_prices():
                 price_value = price.text.strip()
                 if model_name == "" or price_value == "":  # Ignore half captured data
                     continue
-                edge_prices.append((model_name, price_value))
+                vehicle_prices.append((model_name, price_value))
 
             # Remove possible duplicates
-            edge_prices = list(set(edge_prices))
+            vehicle_prices = list(set(vehicle_prices))
 
     except Exception as e:
-        edge_prices = [("Fordtodealers.ca Error", e)]
+        vehicle_prices = [("Fordtodealers.ca Error", e)]
 
     # Close the browser
     driver.quit()
 
-    return edge_prices
+    return vehicle_prices
 
 
 # ------------------------------------------
 # Get hero image from ford.ca
 # ------------------------------------------
-def get_ford_mfg_edge_hero_img():
+def get_ford_mfg_bronco_sport_hero_img():
 
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
@@ -192,8 +196,8 @@ def get_ford_mfg_edge_hero_img():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    # Mustangs URL
-    url = EDGE_MANUFACTURER_URL
+    # Vehicle URL
+    url = BRONCO_SPORT_MANUFACTURER_IMAGE_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -228,7 +232,7 @@ def get_ford_mfg_edge_hero_img():
 # ------------------------------------------
 # Get hero image from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_edge_hero_img():
+def get_ford_dealer_bronco_sport_hero_img():
 
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
@@ -244,7 +248,7 @@ def get_ford_dealer_edge_hero_img():
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     # Mustangs URL
-    url = EDGE_DEALER_URL
+    url = BRONCO_SPORT_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -328,18 +332,18 @@ def create_mustang_prices_df():
 # ------------------------------------------
 # Create Model Image data frame
 # ------------------------------------------
-def create_edge_image_df():
+def create_bronco_sport_image_df():
 
     # Get Mustang Data
-    ford_mfr_edge_image = get_ford_mfg_edge_hero_img()
-    ford_dealer_edge_image = get_ford_dealer_edge_hero_img()
+    ford_mfr_bronco_sport_image = get_ford_mfg_bronco_sport_hero_img()
+    ford_dealer_bronco_sport_image = get_ford_dealer_bronco_sport_hero_img()
 
     # Convert datasets to DataFrames
     hero_image_df = pd.DataFrame(
         {
-            "Model Hero Image": ["Edge"],
-            "Ford Manufacturer Image": [ford_mfr_edge_image],
-            "Ford Dealer Image": [ford_dealer_edge_image],
+            "Model Hero Image": ["Bronco Sport"],
+            "Ford Manufacturer Image": [ford_mfr_bronco_sport_image],
+            "Ford Dealer Image": [ford_dealer_bronco_sport_image],
         }
     )
 
@@ -354,9 +358,9 @@ def create_edge_image_df():
 
 
 # Test Functions
-# print(get_ford_mfg_edge_prices())
-# print(get_ford_dealer_edge_prices())
-# print(get_ford_mfg_edge_hero_img())
-# print(get_ford_dealer_edge_hero_img())
+# print(get_ford_mfg_bronco_sport_prices())
+# print(get_ford_dealer_mustang_prices())
+# print(get_ford_mfg_bronco_sport_hero_img())
+# print(get_ford_dealer_bronco_sport_hero_img())
+# print(create_bronco_sport_image_df())
 # print(create_mustang_prices_df())
-# print(create_edge_image_df())

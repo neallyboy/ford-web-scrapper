@@ -14,6 +14,8 @@ import smtplib
 import os
 
 # Local Packages
+from src.bronco_sport_vehicles import *
+from src.edge_vehicles import *
 from src.escape_vehicles import *
 from src.f150_vehicles import *
 from src.mustang_vehicles import *
@@ -21,6 +23,9 @@ from src.navigation_menu import *
 
 # Load environment variables from the .env file
 load_dotenv()
+
+# Record the start time
+start_time = time.time()
 
 # Get email configuration from environment variables
 EMAIL_RECIEVER = os.getenv("EMAIL_RECIEVER")
@@ -30,9 +35,13 @@ EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 # Get Navigation Data
 nav_prices_df = create_navigation_prices_df()
 
-# Get Mustang Data
-mustang_prices_df = create_mustang_prices_df()
-mustang_image_df = create_mustang_image_df()
+# Get Bronco Sport Data
+bronco_sport_image_df = create_bronco_sport_image_df()
+# TODO Prices
+
+# Get Edge Data
+edge_image_df = create_edge_image_df()
+# TODO Prices
 
 # Get Escape Data
 escape_prices_df = create_escape_prices_df()
@@ -40,13 +49,25 @@ escape_image_df = create_escape_image_df()
 
 # Get F-150 Data
 f150_image_df = create_f150_image_df()
+# TODO Prices
+
+# Get Mustang Data
+mustang_prices_df = create_mustang_prices_df()
+mustang_image_df = create_mustang_image_df()
 
 # --------------------------------------------------#
 # Concatenate the Image data frames
 # - Merge all the Images to a single data frame
 # --------------------------------------------------#
 all_model_images_df = pd.concat(
-    [mustang_image_df, escape_image_df, f150_image_df], ignore_index=True
+    [
+        bronco_sport_image_df,
+        edge_image_df,
+        escape_image_df,
+        f150_image_df,
+        mustang_image_df,
+    ],
+    ignore_index=True,
 )
 
 # Email configuration
@@ -104,13 +125,20 @@ html_content = f"""
       <li>{MAIN_DEALER_URL}</li>
     </ul>
     {nav_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>MUSTANG PRICES</h2>
+    <h2>BRONCO SPORT PRICES</h2>
     Data Sources:
     <ul>
-      <li>{MUSTANG_MANUFACTURER_URL}</li>
-      <li>{MUSTANG_DEALER_URL}</li>
+      <li>{BRONCO_SPORT_MANUFACTURER_URL}</li>
+      <li>{BRONCO_SPORT_DEALER_URL}</li>
     </ul>
-    {mustang_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+    TBD
+    <h2>EDGE PRICES</h2>
+    Data Sources:
+    <ul>
+      <li>{EDGE_MANUFACTURER_URL}</li>
+      <li>{EDGE_DEALER_URL}</li>
+    </ul>
+    TBD
     <h2>ESCAPE PRICES</h2>
     Data Sources:
     <ul>
@@ -118,6 +146,20 @@ html_content = f"""
       <li>{ESCAPE_DEALER_URL}</li>
     </ul>
     {escape_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+    <h2>F-150 PRICES</h2>
+    Data Sources:
+    <ul>
+      <li>{F150_MANUFACTURER_URL}</li>
+      <li>{F150_DEALER_URL}</li>
+    </ul>
+    TBD
+    <h2>MUSTANG PRICES</h2>
+    Data Sources:
+    <ul>
+      <li>{MUSTANG_MANUFACTURER_URL}</li>
+      <li>{MUSTANG_DEALER_URL}</li>
+    </ul>
+    {mustang_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
     <br>
     <hr>
     <h2>MODEL HERO IMAGES</h2>
@@ -134,3 +176,18 @@ with smtplib.SMTP("smtp.gmail.com", 587) as server:
     server.starttls()
     server.login(sender_email, password)
     server.sendmail(sender_email, receiver_email, msg.as_string())
+
+# Record the end time
+end_time = time.time()
+
+# Calculate the elapsed time
+elapsed_time_seconds = end_time - start_time
+
+# Convert elapsed time to hours, minutes, and seconds
+hours, remainder = divmod(elapsed_time_seconds, 3600)
+minutes, seconds = divmod(remainder, 60)
+
+# Print the elapsed time
+print(
+    f"Script execution time: {int(hours)} hours, {int(minutes)} minutes, {seconds:.2f} seconds"
+)
