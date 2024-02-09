@@ -18,6 +18,7 @@ load_dotenv()
 CHROME_DRIVER_PATH = os.getenv("CHROME_DRIVER_PATH")
 MAIN_MANUFACTURER_URL = os.getenv("MAIN_MANUFACTURER_URL")
 MAIN_DEALER_URL = os.getenv("MAIN_DEALER_URL")
+FILTERED_LIST = os.getenv("FILTERED_LIST")
 
 
 # ------------------------------------------
@@ -249,6 +250,12 @@ def create_navigation_prices_df():
         merged_df["Ford Manufacturer Price"] != merged_df["Ford Dealer Price"],
         "Price Comparison",
     ] = "Mismatch"
+
+    merged_df = merged_df[
+        merged_df["Car Model"].isin(
+            ["MUSTANG", "F-150", "EDGE", "ESCAPE", "BRONCO SPORT"]
+        )
+    ]
 
     return merged_df
 

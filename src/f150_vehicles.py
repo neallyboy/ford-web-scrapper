@@ -16,14 +16,14 @@ load_dotenv()
 
 # Get email configuration from environment variables
 CHROME_DRIVER_PATH = os.getenv("CHROME_DRIVER_PATH")
-MUSTANG_MANUFACTURER_URL = os.getenv("MUSTANG_MANUFACTURER_URL")
-MUSTANG_DEALER_URL = os.getenv("MUSTANG_DEALER_URL")
+F150_MANUFACTURER_URL = os.getenv("F150_MANUFACTURER_URL")
+F150_DEALER_URL = os.getenv("F150_DEALER_URL")
 
 
 # ------------------------------------------
 # Get prices from ford.ca
 # ------------------------------------------
-def get_ford_mfg_mustang_prices():
+def get_ford_mfg_f150_prices():
 
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
@@ -38,12 +38,12 @@ def get_ford_mfg_mustang_prices():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    # Mustangs URL
-    url = MUSTANG_MANUFACTURER_URL
+    # Vehicle URL
+    url = F150_MANUFACTURER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
-    mustang_prices = []
+    vehicle_prices = []
 
     try:
         # Get all the buttons to scroll through the Mustang models
@@ -83,25 +83,25 @@ def get_ford_mfg_mustang_prices():
                 price_value = price.text.strip()
                 if model_name == "" or price_value == "":  # Ignore half captured data
                     continue
-                mustang_prices.append((model_name, price_value))
+                vehicle_prices.append((model_name, price_value))
 
         # Remove possible duplicates
-        mustang_prices = list(set(mustang_prices))
+        vehicle_prices = list(set(vehicle_prices))
 
     except Exception as e:
-        mustang_prices = [("Ford.ca Error", e)]
+        vehicle_prices = [("Ford.ca Error", e)]
 
     finally:
         # Close the browser
         driver.quit()
 
-    return mustang_prices
+    return vehicle_prices
 
 
 # ------------------------------------------
 # Get prices from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_mustang_prices():
+def get_ford_dealer_f150_prices():
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
     chrome_options = Options()
@@ -115,11 +115,11 @@ def get_ford_dealer_mustang_prices():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    url = MUSTANG_DEALER_URL
+    url = F150_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
-    mustang_prices = []
+    vehicle_prices = []
 
     try:
         # Get all the buttons to scroll through the Mustang models
@@ -160,24 +160,24 @@ def get_ford_dealer_mustang_prices():
                 price_value = price.text.strip()
                 if model_name == "" or price_value == "":  # Ignore half captured data
                     continue
-                mustang_prices.append((model_name, price_value))
+                vehicle_prices.append((model_name, price_value))
 
             # Remove possible duplicates
-            mustang_prices = list(set(mustang_prices))
+            vehicle_prices = list(set(vehicle_prices))
 
     except Exception as e:
-        mustang_prices = [("Fordtodealers.ca Error", e)]
+        vehicle_prices = [("Fordtodealers.ca Error", e)]
 
     # Close the browser
     driver.quit()
 
-    return mustang_prices
+    return vehicle_prices
 
 
 # ------------------------------------------
 # Get hero image from ford.ca
 # ------------------------------------------
-def get_ford_mfg_mustang_hero_img():
+def get_ford_mfg_f150_hero_img():
 
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
@@ -192,8 +192,8 @@ def get_ford_mfg_mustang_hero_img():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    # Mustangs URL
-    url = MUSTANG_MANUFACTURER_URL
+    # Vehicle URL
+    url = F150_MANUFACTURER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -228,7 +228,7 @@ def get_ford_mfg_mustang_hero_img():
 # ------------------------------------------
 # Get hero image from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_mustang_hero_img():
+def get_ford_dealer_f150_hero_img():
 
     # Set up the Chrome driver
     chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
@@ -244,7 +244,7 @@ def get_ford_dealer_mustang_hero_img():
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     # Mustangs URL
-    url = MUSTANG_DEALER_URL
+    url = F150_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -328,18 +328,18 @@ def create_mustang_prices_df():
 # ------------------------------------------
 # Create Model Image data frame
 # ------------------------------------------
-def create_mustang_image_df():
+def create_f150_image_df():
 
     # Get Mustang Data
-    ford_mfr_mustang_image = get_ford_mfg_mustang_hero_img()
-    ford_dealer_mustang_image = get_ford_dealer_mustang_hero_img()
+    ford_mfr_f150_image = get_ford_mfg_f150_hero_img()
+    ford_dealer_f150_image = get_ford_dealer_f150_hero_img()
 
     # Convert datasets to DataFrames
     hero_image_df = pd.DataFrame(
         {
-            "Model Hero Image": ["Mustang"],
-            "Ford Manufacturer Image": [ford_mfr_mustang_image],
-            "Ford Dealer Image": [ford_dealer_mustang_image],
+            "Model Hero Image": ["F-150"],
+            "Ford Manufacturer Image": [ford_mfr_f150_image],
+            "Ford Dealer Image": [ford_dealer_f150_image],
         }
     )
 
@@ -354,8 +354,9 @@ def create_mustang_image_df():
 
 
 # Test Functions
-# print(get_ford_mfg_mustang_prices())
+# print(get_ford_mfg_f150_prices())
 # print(get_ford_dealer_mustang_prices())
-# print(get_ford_mfg_mustang_hero_img())
-# print(get_ford_dealer_mustang_hero_img())
+# print(get_ford_mfg_f150_hero_img())
+# print(get_ford_dealer_f150_hero_img())
+# print(create_f150_image_df())
 # print(create_mustang_prices_df())

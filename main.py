@@ -15,6 +15,7 @@ import os
 
 # Local Packages
 from src.escape_vehicles import *
+from src.f150_vehicles import *
 from src.mustang_vehicles import *
 from src.navigation_menu import *
 
@@ -37,11 +38,16 @@ mustang_image_df = create_mustang_image_df()
 escape_prices_df = create_escape_prices_df()
 escape_image_df = create_escape_image_df()
 
+# Get F-150 Data
+f150_image_df = create_f150_image_df()
+
 # --------------------------------------------------#
 # Concatenate the Image data frames
 # - Merge all the Images to a single data frame
 # --------------------------------------------------#
-all_model_images_df = pd.concat([mustang_image_df, escape_image_df], ignore_index=True)
+all_model_images_df = pd.concat(
+    [mustang_image_df, escape_image_df, f150_image_df], ignore_index=True
+)
 
 # Email configuration
 sender_email = EMAIL_SENDER
@@ -90,7 +96,7 @@ html_content = f"""
     </style>
   </head>
   <body>
-    <p>Please find the latest price and image comparisons from Ford.ca and Fordtodealers.ca</p>
+    <p>Please find the latest price and image comparisons between Ford.ca and Fordtodealers.ca</p>
     <h2>NAVIGATION MENU PRICES</h2>
     Data Sources:
     <ul>

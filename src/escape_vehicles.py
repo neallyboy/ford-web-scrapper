@@ -154,7 +154,7 @@ def get_ford_mfg_escape_hero_img():
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
-    escape_image = ""
+    vehicle_image = ""
 
     try:
         # Find the img tag using a more general XPath
@@ -163,23 +163,23 @@ def get_ford_mfg_escape_hero_img():
         )
         img_src = img_element.get_attribute("src")
 
-        # Extract the part of the URL containing ".jpg" using regular expressions
-        match = re.search(r"\/([^\/]+\.jpg)", img_src)
+        # Extract the part of the URL containing image using regular expressions
+        match = re.search(r"\/([^\/]+\.(jpe?g|png))", img_src)
 
         if match:
-            # Get the matched group (filename with .jpg)
-            escape_image = match.group(1)
+            # Get the matched group (filename with image file extension)
+            vehicle_image = match.group(1)
 
         else:
-            escape_image = "No jpg found"
+            vehicle_image = "No jpg, jpeg, or png found"
 
     except Exception as e:
-        escape_image = e
+        vehicle_image = e
 
     # Close the browser
     driver.quit()
 
-    return escape_image
+    return vehicle_image
 
 
 # ------------------------------------------
@@ -204,7 +204,7 @@ def get_ford_dealer_escape_hero_img():
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
-    escpae_image = ""
+    vehicle_image = ""
 
     try:
         # Find the img tag using a more general XPath
@@ -214,23 +214,23 @@ def get_ford_dealer_escape_hero_img():
         )
         img_src = img_element.get_attribute("style")
 
-        # Extract the part of the URL containing ".jpg" or "jpeg" using regular expressions
-        match = re.search(r"\/([^\/]+\.jpe?g)", img_src)
+        # Extract the part of the URL containing image using regular expressions
+        match = re.search(r"\/([^\/]+\.(jpe?g|png))", img_src)
 
         if match:
-            # Get the matched group (filename with .jpg)
-            escpae_image = match.group(1)
+            # Get the matched group (filename with image file extension)
+            vehicle_image = match.group(1)
 
         else:
-            escpae_image = "No jpg found"
+            vehicle_image = "No jpg, jpeg, or png found"
 
     except Exception as e:
-        escpae_image = e
+        vehicle_image = e
 
     # Close the browser
     driver.quit()
 
-    return escpae_image
+    return vehicle_image
 
 
 # ------------------------------------------
