@@ -244,6 +244,19 @@ def create_navigation_prices_df():
     # Replace NaN values with $0
     merged_df.fillna("$0", inplace=True)
 
+    # Add a column for price difference
+    merged_df["Price Difference"] = pd.to_numeric(
+        merged_df["Ford Manufacturer Price"].replace("[\$,]", "", regex=True),
+        errors="coerce",
+    ) - pd.to_numeric(
+        merged_df["Ford Dealer Price"].replace("[\$,]", "", regex=True), errors="coerce"
+    )
+
+    # Format the "Price Difference" column as currency with negative sign before the dollar amount and no decimals
+    merged_df["Price Difference"] = merged_df["Price Difference"].apply(
+        lambda x: "${:,.0f}".format(x).replace("$-", "-$") if pd.notnull(x) else x
+    )
+
     # Add a column for price comparison
     merged_df["Price Comparison"] = "Match"
     merged_df.loc[
@@ -264,6 +277,3 @@ def create_navigation_prices_df():
 # print(get_ford_mfg_nav_prices())
 # print(get_ford_dealer_nav_prices())
 # print(create_navigation_prices_df())
-# print(get_ford_mfg_mustang_hero_img())
-# print(get_ford_dealer_mustang_hero_img())
-# print(create_mustang_prices_df())

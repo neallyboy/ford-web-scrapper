@@ -315,6 +315,19 @@ def create_mustang_prices_df():
     # Reset the index to avoid multi-level index rendering issues
     merged_df.reset_index(inplace=True)
 
+    # Add a column for price difference
+    merged_df["Price Difference"] = pd.to_numeric(
+        merged_df["Ford Manufacturer Price"].replace("[\$,]", "", regex=True),
+        errors="coerce",
+    ) - pd.to_numeric(
+        merged_df["Ford Dealer Price"].replace("[\$,]", "", regex=True), errors="coerce"
+    )
+
+    # Format the "Price Difference" column as currency with negative sign before the dollar amount and no decimals
+    merged_df["Price Difference"] = merged_df["Price Difference"].apply(
+        lambda x: "${:,.0f}".format(x).replace("$-", "-$") if pd.notnull(x) else x
+    )
+
     # Add a column for price comparison
     merged_df["Price Comparison"] = "Match"
     merged_df.loc[

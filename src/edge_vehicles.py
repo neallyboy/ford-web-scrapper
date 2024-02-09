@@ -43,7 +43,7 @@ def get_ford_mfg_edge_prices():
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
-    edge_prices = []
+    vehicle_prices = []
 
     try:
         # Get all the buttons to scroll through the Edge models
@@ -83,19 +83,19 @@ def get_ford_mfg_edge_prices():
                 price_value = price.text.strip()
                 if model_name == "" or price_value == "":  # Ignore half captured data
                     continue
-                edge_prices.append((model_name, price_value))
+                vehicle_prices.append((model_name, price_value))
 
         # Remove possible duplicates
-        edge_prices = list(set(edge_prices))
+        vehicle_prices = list(set(vehicle_prices))
 
     except Exception as e:
-        edge_prices = [("Ford.ca Error", e)]
+        vehicle_prices = [("Ford.ca Error", e)]
 
     finally:
         # Close the browser
         driver.quit()
 
-    return edge_prices
+    return vehicle_prices
 
 
 # ------------------------------------------
@@ -119,7 +119,7 @@ def get_ford_dealer_edge_prices():
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
-    mustang_prices = []
+    vehicle_prices = []
 
     try:
         # Get all the buttons to scroll through the Mustang models
@@ -160,18 +160,18 @@ def get_ford_dealer_edge_prices():
                 price_value = price.text.strip()
                 if model_name == "" or price_value == "":  # Ignore half captured data
                     continue
-                edge_prices.append((model_name, price_value))
+                vehicle_prices.append((model_name, price_value))
 
             # Remove possible duplicates
-            edge_prices = list(set(edge_prices))
+            vehicle_prices = list(set(vehicle_prices))
 
     except Exception as e:
-        edge_prices = [("Fordtodealers.ca Error", e)]
+        vehicle_prices = [("Fordtodealers.ca Error", e)]
 
     # Close the browser
     driver.quit()
 
-    return edge_prices
+    return vehicle_prices
 
 
 # ------------------------------------------
@@ -280,24 +280,24 @@ def get_ford_dealer_edge_hero_img():
 # ------------------------------------------
 # Create Model Prices data frame
 # ------------------------------------------
-def create_mustang_prices_df():
+def create_edge_prices_df():
 
     # Get Mustang Data
-    ford_mfr_mustang_prices = get_ford_mfg_mustang_prices()
-    ford_dealer_mustangs_prices = get_ford_dealer_mustang_prices()
+    ford_mfr_edge_prices = get_ford_mfg_edge_prices()
+    ford_dealer_edge_prices = get_ford_dealer_edge_prices()
 
     # Convert datasets to DataFrames
-    mustang_mfr_prices_df = pd.DataFrame(
-        ford_mfr_mustang_prices, columns=["Car Model", "Ford Manufacturer Price"]
+    edge_mfr_prices_df = pd.DataFrame(
+        ford_mfr_edge_prices, columns=["Car Model", "Ford Manufacturer Price"]
     )
-    mustang_dealer_prices_df = pd.DataFrame(
-        ford_dealer_mustangs_prices, columns=["Car Model", "Ford Dealer Price"]
+    edge_dealer_prices_df = pd.DataFrame(
+        ford_dealer_edge_prices, columns=["Car Model", "Ford Dealer Price"]
     )
 
     # Merge datasets on 'Car Model'
     merged_df = pd.merge(
-        mustang_mfr_prices_df,
-        mustang_dealer_prices_df,
+        edge_mfr_prices_df,
+        edge_dealer_prices_df,
         on="Car Model",
         how="outer",
         suffixes=("_ford_mfr_vehicles", "_ford_dealer_vehicles"),
@@ -314,6 +314,19 @@ def create_mustang_prices_df():
 
     # Reset the index to avoid multi-level index rendering issues
     merged_df.reset_index(inplace=True)
+
+    # Add a column for price difference
+    merged_df["Price Difference"] = pd.to_numeric(
+        merged_df["Ford Manufacturer Price"].replace("[\$,]", "", regex=True),
+        errors="coerce",
+    ) - pd.to_numeric(
+        merged_df["Ford Dealer Price"].replace("[\$,]", "", regex=True), errors="coerce"
+    )
+
+    # Format the "Price Difference" column as currency with negative sign before the dollar amount and no decimals
+    merged_df["Price Difference"] = merged_df["Price Difference"].apply(
+        lambda x: "${:,.0f}".format(x).replace("$-", "-$") if pd.notnull(x) else x
+    )
 
     # Add a column for price comparison
     merged_df["Price Comparison"] = "Match"
@@ -358,5 +371,5 @@ def create_edge_image_df():
 # print(get_ford_dealer_edge_prices())
 # print(get_ford_mfg_edge_hero_img())
 # print(get_ford_dealer_edge_hero_img())
-# print(create_mustang_prices_df())
+# print(create_edge_prices_df())
 # print(create_edge_image_df())

@@ -40,8 +40,8 @@ bronco_sport_image_df = create_bronco_sport_image_df()
 # TODO Prices
 
 # Get Edge Data
+edge_prices_df = create_edge_prices_df()
 edge_image_df = create_edge_image_df()
-# TODO Prices
 
 # Get Escape Data
 escape_prices_df = create_escape_prices_df()
@@ -138,7 +138,7 @@ html_content = f"""
       <li>{EDGE_MANUFACTURER_URL}</li>
       <li>{EDGE_DEALER_URL}</li>
     </ul>
-    TBD
+    {edge_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
     <h2>ESCAPE PRICES</h2>
     Data Sources:
     <ul>
