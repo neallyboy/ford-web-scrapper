@@ -280,24 +280,24 @@ def get_ford_dealer_f150_hero_img():
 # ------------------------------------------
 # Create Model Prices data frame
 # ------------------------------------------
-def create_mustang_prices_df():
+def create_f150_prices_df():
 
     # Get Mustang Data
-    ford_mfr_mustang_prices = get_ford_mfg_mustang_prices()
-    ford_dealer_mustangs_prices = get_ford_dealer_mustang_prices()
+    ford_mfr_f150_prices = get_ford_mfg_f150_prices()
+    ford_dealer_f150_prices = get_ford_dealer_f150_prices()
 
     # Convert datasets to DataFrames
-    mustang_mfr_prices_df = pd.DataFrame(
-        ford_mfr_mustang_prices, columns=["Car Model", "Ford Manufacturer Price"]
+    f150_mfr_prices_df = pd.DataFrame(
+        ford_mfr_f150_prices, columns=["Car Model", "Ford Manufacturer Price"]
     )
-    mustang_dealer_prices_df = pd.DataFrame(
-        ford_dealer_mustangs_prices, columns=["Car Model", "Ford Dealer Price"]
+    f150_dealer_prices_df = pd.DataFrame(
+        ford_dealer_f150_prices, columns=["Car Model", "Ford Dealer Price"]
     )
 
     # Merge datasets on 'Car Model'
     merged_df = pd.merge(
-        mustang_mfr_prices_df,
-        mustang_dealer_prices_df,
+        f150_mfr_prices_df,
+        f150_dealer_prices_df,
         on="Car Model",
         how="outer",
         suffixes=("_ford_mfr_vehicles", "_ford_dealer_vehicles"),
@@ -355,8 +355,8 @@ def create_f150_image_df():
 
 # Test Functions
 # print(get_ford_mfg_f150_prices())
-# print(get_ford_dealer_mustang_prices())
+# print(get_ford_dealer_f150_prices())
 # print(get_ford_mfg_f150_hero_img())
 # print(get_ford_dealer_f150_hero_img())
 # print(create_f150_image_df())
-# print(create_mustang_prices_df())
+# print(create_f150_prices_df())

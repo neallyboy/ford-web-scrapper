@@ -48,8 +48,8 @@ escape_prices_df = create_escape_prices_df()
 escape_image_df = create_escape_image_df()
 
 # Get F-150 Data
+f150_prices_df = create_f150_prices_df()
 f150_image_df = create_f150_image_df()
-# TODO Prices
 
 # Get Mustang Data
 mustang_prices_df = create_mustang_prices_df()
@@ -152,7 +152,7 @@ html_content = f"""
       <li>{F150_MANUFACTURER_URL}</li>
       <li>{F150_DEALER_URL}</li>
     </ul>
-    TBD
+    {f150_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
     <h2>MUSTANG PRICES</h2>
     Data Sources:
     <ul>
