@@ -37,17 +37,21 @@ EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 nav_prices_df = create_navigation_prices_df()
 
 # Get Bronco Sport Data
-bronco_sport_image_df = create_vehicle_image_df(
-    get_ford_mfg_bronco_sport_hero_img(), get_ford_dealer_bronco_sport_hero_img()
+bronco_sport_prices_df = create_vehicle_prices_df(
+    get_ford_mfg_bronco_sport_prices(), get_ford_dealer_bronco_sport_prices()
 )
-# TODO Prices
+bronco_sport_image_df = create_vehicle_image_df(
+    get_ford_mfg_bronco_sport_hero_img(),
+    get_ford_dealer_bronco_sport_hero_img(),
+    "Bronco Sport",
+)
 
 # Get Edge Data
 edge_prices_df = create_vehicle_prices_df(
     get_ford_mfg_edge_prices(), get_ford_dealer_edge_prices()
 )
 edge_image_df = create_vehicle_image_df(
-    get_ford_mfg_edge_hero_img(), get_ford_dealer_edge_hero_img()
+    get_ford_mfg_edge_hero_img(), get_ford_dealer_edge_hero_img(), "Edge"
 )
 
 # Get Escape Data
@@ -55,7 +59,7 @@ escape_prices_df = create_vehicle_prices_df(
     get_ford_mfg_escape_prices(), get_ford_dealer_escape_prices()
 )
 escape_image_df = create_vehicle_image_df(
-    get_ford_mfg_escape_hero_img(), get_ford_dealer_escape_hero_img()
+    get_ford_mfg_escape_hero_img(), get_ford_dealer_escape_hero_img(), "Escape"
 )
 
 # Get F-150 Data
@@ -63,7 +67,7 @@ f150_prices_df = create_vehicle_prices_df(
     get_ford_mfg_f150_prices(), get_ford_dealer_f150_prices()
 )
 f150_image_df = create_vehicle_image_df(
-    get_ford_mfg_f150_hero_img(), get_ford_dealer_f150_hero_img()
+    get_ford_mfg_f150_hero_img(), get_ford_dealer_f150_hero_img(), "F-150"
 )
 
 # Get Mustang Data
@@ -71,7 +75,7 @@ mustang_prices_df = create_vehicle_prices_df(
     get_ford_mfg_mustang_prices(), get_ford_dealer_mustang_prices()
 )
 mustang_image_df = create_vehicle_image_df(
-    get_ford_mfg_mustang_hero_img(), get_ford_dealer_mustang_hero_img()
+    get_ford_mfg_mustang_hero_img(), get_ford_dealer_mustang_hero_img(), "Mustang"
 )
 
 # --------------------------------------------------#
@@ -99,13 +103,6 @@ msg = MIMEMultipart()
 msg["From"] = sender_email
 msg["To"] = receiver_email
 msg["Subject"] = "Ford Vehicle Prices and Image Comparison"
-
-
-# Change the colour background to Red if found the word Mismatch.
-def redden(x):
-    if x == "Mismatch":
-        return f'<span style="background-color: red; color: white; padding: 2px 5px; border-radius: 3px;">{x}</span>'
-    return str(x)
 
 
 # Customize HTML content for Gmail email
@@ -150,7 +147,7 @@ html_content = f"""
       <li>{BRONCO_SPORT_MANUFACTURER_URL}</li>
       <li>{BRONCO_SPORT_DEALER_URL}</li>
     </ul>
-    TBD
+    {bronco_sport_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
     <h2>EDGE PRICES</h2>
     Data Sources:
     <ul>

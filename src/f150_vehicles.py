@@ -46,7 +46,7 @@ def get_ford_mfg_f150_prices():
     vehicle_prices = []
 
     try:
-        # Get all the buttons to scroll through the Mustang models
+        # Get all the buttons to scroll through the vehicle models
         buttons = driver.find_elements(
             By.XPATH,
             "(//ol[@class='bds-carousel-indicators global-indicators to-fade-in  scrollable'])/li",
@@ -66,7 +66,7 @@ def get_ford_mfg_f150_prices():
             # Time to load DOM
             time.sleep(1)
 
-            # Extract Mustang models and prices using Selenium
+            # Extract vehicle models and prices using Selenium
             model_elements = driver.find_elements(
                 By.XPATH, "//*[@class='fgx-brand-ds to-fade-in title-three ff-d']"
             )
@@ -122,7 +122,7 @@ def get_ford_dealer_f150_prices():
     vehicle_prices = []
 
     try:
-        # Get all the buttons to scroll through the Mustang models
+        # Get all the buttons to scroll through the vehicle models
         buttons = driver.find_elements(
             By.XPATH, "(//div[@class='owl-dots'])[1]/button"
         )  # Stop at the first div instance
@@ -141,7 +141,7 @@ def get_ford_dealer_f150_prices():
             # Time to load DOM
             time.sleep(1)
 
-            # Extract Mustang models and prices
+            # Extract vehicle models and prices
             model_elements = driver.find_elements(
                 By.XPATH, "//*[contains(@class,'modelChecker')]"
             )
@@ -243,7 +243,7 @@ def get_ford_dealer_f150_hero_img():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    # Mustangs URL
+    # Vehicle URL
     url = F150_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load

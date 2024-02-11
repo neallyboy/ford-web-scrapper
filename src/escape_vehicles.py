@@ -37,14 +37,15 @@ def get_ford_mfg_escape_prices():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
+    # Vehicle URL
     url = ESCAPE_MANUFACTURER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
-    escape_prices = []
+    vehicle_prices = []
 
     try:
-        # Extract Mustang models and prices
+        # Extract vehicle models and prices
         model_elements = driver.find_elements(
             By.XPATH, "//*[@class='bri-txt generic-title-one ff-b']"
         )
@@ -63,16 +64,16 @@ def get_ford_mfg_escape_prices():
             price_value = price.text.strip()
             if model_name == "" or price_value == "":
                 continue
-            escape_prices.append((model_name, price_value))
+            vehicle_prices.append((model_name, price_value))
 
     except Exception as e:
-        escape_prices = [("Ford.ca Error", e)]
+        vehicle_prices = [("Ford.ca Error", e)]
 
     finally:
         # Close the browser
         driver.quit()
 
-    return escape_prices
+    return vehicle_prices
 
 
 # ------------------------------------------
@@ -92,14 +93,15 @@ def get_ford_dealer_escape_prices():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
+    # Vehicle URL
     url = ESCAPE_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
-    escape_prices = []
+    vehicle_prices = []
 
     try:
-        # Extract Mustang models and prices
+        # Extract vehicle models and prices
         model_elements = driver.find_elements(
             By.XPATH, "//span[@class='modelCheckerLi']"
         )
@@ -120,16 +122,16 @@ def get_ford_dealer_escape_prices():
             price_value = price.text.strip()
             if model_name == "" or price_value == "":
                 continue
-            escape_prices.append((model_name, price_value))
+            vehicle_prices.append((model_name, price_value))
 
     except Exception as e:
-        escape_prices = [("Fordtodealers.ca Error", e)]
+        vehicle_prices = [("Fordtodealers.ca Error", e)]
 
     finally:
         # Close the browser
         driver.quit()
 
-    return escape_prices
+    return vehicle_prices
 
 
 # ------------------------------------------
@@ -150,6 +152,7 @@ def get_ford_mfg_escape_hero_img():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
+    # Vehicle URL
     url = ESCAPE_MANUFACTURER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
@@ -200,6 +203,7 @@ def get_ford_dealer_escape_hero_img():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
+    # Vehicle URL
     url = ESCAPE_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load

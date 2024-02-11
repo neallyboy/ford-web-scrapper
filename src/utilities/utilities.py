@@ -1,6 +1,15 @@
 import pandas as pd
 
 
+# ----------------------------------------------------------------------
+# Change the colour background to Red if found the word Mismatch.
+# ----------------------------------------------------------------------
+def redden(x):
+    if x == "Mismatch":
+        return f'<span style="background-color: red; color: white; padding: 2px 5px; border-radius: 3px;">{x}</span>'
+    return str(x)
+
+
 # ------------------------------------------
 # Create Model-Prices data frame
 # ------------------------------------------
@@ -52,6 +61,9 @@ def create_vehicle_prices_df(price_func_mfr, price_func_dealer):
         lambda x: "${:,.0f}".format(x).replace("$-", "-$") if pd.notnull(x) else x
     )
 
+    # Replace NaN values with - in Price Difference
+    merged_df["Price Difference"].fillna("-", inplace=True)
+
     # Add a column for price comparison
     merged_df["Price Comparison"] = "Match"
     merged_df.loc[
@@ -65,7 +77,7 @@ def create_vehicle_prices_df(price_func_mfr, price_func_dealer):
 # ------------------------------------------
 # Create Model-Image data frame
 # ------------------------------------------
-def create_vehicle_image_df(hero_image_func_mfr, hero_image_func_dealer):
+def create_vehicle_image_df(hero_image_func_mfr, hero_image_func_dealer, model):
 
     # Get Vehicle Images
     vehicle_mfr_hero_image = hero_image_func_mfr
@@ -74,7 +86,7 @@ def create_vehicle_image_df(hero_image_func_mfr, hero_image_func_dealer):
     # Convert datasets to DataFrames
     hero_image_df = pd.DataFrame(
         {
-            "Model Hero Image": ["Mustang"],
+            "Model Hero Image": [model],
             "Ford Manufacturer Image": [vehicle_mfr_hero_image],
             "Ford Dealer Image": [vehicle_dealer_heor_image],
         }

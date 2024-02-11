@@ -206,7 +206,7 @@ def get_ford_dealer_nav_prices():
 # ------------------------------------------
 def create_navigation_prices_df():
 
-    # Get Mustang Data
+    # Get Vehicle Data
     ford_mfr_nav_prices = get_ford_mfg_nav_prices()
     ford_dealer_nav_prices = get_ford_dealer_nav_prices()
 

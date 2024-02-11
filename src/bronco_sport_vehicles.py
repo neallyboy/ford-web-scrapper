@@ -50,44 +50,29 @@ def get_ford_mfg_bronco_sport_prices():
     vehicle_prices = []
 
     try:
-        # Get all the buttons to scroll through the Mustang models
-        buttons = driver.find_elements(
+        # Extract vehicle models and prices using Selenium
+        model_elements = driver.find_elements(
+            By.XPATH, "//a[@class='to-checkbox fgx-lnc-btm-brdr-hover']"
+        )
+        # print(model_elements)
+
+        price_elements = driver.find_elements(
             By.XPATH,
-            "(//ol[@class='bds-carousel-indicators global-indicators to-fade-in  scrollable'])/li",
-        )  # Stop at the first ol instance
+            '//span[@class="make-info price bri-txt body-three ff-b"]//span[contains(@data-pricing-template, "{price}")]',
+        )
 
-        if not buttons:
+        # Check if model or price elements are not found
+        if not model_elements or not price_elements:
             raise Exception(
-                "Scrolling buttons not found. Page structure may have changed."
+                "Model or price elements not found. Page structure may have changed."
             )
 
-        # Loop through available carousel buttons
-        for i in range(len(buttons)):
-
-            # Click the current carousel button
-            buttons[i].click()
-
-            # Time to load DOM
-            time.sleep(1)
-
-            # Extract Mustang models and prices using Selenium
-            model_elements = driver.find_elements(
-                By.XPATH, "//*[@class='fgx-brand-ds to-fade-in title-three ff-d']"
-            )
-            price_elements = driver.find_elements(By.XPATH, '//*[@class="price"]')
-
-            # Check if model or price elements are not found
-            if not model_elements or not price_elements:
-                raise Exception(
-                    "Model or price elements not found. Page structure may have changed."
-                )
-
-            for model, price in zip(model_elements, price_elements):
-                model_name = model.text.strip()
-                price_value = price.text.strip()
-                if model_name == "" or price_value == "":  # Ignore half captured data
-                    continue
-                vehicle_prices.append((model_name, price_value))
+        for model, price in zip(model_elements, price_elements):
+            model_name = model.text.strip()
+            price_value = price.text.strip()
+            if model_name == "" or price_value == "":  # Ignore half captured data
+                continue
+            vehicle_prices.append((model_name, price_value))
 
         # Remove possible duplicates
         vehicle_prices = list(set(vehicle_prices))
@@ -119,6 +104,7 @@ def get_ford_dealer_bronco_sport_prices():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
+    # Vehicle URL
     url = BRONCO_SPORT_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
@@ -126,7 +112,7 @@ def get_ford_dealer_bronco_sport_prices():
     vehicle_prices = []
 
     try:
-        # Get all the buttons to scroll through the Mustang models
+        # Get all the buttons to scroll through the vehicle models
         buttons = driver.find_elements(
             By.XPATH, "(//div[@class='owl-dots'])[1]/button"
         )  # Stop at the first div instance
@@ -145,7 +131,7 @@ def get_ford_dealer_bronco_sport_prices():
             # Time to load DOM
             time.sleep(1)
 
-            # Extract Mustang models and prices
+            # Extract vehicle models and prices
             model_elements = driver.find_elements(
                 By.XPATH, "//*[contains(@class,'modelChecker')]"
             )
@@ -247,7 +233,7 @@ def get_ford_dealer_bronco_sport_hero_img():
         )  # Necessary for headless mode on some systems
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
-    # Mustangs URL
+    # Vehicle URL
     url = BRONCO_SPORT_DEALER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
@@ -283,6 +269,6 @@ def get_ford_dealer_bronco_sport_hero_img():
 
 # Test Functions
 # print(get_ford_mfg_bronco_sport_prices())
-# print(get_ford_dealer_mustang_prices())
+# print(get_ford_dealer_bronco_sport_prices())
 # print(get_ford_mfg_bronco_sport_hero_img())
 # print(get_ford_dealer_bronco_sport_hero_img())
