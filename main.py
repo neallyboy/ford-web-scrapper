@@ -14,10 +14,12 @@ import smtplib
 import os
 
 # Local Packages
+from src.bronco_vehicles import *
 from src.bronco_sport_vehicles import *
 from src.edge_vehicles import *
 from src.escape_vehicles import *
 from src.f150_vehicles import *
+from src.f150_lightening_vehicles import *
 from src.mustang_vehicles import *
 from src.mustang_mach_e_vehicles import *
 from src.navigation_menu import *
@@ -34,28 +36,48 @@ EMAIL_RECIEVER = os.getenv("EMAIL_RECIEVER")
 EMAIL_SENDER = os.getenv("EMAIL_RECIEVER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
+# ---------------------------------
 # Get Navigation Data
+# ---------------------------------
 nav_prices_df = create_navigation_prices_df()
 
+# ---------------------------------
+# Get Bronco Data
+# ---------------------------------
+bronco_prices_df = create_vehicle_prices_df(
+    get_ford_mfg_bronco_prices(), get_ford_dealer_bronco_prices()
+)
+bronco_image_df = create_vehicle_image_df(
+    get_ford_mfg_bronco_hero_img(),
+    get_ford_dealer_bronco_hero_img(),
+    "Bronco®",
+)
+
+# ---------------------------------
 # Get Bronco Sport Data
+# ---------------------------------
 bronco_sport_prices_df = create_vehicle_prices_df(
     get_ford_mfg_bronco_sport_prices(), get_ford_dealer_bronco_sport_prices()
 )
 bronco_sport_image_df = create_vehicle_image_df(
     get_ford_mfg_bronco_sport_hero_img(),
     get_ford_dealer_bronco_sport_hero_img(),
-    "Bronco Sport",
+    "Bronco® Sport",
 )
 
+# ---------------------------------
 # Get Edge Data
+# ---------------------------------
 edge_prices_df = create_vehicle_prices_df(
     get_ford_mfg_edge_prices(), get_ford_dealer_edge_prices()
 )
 edge_image_df = create_vehicle_image_df(
-    get_ford_mfg_edge_hero_img(), get_ford_dealer_edge_hero_img(), "Edge"
+    get_ford_mfg_edge_hero_img(), get_ford_dealer_edge_hero_img(), "Edge®"
 )
 
+# ---------------------------------
 # Get Escape Data
+# ---------------------------------
 escape_prices_df = create_vehicle_prices_df(
     get_ford_mfg_escape_prices(), get_ford_dealer_escape_prices()
 )
@@ -63,30 +85,48 @@ escape_image_df = create_vehicle_image_df(
     get_ford_mfg_escape_hero_img(), get_ford_dealer_escape_hero_img(), "Escape"
 )
 
+# ---------------------------------
 # Get F-150 Data
+# ---------------------------------
 f150_prices_df = create_vehicle_prices_df(
     get_ford_mfg_f150_prices(), get_ford_dealer_f150_prices()
 )
 f150_image_df = create_vehicle_image_df(
-    get_ford_mfg_f150_hero_img(), get_ford_dealer_f150_hero_img(), "F-150"
+    get_ford_mfg_f150_hero_img(), get_ford_dealer_f150_hero_img(), "F-150®"
 )
 
+# ---------------------------------
+# Get F-150 Lightening Data
+# ---------------------------------
+f150_lightening_prices_df = create_vehicle_prices_df(
+    get_ford_mfg_f150_lightening_prices(), get_ford_dealer_f150_lightening_prices()
+)
+f150_lightening_image_df = create_vehicle_image_df(
+    get_ford_mfg_f150_lightening_hero_img(),
+    get_ford_dealer_f150_lightening_hero_img(),
+    "F-150® Lightening®",
+)
+
+# ---------------------------------
 # Get Mustang Data
+# ---------------------------------
 mustang_prices_df = create_vehicle_prices_df(
     get_ford_mfg_mustang_prices(), get_ford_dealer_mustang_prices()
 )
 mustang_image_df = create_vehicle_image_df(
-    get_ford_mfg_mustang_hero_img(), get_ford_dealer_mustang_hero_img(), "Mustang"
+    get_ford_mfg_mustang_hero_img(), get_ford_dealer_mustang_hero_img(), "Mustang®"
 )
 
-# Get Mustang Mach E Data
+# ---------------------------------
+# Get Mustang Mach-E Data
+# ---------------------------------
 mustang_mach_e_prices_df = create_vehicle_prices_df(
     get_ford_mfg_mustang_mach_e_prices(), get_ford_dealer_mustang_mach_e_prices()
 )
 mustang_mach_e_image_df = create_vehicle_image_df(
     get_ford_mfg_mustang_mach_e_hero_img(),
     get_ford_dealer_mustang_mach_e_hero_img(),
-    "Mustang Mach E",
+    "Mustang MACH-E®",
 )
 
 # --------------------------------------------------#
@@ -95,10 +135,12 @@ mustang_mach_e_image_df = create_vehicle_image_df(
 # --------------------------------------------------#
 all_model_images_df = pd.concat(
     [
+        bronco_image_df,
         bronco_sport_image_df,
         edge_image_df,
         escape_image_df,
         f150_image_df,
+        f150_lightening_image_df,
         mustang_image_df,
         mustang_mach_e_image_df,
     ],
@@ -153,14 +195,21 @@ html_content = f"""
       <li>{MAIN_DEALER_URL}</li>
     </ul>
     {nav_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>BRONCO SPORT PRICES</h2>
+    <h2>BRONCO® PRICES</h2>
+    Data Sources:
+    <ul>
+      <li>{BRONCO_MANUFACTURER_URL}</li>
+      <li>{BRONCO_DEALER_URL}</li>
+    </ul>
+    {bronco_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+    <h2>BRONCO® SPORT PRICES</h2>
     Data Sources:
     <ul>
       <li>{BRONCO_SPORT_MANUFACTURER_URL}</li>
       <li>{BRONCO_SPORT_DEALER_URL}</li>
     </ul>
     {bronco_sport_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>EDGE PRICES</h2>
+    <h2>EDGE® PRICES</h2>
     Data Sources:
     <ul>
       <li>{EDGE_MANUFACTURER_URL}</li>
@@ -174,21 +223,28 @@ html_content = f"""
       <li>{ESCAPE_DEALER_URL}</li>
     </ul>
     {escape_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>F-150 PRICES</h2>
+    <h2>F-150® PRICES</h2>
     Data Sources:
     <ul>
       <li>{F150_MANUFACTURER_URL}</li>
       <li>{F150_DEALER_URL}</li>
     </ul>
     {f150_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>MUSTANG PRICES</h2>
+    <h2>F-150® LIGHTENING® PRICES</h2>
+    Data Sources:
+    <ul>
+      <li>{F150_LIGHTENING_MANUFACTURER_URL}</li>
+      <li>{F150_LIGHTENING_DEALER_URL}</li>
+    </ul>
+    {f150_lightening_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+    <h2>MUSTANG® PRICES</h2>
     Data Sources:
     <ul>
       <li>{MUSTANG_MANUFACTURER_URL}</li>
       <li>{MUSTANG_DEALER_URL}</li>
     </ul>
     {mustang_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>MUSTANG MACH E PRICES</h2>
+    <h2>MUSTANG MACH-E® PRICES</h2>
     Data Sources:
     <ul>
       <li>{MUSTANG_MACH_E_MANUFACTURER_URL}</li>

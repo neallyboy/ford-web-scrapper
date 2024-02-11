@@ -290,7 +290,15 @@ def create_navigation_prices_df():
 
     merged_df = merged_df[
         merged_df["Car Model"].isin(
-            ["MUSTANG", "F-150", "EDGE", "ESCAPE", "BRONCO SPORT"]
+            [
+                "BRONCO SPORT",
+                "EDGE",
+                "ESCAPE",
+                "F-150",
+                "F-150 LIGHTNING",
+                "MUSTANG",
+                "MUSTANG MACH-E",
+            ]
         )
     ]
 
