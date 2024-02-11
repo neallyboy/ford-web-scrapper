@@ -20,6 +20,7 @@ from src.escape_vehicles import *
 from src.f150_vehicles import *
 from src.mustang_vehicles import *
 from src.navigation_menu import *
+from src.utilities.utilities import *
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -36,24 +37,42 @@ EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 nav_prices_df = create_navigation_prices_df()
 
 # Get Bronco Sport Data
-bronco_sport_image_df = create_bronco_sport_image_df()
+bronco_sport_image_df = create_vehicle_image_df(
+    get_ford_mfg_bronco_sport_hero_img(), get_ford_dealer_bronco_sport_hero_img()
+)
 # TODO Prices
 
 # Get Edge Data
-edge_prices_df = create_edge_prices_df()
-edge_image_df = create_edge_image_df()
+edge_prices_df = create_vehicle_prices_df(
+    get_ford_mfg_edge_prices(), get_ford_dealer_edge_prices()
+)
+edge_image_df = create_vehicle_image_df(
+    get_ford_mfg_edge_hero_img(), get_ford_dealer_edge_hero_img()
+)
 
 # Get Escape Data
-escape_prices_df = create_escape_prices_df()
-escape_image_df = create_escape_image_df()
+escape_prices_df = create_vehicle_prices_df(
+    get_ford_mfg_escape_prices(), get_ford_dealer_escape_prices()
+)
+escape_image_df = create_vehicle_image_df(
+    get_ford_mfg_escape_hero_img(), get_ford_dealer_escape_hero_img()
+)
 
 # Get F-150 Data
-f150_prices_df = create_f150_prices_df()
-f150_image_df = create_f150_image_df()
+f150_prices_df = create_vehicle_prices_df(
+    get_ford_mfg_f150_prices(), get_ford_dealer_f150_prices()
+)
+f150_image_df = create_vehicle_image_df(
+    get_ford_mfg_f150_hero_img(), get_ford_dealer_f150_hero_img()
+)
 
 # Get Mustang Data
-mustang_prices_df = create_mustang_prices_df()
-mustang_image_df = create_mustang_image_df()
+mustang_prices_df = create_vehicle_prices_df(
+    get_ford_mfg_mustang_prices(), get_ford_dealer_mustang_prices()
+)
+mustang_image_df = create_vehicle_image_df(
+    get_ford_mfg_mustang_hero_img(), get_ford_dealer_mustang_hero_img()
+)
 
 # --------------------------------------------------#
 # Concatenate the Image data frames
