@@ -18,7 +18,6 @@ load_dotenv()
 CHROME_DRIVER_PATH = os.getenv("CHROME_DRIVER_PATH")
 MAIN_MANUFACTURER_URL = os.getenv("MAIN_MANUFACTURER_URL")
 MAIN_DEALER_URL = os.getenv("MAIN_DEALER_URL")
-FILTERED_LIST = os.getenv("FILTERED_LIST")
 
 
 # ------------------------------------------
@@ -33,16 +32,41 @@ def get_ford_mfg_nav_prices():
     # Check if CHROME_HEADLESS_MODE is set to 'True' in the environment
     headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
     if headless_mode:
-        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+        chrome_options.add_argument("--headless=new")  # Run Chrome in headless mode
         chrome_options.add_argument(
             "--disable-gpu"
         )  # Necessary for headless mode on some systems
+        chrome_options.add_argument("--window-size=1920,1080")
+        chrome_options.add_argument("--disable-extensions")
+        chrome_options.add_argument("--proxy-server='direct://'")
+        chrome_options.add_argument("--proxy-bypass-list=*")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--ignore-certificate-errors")
+        chrome_options.add_argument("--disable-software-rasterizer")
+        chrome_options.add_argument("--disable-gpu-timeout")
+        chrome_options.add_argument("--enable-javascript")
+        chrome_options.add_argument("--test-type")
+        chrome_options.add_argument("--no-first-run")
+        chrome_options.add_argument("--no-default-browser-check")
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     # Main URL
     url = MAIN_MANUFACTURER_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
+
+    # Troubleshooting - Get browser console logs
+    # logs = driver.get_log("browser")
+    # for log in logs:
+    #    print(log)
+
+    # Troubleshooting - Save screenshot
+    # driver.save_screenshot("screenshot.png")
+
+    # Troubleshooting - Save page html source
+    # with open("page_source.html", "w", encoding="utf-8") as file:
+    #    file.write(driver.page_source)
 
     vehicle_prices = []
 

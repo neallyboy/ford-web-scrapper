@@ -19,6 +19,7 @@ from src.edge_vehicles import *
 from src.escape_vehicles import *
 from src.f150_vehicles import *
 from src.mustang_vehicles import *
+from src.mustang_mach_e_vehicles import *
 from src.navigation_menu import *
 from src.utilities.utilities import *
 
@@ -78,6 +79,16 @@ mustang_image_df = create_vehicle_image_df(
     get_ford_mfg_mustang_hero_img(), get_ford_dealer_mustang_hero_img(), "Mustang"
 )
 
+# Get Mustang Mach E Data
+mustang_mach_e_prices_df = create_vehicle_prices_df(
+    get_ford_mfg_mustang_mach_e_prices(), get_ford_dealer_mustang_mach_e_prices()
+)
+mustang_mach_e_image_df = create_vehicle_image_df(
+    get_ford_mfg_mustang_mach_e_hero_img(),
+    get_ford_dealer_mustang_mach_e_hero_img(),
+    "Mustang Mach E",
+)
+
 # --------------------------------------------------#
 # Concatenate the Image data frames
 # - Merge all the Images to a single data frame
@@ -89,6 +100,7 @@ all_model_images_df = pd.concat(
         escape_image_df,
         f150_image_df,
         mustang_image_df,
+        mustang_mach_e_image_df,
     ],
     ignore_index=True,
 )
@@ -176,6 +188,13 @@ html_content = f"""
       <li>{MUSTANG_DEALER_URL}</li>
     </ul>
     {mustang_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+    <h2>MUSTANG MACH E PRICES</h2>
+    Data Sources:
+    <ul>
+      <li>{MUSTANG_MACH_E_MANUFACTURER_URL}</li>
+      <li>{MUSTANG_MACH_E_DEALER_URL}</li>
+    </ul>
+    {mustang_mach_e_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
     <br>
     <hr>
     <h2>MODEL HERO IMAGES</h2>
