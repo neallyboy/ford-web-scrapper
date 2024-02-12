@@ -197,7 +197,7 @@ def get_ford_mfg_bronco_hero_img():
         img_src = img_element.get_attribute("src")
 
         # Extract the part of the URL containing image using regular expressions
-        match = re.search(r"\/([^\/]+\.(jpe?g|png))", img_src)
+        match = re.search(r"\/([^\/]+\.(jpe?g|png|mp4))", img_src)
 
         if match:
             # Get the matched group (filename with image file extension)
@@ -249,7 +249,7 @@ def get_ford_dealer_bronco_hero_img():
         img_src = img_element.get_attribute("style")
 
         # Extract the part of the URL containing image using regular expressions
-        match = re.search(r"\/([^\/]+\.(jpe?g|png))", img_src)
+        match = re.search(r"\/([^\/]+\.(jpe?g|png|mp4))", img_src)
 
         if match:
             # Get the matched group (filename with image file extension)

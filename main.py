@@ -51,6 +51,8 @@ bronco_image_df = create_vehicle_image_df(
     get_ford_mfg_bronco_hero_img(),
     get_ford_dealer_bronco_hero_img(),
     "Bronco®",
+    BRONCO_MANUFACTURER_IMAGE_URL,
+    BRONCO_DEALER_URL,
 )
 
 # ---------------------------------
@@ -63,6 +65,8 @@ bronco_sport_image_df = create_vehicle_image_df(
     get_ford_mfg_bronco_sport_hero_img(),
     get_ford_dealer_bronco_sport_hero_img(),
     "Bronco® Sport",
+    BRONCO_SPORT_MANUFACTURER_IMAGE_URL,
+    BRONCO_SPORT_DEALER_URL,
 )
 
 # ---------------------------------
@@ -72,7 +76,11 @@ edge_prices_df = create_vehicle_prices_df(
     get_ford_mfg_edge_prices(), get_ford_dealer_edge_prices()
 )
 edge_image_df = create_vehicle_image_df(
-    get_ford_mfg_edge_hero_img(), get_ford_dealer_edge_hero_img(), "Edge®"
+    get_ford_mfg_edge_hero_img(),
+    get_ford_dealer_edge_hero_img(),
+    "Edge®",
+    EDGE_MANUFACTURER_URL,
+    EDGE_DEALER_URL,
 )
 
 # ---------------------------------
@@ -82,7 +90,11 @@ escape_prices_df = create_vehicle_prices_df(
     get_ford_mfg_escape_prices(), get_ford_dealer_escape_prices()
 )
 escape_image_df = create_vehicle_image_df(
-    get_ford_mfg_escape_hero_img(), get_ford_dealer_escape_hero_img(), "Escape"
+    get_ford_mfg_escape_hero_img(),
+    get_ford_dealer_escape_hero_img(),
+    "Escape",
+    ESCAPE_MANUFACTURER_URL,
+    ESCAPE_DEALER_URL,
 )
 
 # ---------------------------------
@@ -92,7 +104,11 @@ f150_prices_df = create_vehicle_prices_df(
     get_ford_mfg_f150_prices(), get_ford_dealer_f150_prices()
 )
 f150_image_df = create_vehicle_image_df(
-    get_ford_mfg_f150_hero_img(), get_ford_dealer_f150_hero_img(), "F-150®"
+    get_ford_mfg_f150_hero_img(),
+    get_ford_dealer_f150_hero_img(),
+    "F-150®",
+    F150_MANUFACTURER_URL,
+    F150_DEALER_URL,
 )
 
 # ---------------------------------
@@ -105,6 +121,8 @@ f150_lightening_image_df = create_vehicle_image_df(
     get_ford_mfg_f150_lightening_hero_img(),
     get_ford_dealer_f150_lightening_hero_img(),
     "F-150® Lightening®",
+    F150_LIGHTENING_MANUFACTURER_URL,
+    F150_LIGHTENING_DEALER_URL,
 )
 
 # ---------------------------------
@@ -114,7 +132,11 @@ mustang_prices_df = create_vehicle_prices_df(
     get_ford_mfg_mustang_prices(), get_ford_dealer_mustang_prices()
 )
 mustang_image_df = create_vehicle_image_df(
-    get_ford_mfg_mustang_hero_img(), get_ford_dealer_mustang_hero_img(), "Mustang®"
+    get_ford_mfg_mustang_hero_img(),
+    get_ford_dealer_mustang_hero_img(),
+    "Mustang®",
+    MUSTANG_MANUFACTURER_URL,
+    MUSTANG_DEALER_URL,
 )
 
 # ---------------------------------
@@ -127,6 +149,8 @@ mustang_mach_e_image_df = create_vehicle_image_df(
     get_ford_mfg_mustang_mach_e_hero_img(),
     get_ford_dealer_mustang_mach_e_hero_img(),
     "Mustang MACH-E®",
+    MUSTANG_MACH_E_MANUFACTURER_URL,
+    MUSTANG_MACH_E_DEALER_URL,
 )
 
 # --------------------------------------------------#

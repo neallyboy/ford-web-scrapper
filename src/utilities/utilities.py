@@ -77,25 +77,32 @@ def create_vehicle_prices_df(price_func_mfr, price_func_dealer):
 # ------------------------------------------
 # Create Model-Image data frame
 # ------------------------------------------
-def create_vehicle_image_df(hero_image_func_mfr, hero_image_func_dealer, model):
+def create_vehicle_image_df(
+    hero_image_func_mfr, hero_image_func_dealer, model, mfr_image_url, dealer_image_url
+):
 
     # Get Vehicle Images
     vehicle_mfr_hero_image = hero_image_func_mfr
-    vehicle_dealer_heor_image = hero_image_func_dealer
+    vehicle_dealer_hero_image = hero_image_func_dealer
+
+    # Embed hyperlinks in the image URLs
 
     # Convert datasets to DataFrames
     hero_image_df = pd.DataFrame(
         {
             "Model Hero Image": [model],
-            "Ford Manufacturer Image": [vehicle_mfr_hero_image],
-            "Ford Dealer Image": [vehicle_dealer_heor_image],
+            "Ford Manufacturer Image URL": [mfr_image_url],
+            "Ford Manufacturer Image Filename": [vehicle_mfr_hero_image],
+            "Ford Dealer Image URL": [dealer_image_url],
+            "Ford Dealer Image Filename": [vehicle_dealer_hero_image],
         }
     )
 
     # Add a column for price comparison
     hero_image_df["Image Comparison"] = "Match"
     hero_image_df.loc[
-        hero_image_df["Ford Manufacturer Image"] != hero_image_df["Ford Dealer Image"],
+        hero_image_df["Ford Manufacturer Image Filename"]
+        != hero_image_df["Ford Dealer Image Filename"],
         "Image Comparison",
     ] = "Mismatch"
 

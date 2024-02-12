@@ -254,12 +254,12 @@ def get_ford_dealer_f150_lightening_hero_img():
         # Find the img tag using a more general XPath
         img_element = driver.find_element(
             By.XPATH,
-            '//div[starts-with(@class,"row-bg") and contains(@class,"using-image")]',
+            '//video[starts-with(@class,"nectar-video-bg")]/source',
         )
-        img_src = img_element.get_attribute("style")
+        img_src = img_element.get_attribute("src")
 
         # Extract the part of the URL containing image using regular expressions
-        match = re.search(r"\/([^\/]+\.(jpe?g|png))", img_src)
+        match = re.search(r"\/([^\/]+\.(jpe?g|png|mp4))", img_src)
 
         if match:
             # Get the matched group (filename with image file extension)
