@@ -62,7 +62,7 @@ def create_vehicle_prices_df(price_func_mfr, price_func_dealer):
     )
 
     # Replace NaN values with - in Price Difference
-    merged_df["Price Difference"].fillna("-", inplace=True)
+    merged_df["Price Difference"] = merged_df["Price Difference"].fillna("-")
 
     # Add a column for price comparison
     merged_df["Price Comparison"] = "Match"

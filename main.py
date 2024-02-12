@@ -33,7 +33,7 @@ start_time = time.time()
 
 # Get email configuration from environment variables
 EMAIL_RECIEVER = os.getenv("EMAIL_RECIEVER")
-EMAIL_SENDER = os.getenv("EMAIL_RECIEVER")
+EMAIL_SENDER = os.getenv("EMAIL_SENDER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 # ---------------------------------

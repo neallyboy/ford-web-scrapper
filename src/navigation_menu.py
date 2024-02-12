@@ -36,14 +36,9 @@ def get_ford_mfg_nav_prices():
         chrome_options.add_argument(
             "--disable-gpu"
         )  # Necessary for headless mode on some systems
-        chrome_options.add_argument("--window-size=1920,1080")
         chrome_options.add_argument("--disable-extensions")
-        chrome_options.add_argument("--proxy-server='direct://'")
-        chrome_options.add_argument("--proxy-bypass-list=*")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--ignore-certificate-errors")
-        chrome_options.add_argument("--disable-software-rasterizer")
         chrome_options.add_argument("--disable-gpu-timeout")
         chrome_options.add_argument("--enable-javascript")
         chrome_options.add_argument("--test-type")
@@ -270,10 +265,11 @@ def create_navigation_prices_df():
 
     # Add a column for price difference
     merged_df["Price Difference"] = pd.to_numeric(
-        merged_df["Ford Manufacturer Price"].replace("[\$,]", "", regex=True),
+        merged_df["Ford Manufacturer Price"].replace("[\\$,]", "", regex=True),
         errors="coerce",
     ) - pd.to_numeric(
-        merged_df["Ford Dealer Price"].replace("[\$,]", "", regex=True), errors="coerce"
+        merged_df["Ford Dealer Price"].replace("[\\$,]", "", regex=True),
+        errors="coerce",
     )
 
     # Format the "Price Difference" column as currency with negative sign before the dollar amount and no decimals

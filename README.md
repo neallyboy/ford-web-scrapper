@@ -54,20 +54,44 @@ The script will scrape Ford vehicle models, prices, and hero immages, compare th
 Ensure the following environment variables are set in your .env file:
 
 ```
+# Selenium configuration
 CHROME_DRIVER_PATH=/path/to/chromedriver.exe
+CHROME_HEADLESS_MODE=false
+
+# Email configuration
 EMAIL_SENDER=your-email@gmail.com
 EMAIL_RECIEVER=recipient-email@gmail.com
 EMAIL_PASSWORD=your-gmail-password
 
 # URL Configuration
-MUSTANG_MANUFACTURER_URL=https://www.ford.ca/cars/mustang/?gnav=header-suvs-vhp
-MUSTANG_DEALER_URL=https://fordtodealers.ca/ford-mustang/
+MAIN_MANUFACTURER_URL=https://www.ford.ca
+MAIN_DEALER_URL=https://fordtodealers.ca
+
+BRONCO_SPORT_MANUFACTURER_URL=https://www.ford.ca/suvs/bronco-sport/models/?gnav=vhpnav-specs
+BRONCO_SPORT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/bronco-sport/?gnav=vhpnav-overiew
+BRONCO_SPORT_DEALER_URL=https://fordtodealers.ca/ford-bronco-sport/
+
+BRONCO_MANUFACTURER_URL=https://www.ford.ca/suvs/bronco/models/?gnav=vhpnav-specs
+BRONCO_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/bronco/?gnav=header-suvs-vhp
+BRONCO_DEALER_URL=https://fordtodealers.ca/ford-bronco/
+
+EDGE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/edge/?gnav=header-suvs-vhp
+EDGE_DEALER_URL=https://fordtodealers.ca/ford-edge/
 
 ESCAPE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/escape/?gnav=header-suvs-vhp
 ESCAPE_DEALER_URL=https://fordtodealers.ca/ford-escape/
 
-EDGE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/edge/?gnav=header-suvs-vhp
-EDGE_DEALER_URL=https://fordtodealers.ca/ford-edge/
+F150_MANUFACTURER_URL=https://www.ford.ca/trucks/f150/?gnav=header-trucks-vhp
+F150_DEALER_URL=https://fordtodealers.ca/ford-f-150/
+
+F150_LIGHTENING_MANUFACTURER_URL=https://www.ford.ca/trucks/f150/f150-lightning/?gnav=header-trucks-vhp
+F150_LIGHTENING_DEALER_URL=https://fordtodealers.ca/ford-f150-lightning/
+
+MUSTANG_MANUFACTURER_URL=https://www.ford.ca/cars/mustang/?gnav=header-suvs-vhp
+MUSTANG_DEALER_URL=https://fordtodealers.ca/ford-mustang/
+
+MUSTANG_MACH_E_MANUFACTURER_URL=https://www.ford.ca/suvs/mach-e/?gnav=vhpnav-overiew
+MUSTANG_MACH_E_DEALER_URL=https://fordtodealers.ca/ford-mustang-mach-e/
 ```
 
 Note the gmail password needs to be setup as an App Password. You will need to go to the account settings to set this up.

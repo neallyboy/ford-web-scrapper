@@ -280,5 +280,5 @@ def get_ford_dealer_f150_lightening_hero_img():
 # Test Functions
 # print(get_ford_mfg_f150_lightening_prices())
 # print(get_ford_dealer_f150_lightening_prices())
-print(get_ford_mfg_f150_lightening_hero_img())
-print(get_ford_dealer_f150_lightening_hero_img())
+# print(get_ford_mfg_f150_lightening_hero_img())
+# print(get_ford_dealer_f150_lightening_hero_img())
