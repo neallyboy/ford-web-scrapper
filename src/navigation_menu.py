@@ -33,7 +33,7 @@ MAIN_DEALER_URL = os.getenv("MAIN_DEALER_URL")
 def get_ford_mfg_nav_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Main URL
     url = MAIN_MANUFACTURER_URL
@@ -125,7 +125,7 @@ def get_ford_mfg_nav_prices():
 def get_ford_dealer_nav_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Main URL
     url = MAIN_DEALER_URL

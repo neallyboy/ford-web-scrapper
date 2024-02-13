@@ -33,7 +33,7 @@ EDGE_DEALER_URL = os.getenv("EDGE_DEALER_URL")
 def get_ford_mfg_edge_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = EDGE_MANUFACTURER_URL
@@ -101,7 +101,7 @@ def get_ford_mfg_edge_prices():
 def get_ford_dealer_edge_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = EDGE_DEALER_URL
@@ -169,7 +169,7 @@ def get_ford_dealer_edge_prices():
 def get_ford_mfg_edge_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = EDGE_MANUFACTURER_URL
@@ -210,7 +210,7 @@ def get_ford_mfg_edge_hero_img():
 def get_ford_dealer_edge_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = EDGE_DEALER_URL

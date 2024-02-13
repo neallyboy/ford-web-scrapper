@@ -37,7 +37,7 @@ start_time = time.time()
 def get_ford_mfg_bronco_sport_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = BRONCO_SPORT_MANUFACTURER_URL
@@ -90,7 +90,7 @@ def get_ford_mfg_bronco_sport_prices():
 def get_ford_dealer_bronco_sport_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = BRONCO_SPORT_DEALER_URL
@@ -158,7 +158,7 @@ def get_ford_dealer_bronco_sport_prices():
 def get_ford_mfg_bronco_sport_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = BRONCO_SPORT_MANUFACTURER_IMAGE_URL
@@ -199,7 +199,7 @@ def get_ford_mfg_bronco_sport_hero_img():
 def get_ford_dealer_bronco_sport_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = BRONCO_SPORT_DEALER_URL

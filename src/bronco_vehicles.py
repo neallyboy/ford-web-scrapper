@@ -34,7 +34,7 @@ BRONCO_DEALER_URL = os.getenv("BRONCO_DEALER_URL")
 def get_ford_mfg_bronco_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = BRONCO_MANUFACTURER_URL
@@ -87,7 +87,7 @@ def get_ford_mfg_bronco_prices():
 def get_ford_dealer_bronco_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = BRONCO_DEALER_URL
@@ -155,7 +155,7 @@ def get_ford_dealer_bronco_prices():
 def get_ford_mfg_bronco_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = BRONCO_MANUFACTURER_IMAGE_URL
@@ -196,7 +196,7 @@ def get_ford_mfg_bronco_hero_img():
 def get_ford_dealer_bronco_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = BRONCO_DEALER_URL

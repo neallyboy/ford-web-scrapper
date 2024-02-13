@@ -33,7 +33,7 @@ F150_LIGHTENING_DEALER_URL = os.getenv("F150_LIGHTENING_DEALER_URL")
 def get_ford_mfg_f150_lightening_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = F150_LIGHTENING_MANUFACTURER_URL
@@ -101,7 +101,7 @@ def get_ford_mfg_f150_lightening_prices():
 def get_ford_dealer_f150_lightening_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     url = F150_LIGHTENING_DEALER_URL
     driver.get(url)
@@ -168,7 +168,7 @@ def get_ford_dealer_f150_lightening_prices():
 def get_ford_mfg_f150_lightening_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = F150_LIGHTENING_MANUFACTURER_URL
@@ -209,7 +209,7 @@ def get_ford_mfg_f150_lightening_hero_img():
 def get_ford_dealer_f150_lightening_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = F150_LIGHTENING_DEALER_URL

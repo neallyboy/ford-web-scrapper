@@ -4,13 +4,35 @@ import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 # Built-in Packages
 import os
+import time
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
+
+github_token = os.getenv("GITHUB_TOKEN")
+
+
+# ----------------------------------------------------------------------
+# Driver setup based on environment variable
+# ----------------------------------------------------------------------
+def setup_driver():
+    driver_type = os.getenv("BROWSER_DRIVER_TYPE", "firefox").lower()
+
+    if driver_type == "chrome":
+        return setup_chrome_driver()
+    elif driver_type == "firefox":
+        return setup_firefox_driver()
+    else:
+        raise ValueError(
+            "Invalid DRIVER_TYPE in the .env file. Use 'chrome' or 'firefox'."
+        )
 
 
 # ----------------------------------------------------------------------
@@ -26,6 +48,43 @@ def setup_chrome_driver():
         chrome_options.add_argument("--disable-gpu")
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
     return driver
+
+
+# ----------------------------------------------------------------------
+# Firefox driver setup
+# ----------------------------------------------------------------------
+def setup_firefox_driver():
+    os.environ["WDM_LOCAL"] = "1"
+    firefox_service = FirefoxService(GeckoDriverManager(token=github_token).install())
+    firefox_options = FirefoxOptions()
+    firefox_options.add_argument(
+        "--disable-gpu"
+    )  # Add any additional options if needed
+    headless_mode = os.getenv("FIREFOX_HEADLESS_MODE", "False").lower() == "true"
+    if headless_mode:
+        firefox_options.add_argument("--headless")
+    driver = webdriver.Firefox(service=firefox_service, options=firefox_options)
+    return driver
+
+
+# ----------------------------------------------------------------------
+# Start Timer
+# ----------------------------------------------------------------------
+def start_timer():
+    return time.time()
+
+
+# ----------------------------------------------------------------------
+# Return Elasped Time
+# ----------------------------------------------------------------------
+def print_elapsed_time(start_time):
+    elapsed_time_seconds = time.time() - start_time
+    hours, remainder = divmod(elapsed_time_seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+
+    print(
+        f"Elapsed Time: {int(hours)} hours, {int(minutes)} minutes, {int(seconds)} seconds"
+    )
 
 
 # ----------------------------------------------------------------------

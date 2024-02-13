@@ -52,7 +52,6 @@ Ensure the following environment variables are set in your .env file:
 
 ```
 # Selenium configuration
-CHROME_DRIVER_PATH=/path/to/chromedriver.exe
 CHROME_HEADLESS_MODE=false
 
 # Email configuration

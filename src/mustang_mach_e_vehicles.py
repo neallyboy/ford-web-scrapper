@@ -33,7 +33,7 @@ MUSTANG_MACH_E_DEALER_URL = os.getenv("MUSTANG_MACH_E_DEALER_URL")
 def get_ford_mfg_mustang_mach_e_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_MANUFACTURER_URL
@@ -101,7 +101,7 @@ def get_ford_mfg_mustang_mach_e_prices():
 def get_ford_dealer_mustang_mach_e_prices():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_DEALER_URL
@@ -169,7 +169,7 @@ def get_ford_dealer_mustang_mach_e_prices():
 def get_ford_mfg_mustang_mach_e_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_MANUFACTURER_URL
@@ -210,7 +210,7 @@ def get_ford_mfg_mustang_mach_e_hero_img():
 def get_ford_dealer_mustang_mach_e_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_chrome_driver()
+    driver = setup_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_DEALER_URL
