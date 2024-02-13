@@ -1,4 +1,31 @@
+# 3rd Party Pacakges
+from dotenv import load_dotenv
 import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+
+# Built-in Packages
+import os
+
+# Load environment variables from the .env file
+load_dotenv(override=True)
+
+
+# ----------------------------------------------------------------------
+# Chrome driver setup
+# ----------------------------------------------------------------------
+def setup_chrome_driver():
+    chrome_service = ChromeService(ChromeDriverManager().install())
+    chrome_options = Options()
+    chrome_options.add_experimental_option("detach", False)
+    headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
+    if headless_mode:
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-gpu")
+    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+    return driver
 
 
 # ----------------------------------------------------------------------

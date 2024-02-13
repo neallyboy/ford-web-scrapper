@@ -1,21 +1,28 @@
 # 3rd Party Pacakges
 from dotenv import load_dotenv
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.chrome.options import Options
 import pandas as pd
+from selenium.webdriver.common.by import By
 
 # Built-in Packages
 import time
 import os
 import re
+import sys
+
+# Get the current script's directory
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Add the project root directory to sys.path
+sys.path.append(os.path.dirname(script_dir))
+sys.path.append(os.path.join(os.path.dirname(script_dir), "src"))
+
+# Local Packages
+from utilities.utilities import *
 
 # Load environment variables from the .env file
-load_dotenv()
+load_dotenv(override=True)
 
 # Get email configuration from environment variables
-CHROME_DRIVER_PATH = os.getenv("CHROME_DRIVER_PATH")
 ESCAPE_MANUFACTURER_URL = os.getenv("ESCAPE_MANUFACTURER_URL")
 ESCAPE_DEALER_URL = os.getenv("ESCAPE_DEALER_URL")
 
@@ -24,18 +31,9 @@ ESCAPE_DEALER_URL = os.getenv("ESCAPE_DEALER_URL")
 # Get prices from ford.ca
 # ------------------------------------------
 def get_ford_mfg_escape_prices():
+
     # Set up the Chrome driver
-    chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
-    chrome_options = Options()
-    chrome_options.add_experimental_option("detach", False)
-    # Check if CHROME_HEADLESS_MODE is set to 'True' in the environment
-    headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
-    if headless_mode:
-        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
-        chrome_options.add_argument(
-            "--disable-gpu"
-        )  # Necessary for headless mode on some systems
-    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+    driver = setup_chrome_driver()
 
     # Vehicle URL
     url = ESCAPE_MANUFACTURER_URL
@@ -80,18 +78,9 @@ def get_ford_mfg_escape_prices():
 # Get prices from fordtodealers.ca
 # ------------------------------------------
 def get_ford_dealer_escape_prices():
+
     # Set up the Chrome driver
-    chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
-    chrome_options = Options()
-    chrome_options.add_experimental_option("detach", False)
-    # Check if CHROME_HEADLESS_MODE is set to 'True' in the environment
-    headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
-    if headless_mode:
-        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
-        chrome_options.add_argument(
-            "--disable-gpu"
-        )  # Necessary for headless mode on some systems
-    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+    driver = setup_chrome_driver()
 
     # Vehicle URL
     url = ESCAPE_DEALER_URL
@@ -140,17 +129,7 @@ def get_ford_dealer_escape_prices():
 def get_ford_mfg_escape_hero_img():
 
     # Set up the Chrome driver
-    chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
-    chrome_options = Options()
-    chrome_options.add_experimental_option("detach", False)
-    # Check if CHROME_HEADLESS_MODE is set to 'True' in the environment
-    headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
-    if headless_mode:
-        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
-        chrome_options.add_argument(
-            "--disable-gpu"
-        )  # Necessary for headless mode on some systems
-    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+    driver = setup_chrome_driver()
 
     # Vehicle URL
     url = ESCAPE_MANUFACTURER_URL
@@ -191,17 +170,7 @@ def get_ford_mfg_escape_hero_img():
 def get_ford_dealer_escape_hero_img():
 
     # Set up the Chrome driver
-    chrome_service = ChromeService(executable_path=CHROME_DRIVER_PATH)
-    chrome_options = Options()
-    chrome_options.add_experimental_option("detach", False)
-    # Check if CHROME_HEADLESS_MODE is set to 'True' in the environment
-    headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
-    if headless_mode:
-        chrome_options.add_argument("--headless")  # Run Chrome in headless mode
-        chrome_options.add_argument(
-            "--disable-gpu"
-        )  # Necessary for headless mode on some systems
-    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+    driver = setup_chrome_driver()
 
     # Vehicle URL
     url = ESCAPE_DEALER_URL

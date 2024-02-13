@@ -26,7 +26,7 @@ from src.navigation_menu import *
 from src.utilities.utilities import *
 
 # Load environment variables from the .env file
-load_dotenv()
+load_dotenv(override=True)
 
 # Record the start time
 start_time = time.time()
