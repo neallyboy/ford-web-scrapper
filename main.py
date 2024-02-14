@@ -240,13 +240,15 @@ receiver_email = EMAIL_RECIEVER
 password = EMAIL_PASSWORD
 
 # Split the string into a list using comma as a separator
-receiver_emails = receiver_email.split(",")
+receiver_emails_list = receiver_email.split(",")
 
 # Create the message
 msg = MIMEMultipart()
 msg["From"] = sender_email
 msg["To"] = (
-    ",".join(receiver_emails) if len(receiver_emails) > 1 else receiver_emails[0]
+    ",".join(receiver_emails_list)
+    if len(receiver_emails_list) > 1
+    else receiver_emails_list[0]
 )
 msg["Subject"] = "Ford Vehicle Prices and Image Comparison"
 
@@ -358,7 +360,7 @@ msg.attach(MIMEText(html_content, "html"))
 with smtplib.SMTP("smtp.gmail.com", 587) as server:
     server.starttls()
     server.login(sender_email, password)
-    server.sendmail(sender_email, receiver_email, msg.as_string())
+    server.sendmail(sender_email, receiver_emails_list, msg.as_string())
 
 # Record the end time
 end_time = time.time()
