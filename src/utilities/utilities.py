@@ -96,13 +96,13 @@ def start_timer():
 # ----------------------------------------------------------------------
 # Return Elasped Time
 # ----------------------------------------------------------------------
-def print_elapsed_time(start_time):
+def print_elapsed_time(start_time, process_name):
     elapsed_time_seconds = time.time() - start_time
     hours, remainder = divmod(elapsed_time_seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
 
     print(
-        f"Elapsed Time: {int(hours)} hours, {int(minutes)} minutes, {int(seconds)} seconds"
+        f"{process_name}: {int(hours)} hours, {int(minutes)} minutes, {int(seconds)} seconds"
     )
 
 

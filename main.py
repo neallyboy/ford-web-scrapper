@@ -41,18 +41,19 @@ EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 # ---------------------------------
 
 print("Navigation pricing started.")
-print_elapsed_time(start_time)
+func_start_time = start_timer()
 
 nav_prices_df = create_navigation_prices_df()
 
-print("Navigation pricing completed.")
+print_elapsed_time(func_start_time, "Navigation pricing completed time")
+print_elapsed_time(start_time, "Elapased Time")
 
 # ---------------------------------
 # Get Bronco Data
 # ---------------------------------
 
 print("Bronco pricing started.")
-print_elapsed_time(start_time)
+func_start_time = start_timer()
 
 bronco_prices_df = create_vehicle_prices_df(
     get_ford_mfg_bronco_prices(), get_ford_dealer_bronco_prices()
@@ -65,14 +66,15 @@ bronco_image_df = create_vehicle_image_df(
     BRONCO_DEALER_URL,
 )
 
-print("Bronco pricing completed.")
+print_elapsed_time(func_start_time, "Bronco pricing completed time")
+print_elapsed_time(start_time, "Elapased Time")
 
 # ---------------------------------
 # Get Bronco Sport Data
 # ---------------------------------
 
 print("Bronco Sport pricing started.")
-print_elapsed_time(start_time)
+func_start_time = start_timer()
 
 bronco_sport_prices_df = create_vehicle_prices_df(
     get_ford_mfg_bronco_sport_prices(), get_ford_dealer_bronco_sport_prices()
@@ -85,14 +87,15 @@ bronco_sport_image_df = create_vehicle_image_df(
     BRONCO_SPORT_DEALER_URL,
 )
 
-print("Bronco Sport pricing completed.")
+print_elapsed_time(func_start_time, "Bronco Sport pricing completed time")
+print_elapsed_time(start_time, "Elapased Time")
 
 # ---------------------------------
 # Get Edge Data
 # ---------------------------------
 
 print("Edge pricing started.")
-print_elapsed_time(start_time)
+func_start_time = start_timer()
 
 edge_prices_df = create_vehicle_prices_df(
     get_ford_mfg_edge_prices(), get_ford_dealer_edge_prices()
@@ -105,14 +108,15 @@ edge_image_df = create_vehicle_image_df(
     EDGE_DEALER_URL,
 )
 
-print("Edge pricing completed.")
+print_elapsed_time(func_start_time, "Edge Sport pricing completed time")
+print_elapsed_time(start_time, "Elapased Time")
 
 # ---------------------------------
 # Get Escape Data
 # ---------------------------------
 
 print("Escape pricing started.")
-print_elapsed_time(start_time)
+func_start_time = start_timer()
 
 escape_prices_df = create_vehicle_prices_df(
     get_ford_mfg_escape_prices(), get_ford_dealer_escape_prices()
@@ -125,14 +129,15 @@ escape_image_df = create_vehicle_image_df(
     ESCAPE_DEALER_URL,
 )
 
-print("Escape pricing completed.")
+print_elapsed_time(func_start_time, "Escape Sport pricing completed time")
+print_elapsed_time(start_time, "Elapased Time")
 
 # ---------------------------------
 # Get F-150 Data
 # ---------------------------------
 
 print("F-150 pricing started.")
-print_elapsed_time(start_time)
+func_start_time = start_timer()
 
 f150_prices_df = create_vehicle_prices_df(
     get_ford_mfg_f150_prices(), get_ford_dealer_f150_prices()
@@ -145,14 +150,15 @@ f150_image_df = create_vehicle_image_df(
     F150_DEALER_URL,
 )
 
-print("F-150 pricing completed.")
+print_elapsed_time(func_start_time, "F-150 Sport pricing completed time")
+print_elapsed_time(start_time, "Elapased Time")
 
 # ---------------------------------
 # Get F-150 Lightening Data
 # ---------------------------------
 
 print("F-150 Lightening pricing started.")
-print_elapsed_time(start_time)
+func_start_time = start_timer()
 
 f150_lightening_prices_df = create_vehicle_prices_df(
     get_ford_mfg_f150_lightening_prices(), get_ford_dealer_f150_lightening_prices()
@@ -165,14 +171,15 @@ f150_lightening_image_df = create_vehicle_image_df(
     F150_LIGHTENING_DEALER_URL,
 )
 
-print("F-150 Lightening pricing completed.")
+print_elapsed_time(func_start_time, "F-150 Lightening Sport pricing completed time")
+print_elapsed_time(start_time, "Elapased Time")
 
 # ---------------------------------
 # Get Mustang Data
 # ---------------------------------
 
 print("Mustang pricing started.")
-print_elapsed_time(start_time)
+func_start_time = start_timer()
 
 mustang_prices_df = create_vehicle_prices_df(
     get_ford_mfg_mustang_prices(), get_ford_dealer_mustang_prices()
@@ -185,14 +192,15 @@ mustang_image_df = create_vehicle_image_df(
     MUSTANG_DEALER_URL,
 )
 
-print("Mustang pricing completed.")
+print_elapsed_time(func_start_time, "Mustang pricing completed time")
+print_elapsed_time(start_time, "Elapased Time")
 
 # ---------------------------------
 # Get Mustang Mach-E Data
 # ---------------------------------
 
 print("Mustang Mach-E pricing started.")
-print_elapsed_time(start_time)
+func_start_time = start_timer()
 
 mustang_mach_e_prices_df = create_vehicle_prices_df(
     get_ford_mfg_mustang_mach_e_prices(), get_ford_dealer_mustang_mach_e_prices()
@@ -205,7 +213,8 @@ mustang_mach_e_image_df = create_vehicle_image_df(
     MUSTANG_MACH_E_DEALER_URL,
 )
 
-print("Mustang Mach-E pricing completed.")
+print_elapsed_time(func_start_time, "Mustang Mach-E pricing completed time")
+print_elapsed_time(start_time, "Elapased Time")
 
 # --------------------------------------------------#
 # Concatenate the Image data frames
@@ -230,10 +239,15 @@ sender_email = EMAIL_SENDER
 receiver_email = EMAIL_RECIEVER
 password = EMAIL_PASSWORD
 
+# Split the string into a list using comma as a separator
+receiver_emails = receiver_email.split(",")
+
 # Create the message
 msg = MIMEMultipart()
 msg["From"] = sender_email
-msg["To"] = receiver_email
+msg["To"] = (
+    ",".join(receiver_emails) if len(receiver_emails) > 1 else receiver_emails[0]
+)
 msg["Subject"] = "Ford Vehicle Prices and Image Comparison"
 
 
@@ -265,7 +279,7 @@ html_content = f"""
     </style>
   </head>
   <body>
-    <p>Please find the latest price and image comparisons between Ford.ca and Fordtodealers.ca</p>
+    <p>Please review the latest price and image comparisons between Ford.ca and Fordtodealers.ca. This email is meant to be an informational audit and still needs to be verified by the recieving party before updating any pricing</p>
     <h2>NAVIGATION MENU PRICES</h2>
     Data Sources:
     <ul>
