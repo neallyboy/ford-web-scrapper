@@ -24,7 +24,9 @@ load_dotenv(override=True)
 
 # Get email configuration from environment variables
 EDGE_MANUFACTURER_URL = os.getenv("EDGE_MANUFACTURER_URL")
+EDGE_MANUFACTURER_IMAGE_URL = os.getenv("EDGE_MANUFACTURER_IMAGE_URL")
 EDGE_DEALER_URL = os.getenv("EDGE_DEALER_URL")
+EDGE_DEALER_IMAGE_URL = os.getenv("EDGE_DEALER_IMAGE_URL")
 
 
 # ------------------------------------------
@@ -58,7 +60,8 @@ def get_ford_mfg_edge_prices():
         for i in range(len(buttons)):
 
             # Click the current carousel button
-            buttons[i].click()
+            # buttons[i].click()
+            driver.execute_script("arguments[0].click();", buttons[i])
 
             # Time to load DOM
             time.sleep(1)
@@ -172,7 +175,7 @@ def get_ford_mfg_edge_hero_img():
     driver = setup_driver()
 
     # Vehicle URL
-    url = EDGE_MANUFACTURER_URL
+    url = EDGE_MANUFACTURER_IMAGE_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -213,7 +216,7 @@ def get_ford_dealer_edge_hero_img():
     driver = setup_driver()
 
     # Vehicle URL
-    url = EDGE_DEALER_URL
+    url = EDGE_DEALER_IMAGE_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 

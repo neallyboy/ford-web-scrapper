@@ -26,6 +26,7 @@ load_dotenv(override=True)
 BRONCO_SPORT_MANUFACTURER_URL = os.getenv("BRONCO_SPORT_MANUFACTURER_URL")
 BRONCO_SPORT_MANUFACTURER_IMAGE_URL = os.getenv("BRONCO_SPORT_MANUFACTURER_IMAGE_URL")
 BRONCO_SPORT_DEALER_URL = os.getenv("BRONCO_SPORT_DEALER_URL")
+BRONCO_SPORT_DEALER_IMAGE_URL = os.getenv("BRONCO_SPORT_DEALER_IMAGE_URL")
 
 # Record the start time
 start_time = time.time()
@@ -202,7 +203,7 @@ def get_ford_dealer_bronco_sport_hero_img():
     driver = setup_driver()
 
     # Vehicle URL
-    url = BRONCO_SPORT_DEALER_URL
+    url = BRONCO_SPORT_DEALER_IMAGE_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 

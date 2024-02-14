@@ -24,7 +24,11 @@ load_dotenv(override=True)
 
 # Get email configuration from environment variables
 MUSTANG_MACH_E_MANUFACTURER_URL = os.getenv("MUSTANG_MACH_E_MANUFACTURER_URL")
+MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL = os.getenv(
+    "MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL"
+)
 MUSTANG_MACH_E_DEALER_URL = os.getenv("MUSTANG_MACH_E_DEALER_URL")
+MUSTANG_MACH_E_DEALER_IMAGE_URL = os.getenv("MUSTANG_MACH_E_DEALER_IMAGE_URL")
 
 
 # ------------------------------------------
@@ -58,7 +62,8 @@ def get_ford_mfg_mustang_mach_e_prices():
         for i in range(len(buttons)):
 
             # Click the current carousel button
-            buttons[i].click()
+            # buttons[i].click()
+            driver.execute_script("arguments[0].click();", buttons[i])
 
             # Time to load DOM
             time.sleep(1)
@@ -172,7 +177,7 @@ def get_ford_mfg_mustang_mach_e_hero_img():
     driver = setup_driver()
 
     # Vehicle URL
-    url = MUSTANG_MACH_E_MANUFACTURER_URL
+    url = MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -213,7 +218,7 @@ def get_ford_dealer_mustang_mach_e_hero_img():
     driver = setup_driver()
 
     # Vehicle URL
-    url = MUSTANG_MACH_E_DEALER_URL
+    url = MUSTANG_MACH_E_DEALER_IMAGE_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 

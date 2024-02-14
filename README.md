@@ -110,7 +110,7 @@ MUSTANG_MACH_E_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-mustang-mach-e/
 ```
 
 - EMAIL_PASSWORD = This application uses Google gmail to send the email notifcation. In order to send an email, a App Password needs to be created by the gmail account sending the email. It is a 16 character string that needs to be set here.
-- GITHUB_TOKEN = If using the Firefox headless mode, you need to create a Github PAC Token in order to by pass the Github API rate limit. Authitcated users get 5000 calls per hour versus 60 calls per hour for unathunticated users.
+- GITHUB_TOKEN = The webdriver_manager downloads some webdrivers from their official GitHub repositories but GitHub has rate limitations in place. An unauthenticated user gets 60 requests per hours. Create a PAC token in Github, and place the value here as authenticated users rate limit is 5000 requests per hour.
 
 ## Contributing
 

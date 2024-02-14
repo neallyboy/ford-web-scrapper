@@ -24,7 +24,9 @@ load_dotenv(override=True)
 
 # Get email configuration from environment variables
 F150_MANUFACTURER_URL = os.getenv("F150_MANUFACTURER_URL")
+F150_MANUFACTURER_IMAGE_URL = os.getenv("F150_MANUFACTURER_IMAGE_URL")
 F150_DEALER_URL = os.getenv("F150_DEALER_URL")
+F150_DEALER_IMAGE_URL = os.getenv("F150_DEALER_IMAGE_URL")
 
 
 # ------------------------------------------
@@ -58,7 +60,8 @@ def get_ford_mfg_f150_prices():
         for i in range(len(buttons)):
 
             # Click the current carousel button
-            buttons[i].click()
+            # buttons[i].click()
+            driver.execute_script("arguments[0].click();", buttons[i])
 
             # Time to load DOM
             time.sleep(1)
@@ -171,7 +174,7 @@ def get_ford_mfg_f150_hero_img():
     driver = setup_driver()
 
     # Vehicle URL
-    url = F150_MANUFACTURER_URL
+    url = F150_MANUFACTURER_IMAGE_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -212,7 +215,7 @@ def get_ford_dealer_f150_hero_img():
     driver = setup_driver()
 
     # Vehicle URL
-    url = F150_DEALER_URL
+    url = F150_DEALER_IMAGE_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 

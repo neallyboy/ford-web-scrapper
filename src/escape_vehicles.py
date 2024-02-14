@@ -24,7 +24,9 @@ load_dotenv(override=True)
 
 # Get email configuration from environment variables
 ESCAPE_MANUFACTURER_URL = os.getenv("ESCAPE_MANUFACTURER_URL")
+ESCAPE_MANUFACTURER_IMAGE_URL = os.getenv("ESCAPE_MANUFACTURER_IMAGE_URL")
 ESCAPE_DEALER_URL = os.getenv("ESCAPE_DEALER_URL")
+ESCAPE_DEALER_IMAGE_URL = os.getenv("ESCAPE_DEALER_IMAGE_URL")
 
 
 # ------------------------------------------
@@ -132,7 +134,7 @@ def get_ford_mfg_escape_hero_img():
     driver = setup_driver()
 
     # Vehicle URL
-    url = ESCAPE_MANUFACTURER_URL
+    url = ESCAPE_MANUFACTURER_IMAGE_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
@@ -173,7 +175,7 @@ def get_ford_dealer_escape_hero_img():
     driver = setup_driver()
 
     # Vehicle URL
-    url = ESCAPE_DEALER_URL
+    url = ESCAPE_DEALER_IMAGE_URL
     driver.get(url)
     time.sleep(5)  # Allow time for the page to load
 
