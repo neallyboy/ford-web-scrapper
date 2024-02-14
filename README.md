@@ -52,7 +52,12 @@ Ensure the following environment variables are set in your .env file:
 
 ```
 # Selenium configuration
+# BROWSER_DRIVER_TYPE options are: chrome, firefox, edge
+BROWSER_DRIVER_TYPE=firefox
 CHROME_HEADLESS_MODE=false
+EDGE_HEADLESS_MODE=false
+FIREFOX_HEADLESS_MODE=true
+GITHUB_TOKEN=github_pac_token
 
 # Email configuration
 EMAIL_SENDER=your-email@gmail.com
@@ -66,31 +71,46 @@ MAIN_DEALER_URL=https://fordtodealers.ca
 BRONCO_SPORT_MANUFACTURER_URL=https://www.ford.ca/suvs/bronco-sport/models/?gnav=vhpnav-specs
 BRONCO_SPORT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/bronco-sport/?gnav=vhpnav-overiew
 BRONCO_SPORT_DEALER_URL=https://fordtodealers.ca/ford-bronco-sport/
+BRONCO_SPORT_IMAGE_URL=https://fordtodealers.ca/ford-bronco-sport/
 
 BRONCO_MANUFACTURER_URL=https://www.ford.ca/suvs/bronco/models/?gnav=vhpnav-specs
 BRONCO_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/bronco/?gnav=header-suvs-vhp
 BRONCO_DEALER_URL=https://fordtodealers.ca/ford-bronco/
+BRONCO_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-bronco/
 
 EDGE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/edge/?gnav=header-suvs-vhp
+EDGE_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs-crossovers/edge/?gnav=header-suvs-vhp
 EDGE_DEALER_URL=https://fordtodealers.ca/ford-edge/
+EDGE_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-edge/
 
 ESCAPE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/escape/?gnav=header-suvs-vhp
+ESCAPE_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs-crossovers/escape/?gnav=header-suvs-vhp
 ESCAPE_DEALER_URL=https://fordtodealers.ca/ford-escape/
+ESCAPE_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-escape/
 
 F150_MANUFACTURER_URL=https://www.ford.ca/trucks/f150/?gnav=header-trucks-vhp
+F150_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/f150/?gnav=header-trucks-vhp
 F150_DEALER_URL=https://fordtodealers.ca/ford-f-150/
+F150_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-f-150/
 
 F150_LIGHTENING_MANUFACTURER_URL=https://www.ford.ca/trucks/f150/f150-lightning/?gnav=header-trucks-vhp
+F150_LIGHTENING_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/f150/f150-lightning/?gnav=header-trucks-vhp
 F150_LIGHTENING_DEALER_URL=https://fordtodealers.ca/ford-f150-lightning/
+F150_LIGHTENING_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-f150-lightning/
 
 MUSTANG_MANUFACTURER_URL=https://www.ford.ca/cars/mustang/?gnav=header-suvs-vhp
+MUSTANG_MANUFACTURER_IMAGE_URL=https://www.ford.ca/cars/mustang/?gnav=header-suvs-vhp
 MUSTANG_DEALER_URL=https://fordtodealers.ca/ford-mustang/
+MUSTANG_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-mustang/
 
 MUSTANG_MACH_E_MANUFACTURER_URL=https://www.ford.ca/suvs/mach-e/?gnav=vhpnav-overiew
+MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/mach-e/?gnav=vhpnav-overiew
 MUSTANG_MACH_E_DEALER_URL=https://fordtodealers.ca/ford-mustang-mach-e/
+MUSTANG_MACH_E_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-mustang-mach-e/
 ```
 
-Note the gmail password needs to be setup as an App Password. You will need to go to the account settings to set this up.
+- EMAIL_PASSWORD = This application uses Google gmail to send the email notifcation. In order to send an email, a App Password needs to be created by the gmail account sending the email. It is a 16 character string that needs to be set here.
+- GITHUB_TOKEN = If using the Firefox headless mode, you need to create a Github PAC Token in order to by pass the Github API rate limit. Authitcated users get 5000 calls per hour versus 60 calls per hour for unathunticated users.
 
 ## Contributing
 

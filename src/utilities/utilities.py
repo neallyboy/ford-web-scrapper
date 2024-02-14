@@ -3,10 +3,13 @@ from dotenv import load_dotenv
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.edge.service import Service as EdgeService
+from selenium.webdriver.edge.options import Options as EdgeOptions
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
 # Built-in Packages
@@ -29,6 +32,8 @@ def setup_driver():
         return setup_chrome_driver()
     elif driver_type == "firefox":
         return setup_firefox_driver()
+    elif driver_type == "edge":
+        return setup_edge_driver()
     else:
         raise ValueError(
             "Invalid DRIVER_TYPE in the .env file. Use 'chrome' or 'firefox'."
@@ -40,7 +45,7 @@ def setup_driver():
 # ----------------------------------------------------------------------
 def setup_chrome_driver():
     chrome_service = ChromeService(ChromeDriverManager().install())
-    chrome_options = Options()
+    chrome_options = ChromeOptions()
     chrome_options.add_experimental_option("detach", False)
     headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
     if headless_mode:
@@ -51,11 +56,25 @@ def setup_chrome_driver():
 
 
 # ----------------------------------------------------------------------
+# Edge driver setup
+# ----------------------------------------------------------------------
+def setup_edge_driver():
+    edge_service = EdgeService(EdgeChromiumDriverManager().install())
+    edge_options = EdgeOptions()
+    edge_options.add_experimental_option("detach", False)
+    headless_mode = os.getenv("EDGE_HEADLESS_MODE", "False").lower() == "true"
+    if headless_mode:
+        edge_options.add_argument("--headless")
+    driver = webdriver.Edge(service=edge_service, options=edge_options)
+    return driver
+
+
+# ----------------------------------------------------------------------
 # Firefox driver setup
 # ----------------------------------------------------------------------
 def setup_firefox_driver():
-    os.environ["WDM_LOCAL"] = "1"
-    firefox_service = FirefoxService(GeckoDriverManager(token=github_token).install())
+    os.environ["GH_TOKEN"] = github_token
+    firefox_service = FirefoxService(GeckoDriverManager().install())
     firefox_options = FirefoxOptions()
     firefox_options.add_argument(
         "--disable-gpu"
