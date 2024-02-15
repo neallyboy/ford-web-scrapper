@@ -19,7 +19,7 @@ import time
 # Load environment variables from the .env file
 load_dotenv(override=True)
 
-github_token = os.getenv("GITHUB_TOKEN")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
 
 # ----------------------------------------------------------------------
@@ -73,7 +73,7 @@ def setup_edge_driver():
 # Firefox driver setup
 # ----------------------------------------------------------------------
 def setup_firefox_driver():
-    os.environ["GH_TOKEN"] = github_token
+    os.environ["GH_TOKEN"] = GITHUB_TOKEN
     firefox_service = FirefoxService(GeckoDriverManager().install())
     firefox_options = FirefoxOptions()
     firefox_options.add_argument(
@@ -83,6 +83,7 @@ def setup_firefox_driver():
     if headless_mode:
         firefox_options.add_argument("--headless")
     driver = webdriver.Firefox(service=firefox_service, options=firefox_options)
+    # driver.set_window_size(1024, 768)
     return driver
 
 

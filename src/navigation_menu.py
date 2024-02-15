@@ -25,6 +25,7 @@ load_dotenv(override=True)
 # Get email configuration from environment variables
 MAIN_MANUFACTURER_URL = os.getenv("MAIN_MANUFACTURER_URL")
 MAIN_DEALER_URL = os.getenv("MAIN_DEALER_URL")
+NAVIGATION_MODEL_LIST = os.getenv("NAVIGATION_MODEL_LIST", "")
 
 
 # ------------------------------------------
@@ -263,19 +264,10 @@ def create_navigation_prices_df():
         "Price Comparison",
     ] = "Mismatch"
 
-    merged_df = merged_df[
-        merged_df["Car Model"].isin(
-            [
-                "BRONCO SPORT",
-                "EDGE",
-                "ESCAPE",
-                "F-150",
-                "F-150 LIGHTNING",
-                "MUSTANG",
-                "MUSTANG MACH-E",
-            ]
-        )
-    ]
+    # Filter Navigation List if needed - Reducing the list
+    if NAVIGATION_MODEL_LIST is not None and NAVIGATION_MODEL_LIST.strip() != "":
+        car_models = [model.strip() for model in NAVIGATION_MODEL_LIST.split(",")]
+        merged_df = merged_df[merged_df["Car Model"].isin(car_models)]
 
     return merged_df
 

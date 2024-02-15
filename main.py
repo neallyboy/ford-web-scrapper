@@ -36,203 +36,370 @@ EMAIL_RECIEVER = os.getenv("EMAIL_RECIEVER")
 EMAIL_SENDER = os.getenv("EMAIL_SENDER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
+# Get skip flags from environment variables
+BRONCO_SKIP_FLAG = os.getenv("BRONCO_SKIP_FLAG", "").lower()
+BRONCO_SPORT_SKIP_FLAG = os.getenv("BRONCO_SPORT_SKIP_FLAG", "").lower()
+EDGE_SKIP_FLAG = os.getenv("EDGE_SKIP_FLAG", "").lower()
+ESCAPE_SKIP_FLAG = os.getenv("ESCAPE_SKIP_FLAG", "").lower()
+F150_SKIP_FLAG = os.getenv("F150_SKIP_FLAG", "").lower()
+F150_LIGHTENING_SKIP_FLAG = os.getenv("F150_LIGHTENING_SKIP_FLAG", "").lower()
+MUSTANG_SKIP_FLAG = os.getenv("MUSTANG_SKIP_FLAG", "").lower()
+MUSTANG_MACH_E_SKIP_FLAG = os.getenv("MUSTANG_MACH_E_SKIP_FLAG", "").lower()
+NAVIGATION_SKIP_FLAG = os.getenv("NAVIGATION_SKIP_FLAG", "").lower()
+
+# Initialize variables for Email
+vehicles_list_html = []
+all_model_images_df = pd.DataFrame()
+
+
 # ---------------------------------
 # Get Navigation Data
 # ---------------------------------
 
-print("Navigation pricing started.")
-func_start_time = start_timer()
+if NAVIGATION_SKIP_FLAG == "false":
+    print("Navigation pricing started...")
+    func_start_time = start_timer()
 
-nav_prices_df = create_navigation_prices_df()
+    # Capture Prices
+    nav_prices_df = create_navigation_prices_df()
 
-print_elapsed_time(func_start_time, "Navigation pricing completed time")
-print_elapsed_time(start_time, "Elapased Time")
+    print_elapsed_time(func_start_time, "Navigation pricing completed time")
+    print_elapsed_time(start_time, "Elapased Time")
+else:
+    print("NAVIGATION_SKIP_FLAG is set to 'true'. Skipping NAVIGATION pricing.")
 
 # ---------------------------------
 # Get Bronco Data
 # ---------------------------------
 
-print("Bronco pricing started.")
-func_start_time = start_timer()
+if BRONCO_SKIP_FLAG == "false":
+    print("Bronco pricing started...")
+    func_start_time = start_timer()
 
-bronco_prices_df = create_vehicle_prices_df(
-    get_ford_mfg_bronco_prices(), get_ford_dealer_bronco_prices()
-)
-bronco_image_df = create_vehicle_image_df(
-    get_ford_mfg_bronco_hero_img(),
-    get_ford_dealer_bronco_hero_img(),
-    "Bronco®",
-    BRONCO_MANUFACTURER_IMAGE_URL,
-    BRONCO_DEALER_URL,
-)
+    # Capture Prices
+    bronco_prices_df = create_vehicle_prices_df(
+        get_ford_mfg_bronco_prices(), get_ford_dealer_bronco_prices()
+    )
 
-print_elapsed_time(func_start_time, "Bronco pricing completed time")
-print_elapsed_time(start_time, "Elapased Time")
+    # Capture Hero Images
+    bronco_image_df = create_vehicle_image_df(
+        get_ford_mfg_bronco_hero_img(),
+        get_ford_dealer_bronco_hero_img(),
+        "Bronco®",
+        BRONCO_MANUFACTURER_IMAGE_URL,
+        BRONCO_DEALER_URL,
+    )
+
+    # Append Prices to single list
+    vehicles_list_html.append(
+        ("BRONCO®", bronco_prices_df, BRONCO_MANUFACTURER_URL, BRONCO_DEALER_URL)
+    )
+
+    # Append Images to single data frame
+    all_model_images_df = pd.concat(
+        [all_model_images_df, bronco_image_df], ignore_index=True
+    )
+
+    print_elapsed_time(func_start_time, "Bronco pricing completed time")
+    print_elapsed_time(start_time, "Elapased Time")
+else:
+    print("BRONCO_SKIP_FLAG is set to 'true'. Skipping BRONCO pricing.")
 
 # ---------------------------------
 # Get Bronco Sport Data
 # ---------------------------------
 
-print("Bronco Sport pricing started.")
-func_start_time = start_timer()
+if BRONCO_SPORT_SKIP_FLAG == "false":
+    print("Bronco Sport pricing started...")
+    func_start_time = start_timer()
 
-bronco_sport_prices_df = create_vehicle_prices_df(
-    get_ford_mfg_bronco_sport_prices(), get_ford_dealer_bronco_sport_prices()
-)
-bronco_sport_image_df = create_vehicle_image_df(
-    get_ford_mfg_bronco_sport_hero_img(),
-    get_ford_dealer_bronco_sport_hero_img(),
-    "Bronco® Sport",
-    BRONCO_SPORT_MANUFACTURER_IMAGE_URL,
-    BRONCO_SPORT_DEALER_URL,
-)
+    # Capture Prices
+    bronco_sport_prices_df = create_vehicle_prices_df(
+        get_ford_mfg_bronco_sport_prices(), get_ford_dealer_bronco_sport_prices()
+    )
 
-print_elapsed_time(func_start_time, "Bronco Sport pricing completed time")
-print_elapsed_time(start_time, "Elapased Time")
+    # Capture Hero Images
+    bronco_sport_image_df = create_vehicle_image_df(
+        get_ford_mfg_bronco_sport_hero_img(),
+        get_ford_dealer_bronco_sport_hero_img(),
+        "Bronco® Sport",
+        BRONCO_SPORT_MANUFACTURER_IMAGE_URL,
+        BRONCO_SPORT_DEALER_URL,
+    )
+
+    # Append Prices to single list
+    vehicles_list_html.append(
+        (
+            "BRONCO® SPORT",
+            bronco_sport_prices_df,
+            BRONCO_SPORT_MANUFACTURER_URL,
+            BRONCO_SPORT_DEALER_URL,
+        )
+    )
+
+    # Append Images to single data frame
+    all_model_images_df = pd.concat(
+        [all_model_images_df, bronco_sport_image_df], ignore_index=True
+    )
+
+    print_elapsed_time(func_start_time, "Bronco Sport pricing completed time")
+    print_elapsed_time(start_time, "Elapased Time")
+else:
+    print("BRONCO_SPORT_SKIP_FLAG is set to 'true'. Skipping BRONCO SPORT pricing.")
 
 # ---------------------------------
 # Get Edge Data
 # ---------------------------------
 
-print("Edge pricing started.")
-func_start_time = start_timer()
+if EDGE_SKIP_FLAG == "false":
+    print("Edge pricing started...")
+    func_start_time = start_timer()
 
-edge_prices_df = create_vehicle_prices_df(
-    get_ford_mfg_edge_prices(), get_ford_dealer_edge_prices()
-)
-edge_image_df = create_vehicle_image_df(
-    get_ford_mfg_edge_hero_img(),
-    get_ford_dealer_edge_hero_img(),
-    "Edge®",
-    EDGE_MANUFACTURER_URL,
-    EDGE_DEALER_URL,
-)
+    # Capture Prices
+    edge_prices_df = create_vehicle_prices_df(
+        get_ford_mfg_edge_prices(), get_ford_dealer_edge_prices()
+    )
 
-print_elapsed_time(func_start_time, "Edge Sport pricing completed time")
-print_elapsed_time(start_time, "Elapased Time")
+    # Capture Hero Images
+    edge_image_df = create_vehicle_image_df(
+        get_ford_mfg_edge_hero_img(),
+        get_ford_dealer_edge_hero_img(),
+        "Edge®",
+        EDGE_MANUFACTURER_URL,
+        EDGE_DEALER_URL,
+    )
+
+    # Append Prices to single list
+    vehicles_list_html.append(
+        (
+            "EDGE®",
+            edge_prices_df,
+            EDGE_MANUFACTURER_URL,
+            EDGE_DEALER_URL,
+        )
+    )
+
+    # Append Images to single data frame
+    all_model_images_df = pd.concat(
+        [all_model_images_df, edge_image_df], ignore_index=True
+    )
+
+    print_elapsed_time(func_start_time, "Edge Sport pricing completed time")
+    print_elapsed_time(start_time, "Elapased Time")
+else:
+    print("EDGE_SKIP_FLAG is set to 'true'. Skipping Edge pricing.")
 
 # ---------------------------------
 # Get Escape Data
 # ---------------------------------
 
-print("Escape pricing started.")
-func_start_time = start_timer()
+if ESCAPE_SKIP_FLAG == "false":
+    print("Escape pricing started...")
+    func_start_time = start_timer()
 
-escape_prices_df = create_vehicle_prices_df(
-    get_ford_mfg_escape_prices(), get_ford_dealer_escape_prices()
-)
-escape_image_df = create_vehicle_image_df(
-    get_ford_mfg_escape_hero_img(),
-    get_ford_dealer_escape_hero_img(),
-    "Escape",
-    ESCAPE_MANUFACTURER_URL,
-    ESCAPE_DEALER_URL,
-)
+    # Capture Prices
+    escape_prices_df = create_vehicle_prices_df(
+        get_ford_mfg_escape_prices(), get_ford_dealer_escape_prices()
+    )
 
-print_elapsed_time(func_start_time, "Escape Sport pricing completed time")
-print_elapsed_time(start_time, "Elapased Time")
+    # Capture Hero Images
+    escape_image_df = create_vehicle_image_df(
+        get_ford_mfg_escape_hero_img(),
+        get_ford_dealer_escape_hero_img(),
+        "Escape",
+        ESCAPE_MANUFACTURER_URL,
+        ESCAPE_DEALER_URL,
+    )
+
+    # Append Prices to single list
+    vehicles_list_html.append(
+        (
+            "ESCAPE",
+            escape_prices_df,
+            ESCAPE_MANUFACTURER_URL,
+            ESCAPE_DEALER_URL,
+        )
+    )
+
+    # Append Images to single data frame
+    all_model_images_df = pd.concat(
+        [all_model_images_df, escape_image_df], ignore_index=True
+    )
+
+    print_elapsed_time(func_start_time, "Escape Sport pricing completed time")
+    print_elapsed_time(start_time, "Elapased Time")
+else:
+    print("ESCAPE_SKIP_FLAG is set to 'true'. Skipping Escape pricing.")
 
 # ---------------------------------
 # Get F-150 Data
 # ---------------------------------
 
-print("F-150 pricing started.")
-func_start_time = start_timer()
+if F150_SKIP_FLAG == "false":
+    print("F-150 pricing started...")
+    func_start_time = start_timer()
 
-f150_prices_df = create_vehicle_prices_df(
-    get_ford_mfg_f150_prices(), get_ford_dealer_f150_prices()
-)
-f150_image_df = create_vehicle_image_df(
-    get_ford_mfg_f150_hero_img(),
-    get_ford_dealer_f150_hero_img(),
-    "F-150®",
-    F150_MANUFACTURER_URL,
-    F150_DEALER_URL,
-)
+    # Capture Prices
+    f150_prices_df = create_vehicle_prices_df(
+        get_ford_mfg_f150_prices(), get_ford_dealer_f150_prices()
+    )
 
-print_elapsed_time(func_start_time, "F-150 Sport pricing completed time")
-print_elapsed_time(start_time, "Elapased Time")
+    # Capture Hero Images
+    f150_image_df = create_vehicle_image_df(
+        get_ford_mfg_f150_hero_img(),
+        get_ford_dealer_f150_hero_img(),
+        "F-150®",
+        F150_MANUFACTURER_URL,
+        F150_DEALER_URL,
+    )
+
+    # Append Prices to single list
+    vehicles_list_html.append(
+        (
+            "F-150®",
+            f150_prices_df,
+            F150_MANUFACTURER_URL,
+            F150_DEALER_URL,
+        )
+    )
+
+    # Append Images to single data frame
+    all_model_images_df = pd.concat(
+        [all_model_images_df, f150_image_df], ignore_index=True
+    )
+
+    print_elapsed_time(func_start_time, "F-150 Sport pricing completed time")
+    print_elapsed_time(start_time, "Elapased Time")
+else:
+    print("F150_SKIP_FLAG is set to 'true'. Skipping F150 pricing.")
 
 # ---------------------------------
 # Get F-150 Lightening Data
 # ---------------------------------
 
-print("F-150 Lightening pricing started.")
-func_start_time = start_timer()
+if F150_LIGHTENING_SKIP_FLAG == "false":
+    print("F-150 Lightening pricing started...")
+    func_start_time = start_timer()
 
-f150_lightening_prices_df = create_vehicle_prices_df(
-    get_ford_mfg_f150_lightening_prices(), get_ford_dealer_f150_lightening_prices()
-)
-f150_lightening_image_df = create_vehicle_image_df(
-    get_ford_mfg_f150_lightening_hero_img(),
-    get_ford_dealer_f150_lightening_hero_img(),
-    "F-150® Lightening®",
-    F150_LIGHTENING_MANUFACTURER_URL,
-    F150_LIGHTENING_DEALER_URL,
-)
+    # Capture Prices
+    f150_lightening_prices_df = create_vehicle_prices_df(
+        get_ford_mfg_f150_lightening_prices(), get_ford_dealer_f150_lightening_prices()
+    )
 
-print_elapsed_time(func_start_time, "F-150 Lightening Sport pricing completed time")
-print_elapsed_time(start_time, "Elapased Time")
+    # Capture Hero Images
+    f150_lightening_image_df = create_vehicle_image_df(
+        get_ford_mfg_f150_lightening_hero_img(),
+        get_ford_dealer_f150_lightening_hero_img(),
+        "F-150® Lightening®",
+        F150_LIGHTENING_MANUFACTURER_URL,
+        F150_LIGHTENING_DEALER_URL,
+    )
+
+    # Append Prices to single list
+    vehicles_list_html.append(
+        (
+            "F-150® LIGHTENING®",
+            f150_lightening_prices_df,
+            F150_LIGHTENING_MANUFACTURER_URL,
+            F150_LIGHTENING_DEALER_URL,
+        )
+    )
+
+    # Append Images to single data frame
+    all_model_images_df = pd.concat(
+        [all_model_images_df, f150_lightening_image_df], ignore_index=True
+    )
+
+    print_elapsed_time(func_start_time, "F-150 Lightening Sport pricing completed time")
+    print_elapsed_time(start_time, "Elapased Time")
+else:
+    print(
+        "F150_LIGHTENING_SKIP_FLAG is set to 'true'. Skipping F150 Lightening pricing."
+    )
 
 # ---------------------------------
 # Get Mustang Data
 # ---------------------------------
 
-print("Mustang pricing started.")
-func_start_time = start_timer()
+if MUSTANG_SKIP_FLAG == "false":
+    print("Mustang pricing started...")
+    func_start_time = start_timer()
 
-mustang_prices_df = create_vehicle_prices_df(
-    get_ford_mfg_mustang_prices(), get_ford_dealer_mustang_prices()
-)
-mustang_image_df = create_vehicle_image_df(
-    get_ford_mfg_mustang_hero_img(),
-    get_ford_dealer_mustang_hero_img(),
-    "Mustang®",
-    MUSTANG_MANUFACTURER_URL,
-    MUSTANG_DEALER_URL,
-)
+    # Capture Prices
+    mustang_prices_df = create_vehicle_prices_df(
+        get_ford_mfg_mustang_prices(), get_ford_dealer_mustang_prices()
+    )
 
-print_elapsed_time(func_start_time, "Mustang pricing completed time")
-print_elapsed_time(start_time, "Elapased Time")
+    # Capture Hero Images
+    mustang_image_df = create_vehicle_image_df(
+        get_ford_mfg_mustang_hero_img(),
+        get_ford_dealer_mustang_hero_img(),
+        "Mustang®",
+        MUSTANG_MANUFACTURER_URL,
+        MUSTANG_DEALER_URL,
+    )
+
+    # Append Prices to single list
+    vehicles_list_html.append(
+        (
+            "MUSTANG®",
+            mustang_prices_df,
+            MUSTANG_MANUFACTURER_URL,
+            MUSTANG_DEALER_URL,
+        )
+    )
+
+    # Append Images to single data frame
+    all_model_images_df = pd.concat(
+        [all_model_images_df, mustang_image_df], ignore_index=True
+    )
+
+    print_elapsed_time(func_start_time, "Mustang pricing completed time")
+    print_elapsed_time(start_time, "Elapased Time")
+else:
+    print("MUSTANG_SKIP_FLAG is set to 'true'. Skipping Mustang pricing.")
 
 # ---------------------------------
 # Get Mustang Mach-E Data
 # ---------------------------------
+if MUSTANG_MACH_E_SKIP_FLAG == "false":
+    print("Mustang Mach-E pricing started...")
+    func_start_time = start_timer()
 
-print("Mustang Mach-E pricing started.")
-func_start_time = start_timer()
+    # Capture Prices
+    mustang_mach_e_prices_df = create_vehicle_prices_df(
+        get_ford_mfg_mustang_mach_e_prices(), get_ford_dealer_mustang_mach_e_prices()
+    )
 
-mustang_mach_e_prices_df = create_vehicle_prices_df(
-    get_ford_mfg_mustang_mach_e_prices(), get_ford_dealer_mustang_mach_e_prices()
-)
-mustang_mach_e_image_df = create_vehicle_image_df(
-    get_ford_mfg_mustang_mach_e_hero_img(),
-    get_ford_dealer_mustang_mach_e_hero_img(),
-    "Mustang MACH-E®",
-    MUSTANG_MACH_E_MANUFACTURER_URL,
-    MUSTANG_MACH_E_DEALER_URL,
-)
+    # Capture Hero Images
+    mustang_mach_e_image_df = create_vehicle_image_df(
+        get_ford_mfg_mustang_mach_e_hero_img(),
+        get_ford_dealer_mustang_mach_e_hero_img(),
+        "Mustang MACH-E®",
+        MUSTANG_MACH_E_MANUFACTURER_URL,
+        MUSTANG_MACH_E_DEALER_URL,
+    )
 
-print_elapsed_time(func_start_time, "Mustang Mach-E pricing completed time")
-print_elapsed_time(start_time, "Elapased Time")
+    # Append Prices to single list
+    vehicles_list_html.append(
+        (
+            "MUSTANG MACH-E®",
+            mustang_mach_e_prices_df,
+            MUSTANG_MACH_E_MANUFACTURER_URL,
+            MUSTANG_MACH_E_DEALER_URL,
+        )
+    )
 
-# --------------------------------------------------#
-# Concatenate the Image data frames
-# - Merge all the Images to a single data frame
-# --------------------------------------------------#
-all_model_images_df = pd.concat(
-    [
-        bronco_image_df,
-        bronco_sport_image_df,
-        edge_image_df,
-        escape_image_df,
-        f150_image_df,
-        f150_lightening_image_df,
-        mustang_image_df,
-        mustang_mach_e_image_df,
-    ],
-    ignore_index=True,
-)
+    # Append Images to single data frame
+    all_model_images_df = pd.concat(
+        [all_model_images_df, mustang_mach_e_image_df], ignore_index=True
+    )
+
+    print_elapsed_time(func_start_time, "Mustang Mach-E pricing completed time")
+    print_elapsed_time(start_time, "Elapased Time")
+else:
+    print("MUSTANG_MACH_E_SKIP_FLAG is set to 'true'. Skipping Mustang Mach-E pricing.")
+
 
 # Email configuration
 sender_email = EMAIL_SENDER
@@ -289,62 +456,23 @@ html_content = f"""
       <li>{MAIN_DEALER_URL}</li>
     </ul>
     {nav_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>BRONCO® PRICES</h2>
+"""
+
+# Loop through each vehicle and add corresponding HTML sections
+for vehicle_name, vehicle_df, manufacturer_url, dealer_url in vehicles_list_html:
+
+    html_content += f"""
+    <h2>{vehicle_name} PRICES</h2>
     Data Sources:
     <ul>
-      <li>{BRONCO_MANUFACTURER_URL}</li>
-      <li>{BRONCO_DEALER_URL}</li>
+      <li>{manufacturer_url}</li>
+      <li>{dealer_url}</li>
     </ul>
-    {bronco_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>BRONCO® SPORT PRICES</h2>
-    Data Sources:
-    <ul>
-      <li>{BRONCO_SPORT_MANUFACTURER_URL}</li>
-      <li>{BRONCO_SPORT_DEALER_URL}</li>
-    </ul>
-    {bronco_sport_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>EDGE® PRICES</h2>
-    Data Sources:
-    <ul>
-      <li>{EDGE_MANUFACTURER_URL}</li>
-      <li>{EDGE_DEALER_URL}</li>
-    </ul>
-    {edge_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>ESCAPE PRICES</h2>
-    Data Sources:
-    <ul>
-      <li>{ESCAPE_MANUFACTURER_URL}</li>
-      <li>{ESCAPE_DEALER_URL}</li>
-    </ul>
-    {escape_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>F-150® PRICES</h2>
-    Data Sources:
-    <ul>
-      <li>{F150_MANUFACTURER_URL}</li>
-      <li>{F150_DEALER_URL}</li>
-    </ul>
-    {f150_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>F-150® LIGHTENING® PRICES</h2>
-    Data Sources:
-    <ul>
-      <li>{F150_LIGHTENING_MANUFACTURER_URL}</li>
-      <li>{F150_LIGHTENING_DEALER_URL}</li>
-    </ul>
-    {f150_lightening_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>MUSTANG® PRICES</h2>
-    Data Sources:
-    <ul>
-      <li>{MUSTANG_MANUFACTURER_URL}</li>
-      <li>{MUSTANG_DEALER_URL}</li>
-    </ul>
-    {mustang_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    <h2>MUSTANG MACH-E® PRICES</h2>
-    Data Sources:
-    <ul>
-      <li>{MUSTANG_MACH_E_MANUFACTURER_URL}</li>
-      <li>{MUSTANG_MACH_E_DEALER_URL}</li>
-    </ul>
-    {mustang_mach_e_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+    {vehicle_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+    """
+
+# Continue with the remaining HTML content
+html_content += f"""
     <br>
     <hr>
     <h2>MODEL HERO IMAGES</h2>
