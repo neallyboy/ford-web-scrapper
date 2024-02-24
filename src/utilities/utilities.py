@@ -14,7 +14,9 @@ from webdriver_manager.firefox import GeckoDriverManager
 
 # Built-in Packages
 import os
+import re
 import time
+from typing import Optional
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
@@ -213,3 +215,10 @@ def create_vehicle_image_df(
     ] = "Mismatch"
 
     return hero_image_df
+
+
+# ------------------------------------------------
+# Find image filename from img source attributte
+# ------------------------------------------------
+def parse_img_filename(img_src: str) -> Optional[re.Match]:
+    return re.search(r"\/([^\/]+\.(jpe?g|png|mp4|tif|webp))", img_src)

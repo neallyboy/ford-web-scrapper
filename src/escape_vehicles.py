@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 # Built-in Packages
 import time
 import os
-import re
 import sys
 
 # Get the current script's directory
@@ -148,7 +147,7 @@ def get_ford_mfg_escape_hero_img():
         img_src = img_element.get_attribute("src")
 
         # Extract the part of the URL containing image using regular expressions
-        match = re.search(r"\/([^\/]+\.(jpe?g|png|mp4|tif|webp))", img_src)
+        match = parse_img_filename(img_src=img_src)
 
         if match:
             # Get the matched group (filename with image file extension)
@@ -190,7 +189,7 @@ def get_ford_dealer_escape_hero_img():
         img_src = img_element.get_attribute("style")
 
         # Extract the part of the URL containing image using regular expressions
-        match = re.search(r"\/([^\/]+\.(jpe?g|png|mp4|tif|webp))", img_src)
+        match = parse_img_filename(img_src=img_src)
 
         if match:
             # Get the matched group (filename with image file extension)
