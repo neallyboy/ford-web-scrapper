@@ -109,6 +109,8 @@ def get_ford_mfg_nav_prices():
 
         # Remove possible duplicates
         # vehicle_prices = list(set(vehicle_prices))
+        vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
+        vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
         vehicle_prices = [("Ford.ca Error", e)]
@@ -188,7 +190,9 @@ def get_ford_dealer_nav_prices():
                 )
 
         # Remove possible duplicates
-        # vehicle_prices = list(set(vehicle_prices)
+        # vehicle_prices = list(set(vehicle_prices))
+        vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
+        vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
         vehicle_prices = [("Fordtodealers.ca Error", e)]
@@ -273,6 +277,7 @@ def create_navigation_prices_df():
 
 
 # Test Functions
-# print(get_ford_mfg_nav_prices())
-# print(get_ford_dealer_nav_prices())
-# print(create_navigation_prices_df())
+if __name__ == "__main__":
+    print(get_ford_mfg_nav_prices())
+    print(get_ford_dealer_nav_prices())
+    print(create_navigation_prices_df())

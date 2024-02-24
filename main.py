@@ -18,6 +18,7 @@ from src.bronco_vehicles import *
 from src.bronco_sport_vehicles import *
 from src.edge_vehicles import *
 from src.escape_vehicles import *
+from src.explorer_vehicles import *
 from src.f150_vehicles import *
 from src.f150_lightening_vehicles import *
 from src.mustang_vehicles import *
@@ -41,6 +42,7 @@ BRONCO_SKIP_FLAG = os.getenv("BRONCO_SKIP_FLAG", "").lower()
 BRONCO_SPORT_SKIP_FLAG = os.getenv("BRONCO_SPORT_SKIP_FLAG", "").lower()
 EDGE_SKIP_FLAG = os.getenv("EDGE_SKIP_FLAG", "").lower()
 ESCAPE_SKIP_FLAG = os.getenv("ESCAPE_SKIP_FLAG", "").lower()
+EXPLORER_SKIP_FLAG = os.getenv("EXPLORER_SKIP_FLAG", "").lower()
 F150_SKIP_FLAG = os.getenv("F150_SKIP_FLAG", "").lower()
 F150_LIGHTENING_SKIP_FLAG = os.getenv("F150_LIGHTENING_SKIP_FLAG", "").lower()
 MUSTANG_SKIP_FLAG = os.getenv("MUSTANG_SKIP_FLAG", "").lower()
@@ -87,7 +89,7 @@ if BRONCO_SKIP_FLAG == "false":
         get_ford_dealer_bronco_hero_img(),
         "Bronco®",
         BRONCO_MANUFACTURER_IMAGE_URL,
-        BRONCO_DEALER_URL,
+        BRONCO_DEALER_IMAGE_URL,
     )
 
     # Append Prices to single list
@@ -124,7 +126,7 @@ if BRONCO_SPORT_SKIP_FLAG == "false":
         get_ford_dealer_bronco_sport_hero_img(),
         "Bronco® Sport",
         BRONCO_SPORT_MANUFACTURER_IMAGE_URL,
-        BRONCO_SPORT_DEALER_URL,
+        BRONCO_SPORT_DEALER_IMAGE_URL,
     )
 
     # Append Prices to single list
@@ -165,8 +167,8 @@ if EDGE_SKIP_FLAG == "false":
         get_ford_mfg_edge_hero_img(),
         get_ford_dealer_edge_hero_img(),
         "Edge®",
-        EDGE_MANUFACTURER_URL,
-        EDGE_DEALER_URL,
+        EDGE_MANUFACTURER_IMAGE_URL,
+        EDGE_DEALER_IMAGE_URL,
     )
 
     # Append Prices to single list
@@ -207,8 +209,8 @@ if ESCAPE_SKIP_FLAG == "false":
         get_ford_mfg_escape_hero_img(),
         get_ford_dealer_escape_hero_img(),
         "Escape",
-        ESCAPE_MANUFACTURER_URL,
-        ESCAPE_DEALER_URL,
+        ESCAPE_MANUFACTURER_IMAGE_URL,
+        ESCAPE_DEALER_IMAGE_URL,
     )
 
     # Append Prices to single list
@@ -232,6 +234,48 @@ else:
     print("ESCAPE_SKIP_FLAG is set to 'true'. Skipping Escape pricing.")
 
 # ---------------------------------
+# Get Explorer Data
+# ---------------------------------
+
+if EXPLORER_SKIP_FLAG == "false":
+    print("Explorer pricing started...")
+    func_start_time = start_timer()
+
+    # Capture Prices
+    explorer_prices_df = create_vehicle_prices_df(
+        get_ford_mfg_explorer_prices(), get_ford_dealer_explorer_prices()
+    )
+
+    # Capture Hero Images
+    explorer_image_df = create_vehicle_image_df(
+        get_ford_mfg_explorer_hero_img(),
+        get_ford_dealer_explorer_hero_img(),
+        "Explorer®",
+        EXPLORER_MANUFACTURER_IMAGE_URL,
+        EXPLORER_DEALER_IMAGE_URL,
+    )
+
+    # Append Prices to single list
+    vehicles_list_html.append(
+        (
+            "EXPLORER",
+            explorer_prices_df,
+            EXPLORER_MANUFACTURER_URL,
+            EXPLORER_DEALER_URL,
+        )
+    )
+
+    # Append Images to single data frame
+    all_model_images_df = pd.concat(
+        [all_model_images_df, explorer_image_df], ignore_index=True
+    )
+
+    print_elapsed_time(func_start_time, "Explorer pricing completed time")
+    print_elapsed_time(start_time, "Elapased Time")
+else:
+    print("EXPLORER_SKIP_FLAG is set to 'true'. Skipping Explorer pricing.")
+
+# ---------------------------------
 # Get F-150 Data
 # ---------------------------------
 
@@ -249,8 +293,8 @@ if F150_SKIP_FLAG == "false":
         get_ford_mfg_f150_hero_img(),
         get_ford_dealer_f150_hero_img(),
         "F-150®",
-        F150_MANUFACTURER_URL,
-        F150_DEALER_URL,
+        F150_MANUFACTURER_IMAGE_URL,
+        F150_DEALER_IMAGE_URL,
     )
 
     # Append Prices to single list
@@ -291,8 +335,8 @@ if F150_LIGHTENING_SKIP_FLAG == "false":
         get_ford_mfg_f150_lightening_hero_img(),
         get_ford_dealer_f150_lightening_hero_img(),
         "F-150® Lightening®",
-        F150_LIGHTENING_MANUFACTURER_URL,
-        F150_LIGHTENING_DEALER_URL,
+        F150_LIGHTENING_MANUFACTURER_IMAGE_URL,
+        F150_LIGHTENING_DEALER_IMAGE_URL,
     )
 
     # Append Prices to single list
@@ -335,8 +379,8 @@ if MUSTANG_SKIP_FLAG == "false":
         get_ford_mfg_mustang_hero_img(),
         get_ford_dealer_mustang_hero_img(),
         "Mustang®",
-        MUSTANG_MANUFACTURER_URL,
-        MUSTANG_DEALER_URL,
+        MUSTANG_MANUFACTURER_IMAGE_URL,
+        MUSTANG_DEALER_IMAGE_URL,
     )
 
     # Append Prices to single list
@@ -385,8 +429,8 @@ if MUSTANG_MACH_E_SKIP_FLAG == "false":
         (
             "MUSTANG MACH-E®",
             mustang_mach_e_prices_df,
-            MUSTANG_MACH_E_MANUFACTURER_URL,
-            MUSTANG_MACH_E_DEALER_URL,
+            MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL,
+            MUSTANG_MACH_E_DEALER_IMAGE_URL,
         )
     )
 

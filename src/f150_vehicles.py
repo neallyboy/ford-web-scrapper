@@ -86,7 +86,9 @@ def get_ford_mfg_f150_prices():
                 vehicle_prices.append((model_name, price_value))
 
         # Remove possible duplicates
-        vehicle_prices = list(set(vehicle_prices))
+        # vehicle_prices = list(set(vehicle_prices))
+        vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
+        vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
         vehicle_prices = [("Ford.ca Error", e)]
@@ -154,7 +156,9 @@ def get_ford_dealer_f150_prices():
                 vehicle_prices.append((model_name, price_value))
 
             # Remove possible duplicates
-            vehicle_prices = list(set(vehicle_prices))
+            # vehicle_prices = list(set(vehicle_prices))
+            vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
+            vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
         vehicle_prices = [("Fordtodealers.ca Error", e)]
@@ -188,7 +192,7 @@ def get_ford_mfg_f150_hero_img():
         img_src = img_element.get_attribute("src")
 
         # Extract the part of the URL containing image using regular expressions
-        match = re.search(r"\/([^\/]+\.(jpe?g|png|mp4))", img_src)
+        match = re.search(r"\/([^\/]+\.(jpe?g|png|mp4|tif|webp))", img_src)
 
         if match:
             # Get the matched group (filename with image file extension)
@@ -230,7 +234,7 @@ def get_ford_dealer_f150_hero_img():
         img_src = img_element.get_attribute("style")
 
         # Extract the part of the URL containing image using regular expressions
-        match = re.search(r"\/([^\/]+\.(jpe?g|png|mp4))", img_src)
+        match = re.search(r"\/([^\/]+\.(jpe?g|png|mp4|tif|webp))", img_src)
 
         if match:
             # Get the matched group (filename with image file extension)
@@ -249,7 +253,8 @@ def get_ford_dealer_f150_hero_img():
 
 
 # Test Functions
-# print(get_ford_mfg_f150_prices())
-# print(get_ford_dealer_f150_prices())
-# print(get_ford_mfg_f150_hero_img())
-# print(get_ford_dealer_f150_hero_img())
+if __name__ == "__main__":
+    print(get_ford_mfg_f150_prices())
+    print(get_ford_dealer_f150_prices())
+    print(get_ford_mfg_f150_hero_img())
+    print(get_ford_dealer_f150_hero_img())
