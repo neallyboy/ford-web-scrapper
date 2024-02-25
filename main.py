@@ -444,6 +444,9 @@ if MUSTANG_MACH_E_SKIP_FLAG == "false":
 else:
     print("MUSTANG_MACH_E_SKIP_FLAG is set to 'true'. Skipping Mustang Mach-E pricing.")
 
+# Close Webdriver
+driver = WebDriverSingleton.get_driver()
+driver.quit()
 
 # Email configuration
 sender_email = EMAIL_SENDER

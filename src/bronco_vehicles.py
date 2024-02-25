@@ -16,7 +16,8 @@ sys.path.append(os.path.dirname(script_dir))
 sys.path.append(os.path.join(os.path.dirname(script_dir), "src"))
 
 # Local Packages
-from utilities.utilities import *
+from utilities.utilities import parse_img_filename
+from classes.web_driver_singleton import WebDriverSingleton
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
@@ -34,7 +35,7 @@ BRONCO_DEALER_IMAGE_URL = os.getenv("BRONCO_DEALER_IMAGE_URL")
 def get_ford_mfg_bronco_prices():
 
     # Set up the Chrome driver
-    driver = setup_driver()
+    driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = BRONCO_MANUFACTURER_URL
@@ -48,7 +49,6 @@ def get_ford_mfg_bronco_prices():
         model_elements = driver.find_elements(
             By.XPATH, "//a[@class='to-checkbox fgx-lnc-btm-brdr-hover']"
         )
-        # print(model_elements)
 
         price_elements = driver.find_elements(
             By.XPATH,
@@ -69,16 +69,11 @@ def get_ford_mfg_bronco_prices():
             vehicle_prices.append((model_name, price_value))
 
         # Remove possible duplicates
-        # vehicle_prices = list(set(vehicle_prices))
         vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
         vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
         vehicle_prices = [("Ford.ca Error", e)]
-
-    finally:
-        # Close the browser
-        driver.quit()
 
     return vehicle_prices
 
@@ -89,7 +84,7 @@ def get_ford_mfg_bronco_prices():
 def get_ford_dealer_bronco_prices():
 
     # Set up the Chrome driver
-    driver = setup_driver()
+    driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = BRONCO_DEALER_URL
@@ -140,15 +135,11 @@ def get_ford_dealer_bronco_prices():
                 vehicle_prices.append((model_name, price_value))
 
             # Remove possible duplicates
-            # vehicle_prices = list(set(vehicle_prices))
             vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
             vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
         vehicle_prices = [("Fordtodealers.ca Error", e)]
-
-    # Close the browser
-    driver.quit()
 
     return vehicle_prices
 
@@ -159,7 +150,7 @@ def get_ford_dealer_bronco_prices():
 def get_ford_mfg_bronco_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_driver()
+    driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = BRONCO_MANUFACTURER_IMAGE_URL
@@ -183,13 +174,10 @@ def get_ford_mfg_bronco_hero_img():
             vehicle_image = match.group(1)
 
         else:
-            vehicle_image = "No jpg, jpeg, or png found"
+            vehicle_image = "No image filename found"
 
     except Exception as e:
         vehicle_image = e
-
-    # Close the browser
-    driver.quit()
 
     return vehicle_image
 
@@ -200,7 +188,7 @@ def get_ford_mfg_bronco_hero_img():
 def get_ford_dealer_bronco_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_driver()
+    driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = BRONCO_DEALER_IMAGE_URL
@@ -225,13 +213,10 @@ def get_ford_dealer_bronco_hero_img():
             vehicle_image = match.group(1)
 
         else:
-            vehicle_image = "No jpg, jpeg, or png found"
+            vehicle_image = "No image filename found"
 
     except Exception as e:
         vehicle_image = e
-
-    # Close the browser
-    driver.quit()
 
     return vehicle_image
 
@@ -242,3 +227,6 @@ if __name__ == "__main__":
     print(get_ford_dealer_bronco_prices())
     print(get_ford_mfg_bronco_hero_img())
     print(get_ford_dealer_bronco_hero_img())
+
+    driver = WebDriverSingleton.get_driver()
+    driver.quit()

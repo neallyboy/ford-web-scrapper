@@ -17,7 +17,8 @@ sys.path.append(os.path.dirname(script_dir))
 sys.path.append(os.path.join(os.path.dirname(script_dir), "src"))
 
 # Local Packages
-from utilities.utilities import *
+from utilities.utilities import parse_img_filename
+from classes.web_driver_singleton import WebDriverSingleton
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
@@ -34,7 +35,7 @@ NAVIGATION_MODEL_LIST = os.getenv("NAVIGATION_MODEL_LIST", "")
 def get_ford_mfg_nav_prices():
 
     # Set up the Chrome driver
-    driver = setup_driver()
+    driver = WebDriverSingleton.get_driver()
 
     # Main URL
     url = MAIN_MANUFACTURER_URL
@@ -108,16 +109,11 @@ def get_ford_mfg_nav_prices():
                 )
 
         # Remove possible duplicates
-        # vehicle_prices = list(set(vehicle_prices))
         vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
         vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
         vehicle_prices = [("Ford.ca Error", e)]
-
-    finally:
-        # Close the browser
-        driver.quit()
 
     return vehicle_prices
 
@@ -128,7 +124,7 @@ def get_ford_mfg_nav_prices():
 def get_ford_dealer_nav_prices():
 
     # Set up the Chrome driver
-    driver = setup_driver()
+    driver = WebDriverSingleton.get_driver()
 
     # Main URL
     url = MAIN_DEALER_URL
@@ -190,16 +186,11 @@ def get_ford_dealer_nav_prices():
                 )
 
         # Remove possible duplicates
-        # vehicle_prices = list(set(vehicle_prices))
         vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
         vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
         vehicle_prices = [("Fordtodealers.ca Error", e)]
-
-    finally:
-        # Close the browser
-        driver.quit()
 
     return vehicle_prices
 
@@ -281,3 +272,6 @@ if __name__ == "__main__":
     print(get_ford_mfg_nav_prices())
     print(get_ford_dealer_nav_prices())
     print(create_navigation_prices_df())
+
+    driver = WebDriverSingleton.get_driver()
+    driver.quit()

@@ -16,7 +16,8 @@ sys.path.append(os.path.dirname(script_dir))
 sys.path.append(os.path.join(os.path.dirname(script_dir), "src"))
 
 # Local Packages
-from utilities.utilities import *
+from utilities.utilities import parse_img_filename
+from classes.web_driver_singleton import WebDriverSingleton
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
@@ -36,7 +37,7 @@ MUSTANG_MACH_E_DEALER_IMAGE_URL = os.getenv("MUSTANG_MACH_E_DEALER_IMAGE_URL")
 def get_ford_mfg_mustang_mach_e_prices():
 
     # Set up the Chrome driver
-    driver = setup_driver()
+    driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_MANUFACTURER_URL
@@ -87,16 +88,11 @@ def get_ford_mfg_mustang_mach_e_prices():
                 vehicle_prices.append((model_name, price_value))
 
         # Remove possible duplicates
-        # vehicle_prices = list(set(vehicle_prices))
         vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
         vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
         vehicle_prices = [("Ford.ca Error", e)]
-
-    finally:
-        # Close the browser
-        driver.quit()
 
     return vehicle_prices
 
@@ -107,7 +103,7 @@ def get_ford_mfg_mustang_mach_e_prices():
 def get_ford_dealer_mustang_mach_e_prices():
 
     # Set up the Chrome driver
-    driver = setup_driver()
+    driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_DEALER_URL
@@ -139,15 +135,11 @@ def get_ford_dealer_mustang_mach_e_prices():
             vehicle_prices.append((model_name, price_value))
 
         # Remove possible duplicates
-        # vehicle_prices = list(set(vehicle_prices))
         vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
         vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
         vehicle_prices = [("Fordtodealers.ca Error", e)]
-
-    # Close the browser
-    driver.quit()
 
     return vehicle_prices
 
@@ -158,7 +150,7 @@ def get_ford_dealer_mustang_mach_e_prices():
 def get_ford_mfg_mustang_mach_e_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_driver()
+    driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL
@@ -182,13 +174,10 @@ def get_ford_mfg_mustang_mach_e_hero_img():
             vehicle_image = match.group(1)
 
         else:
-            vehicle_image = "No jpg, jpeg, or png found"
+            vehicle_image = "No image filename found"
 
     except Exception as e:
         vehicle_image = e
-
-    # Close the browser
-    driver.quit()
 
     return vehicle_image
 
@@ -199,7 +188,7 @@ def get_ford_mfg_mustang_mach_e_hero_img():
 def get_ford_dealer_mustang_mach_e_hero_img():
 
     # Set up the Chrome driver
-    driver = setup_driver()
+    driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_DEALER_IMAGE_URL
@@ -224,13 +213,10 @@ def get_ford_dealer_mustang_mach_e_hero_img():
             vehicle_image = match.group(1)
 
         else:
-            vehicle_image = "No jpg, jpeg, or png found"
+            vehicle_image = "No image filename found"
 
     except Exception as e:
         vehicle_image = e
-
-    # Close the browser
-    driver.quit()
 
     return vehicle_image
 
@@ -241,3 +227,6 @@ if __name__ == "__main__":
     print(get_ford_dealer_mustang_mach_e_prices())
     print(get_ford_mfg_mustang_mach_e_hero_img())
     print(get_ford_dealer_mustang_mach_e_hero_img())
+
+    driver = WebDriverSingleton.get_driver()
+    driver.quit()
