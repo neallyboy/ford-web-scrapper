@@ -80,13 +80,13 @@ if BRONCO_SKIP_FLAG == "false":
 
     # Capture Prices
     bronco_prices_df = create_vehicle_prices_df(
-        get_ford_mfg_bronco_prices(), get_ford_dealer_bronco_prices()
+        get_ford_mfg_bronco_prices, get_ford_dealer_bronco_prices
     )
 
     # Capture Hero Images
     bronco_image_df = create_vehicle_image_df(
-        get_ford_mfg_bronco_hero_img(),
-        get_ford_dealer_bronco_hero_img(),
+        get_ford_mfg_bronco_hero_img,
+        get_ford_dealer_bronco_hero_img,
         "Bronco®",
         BRONCO_MANUFACTURER_IMAGE_URL,
         BRONCO_DEALER_IMAGE_URL,
@@ -117,13 +117,13 @@ if BRONCO_SPORT_SKIP_FLAG == "false":
 
     # Capture Prices
     bronco_sport_prices_df = create_vehicle_prices_df(
-        get_ford_mfg_bronco_sport_prices(), get_ford_dealer_bronco_sport_prices()
+        get_ford_mfg_bronco_sport_prices, get_ford_dealer_bronco_sport_prices
     )
 
     # Capture Hero Images
     bronco_sport_image_df = create_vehicle_image_df(
-        get_ford_mfg_bronco_sport_hero_img(),
-        get_ford_dealer_bronco_sport_hero_img(),
+        get_ford_mfg_bronco_sport_hero_img,
+        get_ford_dealer_bronco_sport_hero_img,
         "Bronco® Sport",
         BRONCO_SPORT_MANUFACTURER_IMAGE_URL,
         BRONCO_SPORT_DEALER_IMAGE_URL,
@@ -159,13 +159,13 @@ if EDGE_SKIP_FLAG == "false":
 
     # Capture Prices
     edge_prices_df = create_vehicle_prices_df(
-        get_ford_mfg_edge_prices(), get_ford_dealer_edge_prices()
+        get_ford_mfg_edge_prices, get_ford_dealer_edge_prices
     )
 
     # Capture Hero Images
     edge_image_df = create_vehicle_image_df(
-        get_ford_mfg_edge_hero_img(),
-        get_ford_dealer_edge_hero_img(),
+        get_ford_mfg_edge_hero_img,
+        get_ford_dealer_edge_hero_img,
         "Edge®",
         EDGE_MANUFACTURER_IMAGE_URL,
         EDGE_DEALER_IMAGE_URL,
@@ -201,13 +201,13 @@ if ESCAPE_SKIP_FLAG == "false":
 
     # Capture Prices
     escape_prices_df = create_vehicle_prices_df(
-        get_ford_mfg_escape_prices(), get_ford_dealer_escape_prices()
+        get_ford_mfg_escape_prices, get_ford_dealer_escape_prices
     )
 
     # Capture Hero Images
     escape_image_df = create_vehicle_image_df(
-        get_ford_mfg_escape_hero_img(),
-        get_ford_dealer_escape_hero_img(),
+        get_ford_mfg_escape_hero_img,
+        get_ford_dealer_escape_hero_img,
         "Escape",
         ESCAPE_MANUFACTURER_IMAGE_URL,
         ESCAPE_DEALER_IMAGE_URL,
@@ -243,13 +243,13 @@ if EXPLORER_SKIP_FLAG == "false":
 
     # Capture Prices
     explorer_prices_df = create_vehicle_prices_df(
-        get_ford_mfg_explorer_prices(), get_ford_dealer_explorer_prices()
+        get_ford_mfg_explorer_prices, get_ford_dealer_explorer_prices
     )
 
     # Capture Hero Images
     explorer_image_df = create_vehicle_image_df(
-        get_ford_mfg_explorer_hero_img(),
-        get_ford_dealer_explorer_hero_img(),
+        get_ford_mfg_explorer_hero_img,
+        get_ford_dealer_explorer_hero_img,
         "Explorer®",
         EXPLORER_MANUFACTURER_IMAGE_URL,
         EXPLORER_DEALER_IMAGE_URL,
@@ -285,13 +285,13 @@ if F150_SKIP_FLAG == "false":
 
     # Capture Prices
     f150_prices_df = create_vehicle_prices_df(
-        get_ford_mfg_f150_prices(), get_ford_dealer_f150_prices()
+        get_ford_mfg_f150_prices, get_ford_dealer_f150_prices
     )
 
     # Capture Hero Images
     f150_image_df = create_vehicle_image_df(
-        get_ford_mfg_f150_hero_img(),
-        get_ford_dealer_f150_hero_img(),
+        get_ford_mfg_f150_hero_img,
+        get_ford_dealer_f150_hero_img,
         "F-150®",
         F150_MANUFACTURER_IMAGE_URL,
         F150_DEALER_IMAGE_URL,
@@ -327,13 +327,13 @@ if F150_LIGHTENING_SKIP_FLAG == "false":
 
     # Capture Prices
     f150_lightening_prices_df = create_vehicle_prices_df(
-        get_ford_mfg_f150_lightening_prices(), get_ford_dealer_f150_lightening_prices()
+        get_ford_mfg_f150_lightening_prices, get_ford_dealer_f150_lightening_prices
     )
 
     # Capture Hero Images
     f150_lightening_image_df = create_vehicle_image_df(
-        get_ford_mfg_f150_lightening_hero_img(),
-        get_ford_dealer_f150_lightening_hero_img(),
+        get_ford_mfg_f150_lightening_hero_img,
+        get_ford_dealer_f150_lightening_hero_img,
         "F-150® Lightening®",
         F150_LIGHTENING_MANUFACTURER_IMAGE_URL,
         F150_LIGHTENING_DEALER_IMAGE_URL,
@@ -371,13 +371,13 @@ if MUSTANG_SKIP_FLAG == "false":
 
     # Capture Prices
     mustang_prices_df = create_vehicle_prices_df(
-        get_ford_mfg_mustang_prices(), get_ford_dealer_mustang_prices()
+        get_ford_mfg_mustang_prices, get_ford_dealer_mustang_prices
     )
 
     # Capture Hero Images
     mustang_image_df = create_vehicle_image_df(
-        get_ford_mfg_mustang_hero_img(),
-        get_ford_dealer_mustang_hero_img(),
+        get_ford_mfg_mustang_hero_img,
+        get_ford_dealer_mustang_hero_img,
         "Mustang®",
         MUSTANG_MANUFACTURER_IMAGE_URL,
         MUSTANG_DEALER_IMAGE_URL,
@@ -412,13 +412,13 @@ if MUSTANG_MACH_E_SKIP_FLAG == "false":
 
     # Capture Prices
     mustang_mach_e_prices_df = create_vehicle_prices_df(
-        get_ford_mfg_mustang_mach_e_prices(), get_ford_dealer_mustang_mach_e_prices()
+        get_ford_mfg_mustang_mach_e_prices, get_ford_dealer_mustang_mach_e_prices
     )
 
     # Capture Hero Images
     mustang_mach_e_image_df = create_vehicle_image_df(
-        get_ford_mfg_mustang_mach_e_hero_img(),
-        get_ford_dealer_mustang_mach_e_hero_img(),
+        get_ford_mfg_mustang_mach_e_hero_img,
+        get_ford_dealer_mustang_mach_e_hero_img,
         "Mustang MACH-E®",
         MUSTANG_MACH_E_MANUFACTURER_URL,
         MUSTANG_MACH_E_DEALER_URL,

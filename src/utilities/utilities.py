@@ -47,8 +47,8 @@ def redden(x):
 def create_vehicle_prices_df(price_func_mfr, price_func_dealer):
 
     # Get Vehicle Prices
-    vehicle_mfr_prices = price_func_mfr
-    vehicle_dealer_prices = price_func_dealer
+    vehicle_mfr_prices = price_func_mfr()
+    vehicle_dealer_prices = price_func_dealer()
 
     # Convert datasets to DataFrames
     vehicle_mfr_prices_df = pd.DataFrame(
@@ -113,8 +113,8 @@ def create_vehicle_image_df(
 ):
 
     # Get Vehicle Images
-    vehicle_mfr_hero_image = hero_image_func_mfr
-    vehicle_dealer_hero_image = hero_image_func_dealer
+    vehicle_mfr_hero_image = hero_image_func_mfr()
+    vehicle_dealer_hero_image = hero_image_func_dealer()
 
     # Embed hyperlinks in the image URLs
 
