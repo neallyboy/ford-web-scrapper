@@ -34,13 +34,13 @@ F150_DEALER_IMAGE_URL = os.getenv("F150_DEALER_IMAGE_URL")
 # ------------------------------------------
 def get_ford_mfg_f150_prices():
 
-    # Set up the Chrome driver
+    # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = F150_MANUFACTURER_URL
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(3)  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -100,12 +100,12 @@ def get_ford_mfg_f150_prices():
 # ------------------------------------------
 def get_ford_dealer_f150_prices():
 
-    # Set up the Chrome driver
+    # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     url = F150_DEALER_URL
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(3)  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -166,13 +166,13 @@ def get_ford_dealer_f150_prices():
 # ------------------------------------------
 def get_ford_mfg_f150_hero_img():
 
-    # Set up the Chrome driver
+    # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = F150_MANUFACTURER_IMAGE_URL
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(3)  # Allow time for the page to load
 
     vehicle_image = ""
 
@@ -204,13 +204,13 @@ def get_ford_mfg_f150_hero_img():
 # ------------------------------------------
 def get_ford_dealer_f150_hero_img():
 
-    # Set up the Chrome driver
+    # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = F150_DEALER_IMAGE_URL
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(3)  # Allow time for the page to load
 
     vehicle_image = ""
 

@@ -36,13 +36,13 @@ MUSTANG_MACH_E_DEALER_IMAGE_URL = os.getenv("MUSTANG_MACH_E_DEALER_IMAGE_URL")
 # ------------------------------------------
 def get_ford_mfg_mustang_mach_e_prices():
 
-    # Set up the Chrome driver
+    # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_MANUFACTURER_URL
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(3)  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -102,13 +102,13 @@ def get_ford_mfg_mustang_mach_e_prices():
 # ------------------------------------------
 def get_ford_dealer_mustang_mach_e_prices():
 
-    # Set up the Chrome driver
+    # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_DEALER_URL
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(3)  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -149,13 +149,13 @@ def get_ford_dealer_mustang_mach_e_prices():
 # ------------------------------------------
 def get_ford_mfg_mustang_mach_e_hero_img():
 
-    # Set up the Chrome driver
+    # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(3)  # Allow time for the page to load
 
     vehicle_image = ""
 
@@ -187,13 +187,13 @@ def get_ford_mfg_mustang_mach_e_hero_img():
 # ------------------------------------------
 def get_ford_dealer_mustang_mach_e_hero_img():
 
-    # Set up the Chrome driver
+    # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
     url = MUSTANG_MACH_E_DEALER_IMAGE_URL
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(3)  # Allow time for the page to load
 
     vehicle_image = ""
 

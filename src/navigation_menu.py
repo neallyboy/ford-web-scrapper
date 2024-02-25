@@ -34,13 +34,13 @@ NAVIGATION_MODEL_LIST = os.getenv("NAVIGATION_MODEL_LIST", "")
 # ------------------------------------------
 def get_ford_mfg_nav_prices():
 
-    # Set up the Chrome driver
+    # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Main URL
     url = MAIN_MANUFACTURER_URL
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(3)  # Allow time for the page to load
 
     # Troubleshooting - Get browser console logs
     # logs = driver.get_log("browser")
@@ -123,13 +123,13 @@ def get_ford_mfg_nav_prices():
 # ------------------------------------------
 def get_ford_dealer_nav_prices():
 
-    # Set up the Chrome driver
+    # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Main URL
     url = MAIN_DEALER_URL
     driver.get(url)
-    time.sleep(5)  # Allow time for the page to load
+    time.sleep(3)  # Allow time for the page to load
 
     vehicle_prices = []
 
