@@ -17,3 +17,8 @@ env/
 # IDE-specific
 .vscode/
 .idea/
+
+# Docker
+*.log
+docker-compose.override.yml
+*.env

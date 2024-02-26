@@ -1,0 +1,7 @@
+services:
+  web_scrapping:
+    build:
+      context: .
+    image: ford_web_scrapping
+    env_file:
+      - .env
