@@ -63,6 +63,8 @@ def get_vehicle_data(
     dealer_prices_func: Callable,
     mfg_image_func: Callable,
     dealer_image_func: Callable,
+    mfg_price_url: str,
+    dealer_price_url: str,
     mfg_image_url: str,
     dealer_image_url: str,
 ) -> None:
@@ -74,7 +76,7 @@ def get_vehicle_data(
 
         # Capture Prices
         vehicle_prices_df = create_vehicle_prices_df(
-            mfg_prices_func, dealer_prices_func
+            mfg_prices_func, dealer_prices_func, mfg_price_url, dealer_price_url
         )
 
         # Capture Hero Images
@@ -117,7 +119,9 @@ if __name__ == "__main__":
         func_start_time = start_timer()
 
         # Capture Prices
-        nav_prices_df = create_navigation_prices_df()
+        nav_prices_df = create_navigation_prices_df(
+            MAIN_NAVIGATION_MENU_MANUFACTURER_URL, MAIN_NAVIGATION_MENU_DEALER_URL
+        )
 
         print_elapsed_time(func_start_time, "Navigation pricing completed time")
         print_elapsed_time(start_time, "Elapased Time")
@@ -139,6 +143,8 @@ if __name__ == "__main__":
         get_ford_dealer_bronco_hero_img,
         BRONCO_MANUFACTURER_URL,
         BRONCO_DEALER_URL,
+        BRONCO_MANUFACTURER_IMAGE_URL,
+        BRONCO_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -150,6 +156,8 @@ if __name__ == "__main__":
         get_ford_dealer_bronco_sport_hero_img,
         BRONCO_SPORT_MANUFACTURER_URL,
         BRONCO_SPORT_DEALER_URL,
+        BRONCO_SPORT_MANUFACTURER_IMAGE_URL,
+        BRONCO_SPORT_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -161,6 +169,8 @@ if __name__ == "__main__":
         get_ford_dealer_edge_hero_img,
         EDGE_MANUFACTURER_URL,
         EDGE_DEALER_URL,
+        EDGE_MANUFACTURER_IMAGE_URL,
+        EDGE_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -172,6 +182,8 @@ if __name__ == "__main__":
         get_ford_dealer_escape_hero_img,
         ESCAPE_MANUFACTURER_URL,
         ESCAPE_DEALER_URL,
+        ESCAPE_MANUFACTURER_IMAGE_URL,
+        ESCAPE_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -183,6 +195,8 @@ if __name__ == "__main__":
         get_ford_dealer_explorer_hero_img,
         EXPLORER_MANUFACTURER_URL,
         EXPLORER_DEALER_URL,
+        EXPLORER_MANUFACTURER_IMAGE_URL,
+        EXPLORER_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -194,6 +208,8 @@ if __name__ == "__main__":
         get_ford_dealer_f150_hero_img,
         F150_MANUFACTURER_URL,
         F150_DEALER_URL,
+        F150_MANUFACTURER_IMAGE_URL,
+        F150_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -205,6 +221,8 @@ if __name__ == "__main__":
         get_ford_dealer_f150_lightening_hero_img,
         F150_LIGHTENING_MANUFACTURER_URL,
         F150_LIGHTENING_DEALER_URL,
+        F150_LIGHTENING_MANUFACTURER_IMAGE_URL,
+        F150_LIGHTENING_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -216,6 +234,8 @@ if __name__ == "__main__":
         get_ford_dealer_mustang_hero_img,
         MUSTANG_MANUFACTURER_URL,
         MUSTANG_DEALER_URL,
+        MUSTANG_MANUFACTURER_IMAGE_URL,
+        MUSTANG_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -227,6 +247,8 @@ if __name__ == "__main__":
         get_ford_dealer_mustang_mach_e_hero_img,
         MUSTANG_MACH_E_MANUFACTURER_URL,
         MUSTANG_MACH_E_DEALER_URL,
+        MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL,
+        MUSTANG_MACH_E_DEALER_IMAGE_URL,
     )
 
     # Close Webdriver
@@ -279,12 +301,12 @@ if __name__ == "__main__":
         </style>
       </head>
       <body>
-        <p>Kindly examine the most recent price and image comparisons between Ford.ca and Fordtodealers.ca. This email serves as an informational audit and requires verification by the recipient prior to any pricing updates.</p>
+        <p>Please review the most recent price and image comparisons between Ford.ca and Fordtodealers.ca. This email serves as an informational audit and requires verification by the recipient prior to any pricing updates.</p>
         <h2>NAVIGATION MENU PRICES</h2>
         Data Sources:
         <ul>
-          <li>{MAIN_MANUFACTURER_URL}</li>
-          <li>{MAIN_DEALER_URL}</li>
+          <li>{MAIN_NAVIGATION_MENU_MANUFACTURER_URL}</li>
+          <li>{MAIN_NAVIGATION_MENU_DEALER_URL}</li>
         </ul>
         {nav_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
     """

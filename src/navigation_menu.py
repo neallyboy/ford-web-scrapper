@@ -25,21 +25,22 @@ from classes.web_driver_singleton import WebDriverSingleton
 load_dotenv(override=True)
 
 # Get email configuration from environment variables
-MAIN_MANUFACTURER_URL = os.getenv("MAIN_MANUFACTURER_URL")
-MAIN_DEALER_URL = os.getenv("MAIN_DEALER_URL")
+MAIN_NAVIGATION_MENU_MANUFACTURER_URL = os.getenv(
+    "MAIN_NAVIGATION_MENU_MANUFACTURER_URL"
+)
+MAIN_NAVIGATION_MENU_DEALER_URL = os.getenv("MAIN_NAVIGATION_MENU_DEALER_URL")
 NAVIGATION_MODEL_LIST = os.getenv("NAVIGATION_MODEL_LIST", "")
 
 
 # ------------------------------------------
 # Get prices from ford.ca
 # ------------------------------------------
-def get_ford_mfg_nav_prices() -> List[Tuple[str, str]]:
+def get_ford_mfg_nav_prices(url: str) -> List[Tuple[str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Main URL
-    url = MAIN_MANUFACTURER_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -122,13 +123,12 @@ def get_ford_mfg_nav_prices() -> List[Tuple[str, str]]:
 # ------------------------------------------
 # Get prices from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_nav_prices() -> List[Tuple[str, str, str]]:
+def get_ford_dealer_nav_prices(url: str) -> List[Tuple[str, str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Main URL
-    url = MAIN_DEALER_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -199,11 +199,11 @@ def get_ford_dealer_nav_prices() -> List[Tuple[str, str, str]]:
 # ------------------------------------------
 # Create Model Prices data frame
 # ------------------------------------------
-def create_navigation_prices_df() -> pd.DataFrame:
+def create_navigation_prices_df(mfr_url: str, dealer_url: str) -> pd.DataFrame:
 
     # Get Vehicle Data
-    ford_mfr_nav_prices = get_ford_mfg_nav_prices()
-    ford_dealer_nav_prices = get_ford_dealer_nav_prices()
+    ford_mfr_nav_prices = get_ford_mfg_nav_prices(mfr_url)
+    ford_dealer_nav_prices = get_ford_dealer_nav_prices(dealer_url)
 
     # Convert datasets to DataFrames
     nav_mfr_prices_df = pd.DataFrame(
@@ -270,9 +270,13 @@ def create_navigation_prices_df() -> pd.DataFrame:
 
 # Test Functions
 if __name__ == "__main__":
-    print(get_ford_mfg_nav_prices())
-    print(get_ford_dealer_nav_prices())
-    print(create_navigation_prices_df())
+    print(get_ford_mfg_nav_prices(MAIN_NAVIGATION_MENU_MANUFACTURER_URL))
+    print(get_ford_dealer_nav_prices(MAIN_NAVIGATION_MENU_DEALER_URL))
+    print(
+        create_navigation_prices_df(
+            MAIN_NAVIGATION_MENU_MANUFACTURER_URL, MAIN_NAVIGATION_MENU_DEALER_URL
+        )
+    )
 
     driver = WebDriverSingleton.get_driver()
     driver.quit()

@@ -33,13 +33,12 @@ EXPLORER_DEALER_IMAGE_URL = os.getenv("EXPLORER_DEALER_IMAGE_URL")
 # ------------------------------------------
 # Get prices from ford.ca
 # ------------------------------------------
-def get_ford_mfg_explorer_prices() -> List[Tuple[str, str]]:
+def get_ford_mfg_explorer_prices(url: str) -> List[Tuple[str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
-    url = EXPLORER_MANUFACTURER_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -99,13 +98,12 @@ def get_ford_mfg_explorer_prices() -> List[Tuple[str, str]]:
 # ------------------------------------------
 # Get prices from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_explorer_prices() -> List[Tuple[str, str]]:
+def get_ford_dealer_explorer_prices(url: str) -> List[Tuple[str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
-    url = EXPLORER_DEALER_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -144,13 +142,12 @@ def get_ford_dealer_explorer_prices() -> List[Tuple[str, str]]:
 # ------------------------------------------
 # Get hero image from ford.ca
 # ------------------------------------------
-def get_ford_mfg_explorer_hero_img() -> str:
+def get_ford_mfg_explorer_hero_img(url: str) -> str:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
-    url = EXPLORER_MANUFACTURER_IMAGE_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -182,13 +179,12 @@ def get_ford_mfg_explorer_hero_img() -> str:
 # ------------------------------------------
 # Get hero image from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_explorer_hero_img() -> str:
+def get_ford_dealer_explorer_hero_img(url: str) -> str:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
-    url = EXPLORER_DEALER_IMAGE_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -220,10 +216,10 @@ def get_ford_dealer_explorer_hero_img() -> str:
 
 # Test Functions
 if __name__ == "__main__":
-    print(get_ford_mfg_explorer_prices())
-    print(get_ford_dealer_explorer_prices())
-    print(get_ford_mfg_explorer_hero_img())
-    print(get_ford_dealer_explorer_hero_img())
+    print(get_ford_mfg_explorer_prices(EXPLORER_MANUFACTURER_URL))
+    print(get_ford_dealer_explorer_prices(EXPLORER_DEALER_URL))
+    print(get_ford_mfg_explorer_hero_img(EXPLORER_MANUFACTURER_IMAGE_URL))
+    print(get_ford_dealer_explorer_hero_img(EXPLORER_DEALER_IMAGE_URL))
 
     driver = WebDriverSingleton.get_driver()
     driver.quit()

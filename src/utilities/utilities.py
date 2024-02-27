@@ -45,12 +45,15 @@ def redden(x: str) -> str:
 # Create Model-Prices data frame
 # ------------------------------------------
 def create_vehicle_prices_df(
-    price_func_mfr: Callable[[], list], price_func_dealer: Callable[[], list]
+    price_func_mfr: Callable[[str], list],
+    price_func_dealer: Callable[[str], list],
+    mfr_price_url: str,
+    dealer_price_url: str,
 ) -> pd.DataFrame:
 
     # Get Vehicle Prices
-    vehicle_mfr_prices = price_func_mfr()
-    vehicle_dealer_prices = price_func_dealer()
+    vehicle_mfr_prices = price_func_mfr(mfr_price_url)
+    vehicle_dealer_prices = price_func_dealer(dealer_price_url)
 
     # Convert datasets to DataFrames
     vehicle_mfr_prices_df = pd.DataFrame(
@@ -111,16 +114,16 @@ def create_vehicle_prices_df(
 # Create Model-Image data frame
 # ------------------------------------------
 def create_vehicle_image_df(
-    hero_image_func_mfr: Callable[[], str],
-    hero_image_func_dealer: Callable[[], str],
+    hero_image_func_mfr: Callable[[str], str],
+    hero_image_func_dealer: Callable[[str], str],
     model: str,
     mfr_image_url: str,
     dealer_image_url: str,
 ) -> pd.DataFrame:
 
     # Get Vehicle Images
-    vehicle_mfr_hero_image = hero_image_func_mfr()
-    vehicle_dealer_hero_image = hero_image_func_dealer()
+    vehicle_mfr_hero_image = hero_image_func_mfr(mfr_image_url)
+    vehicle_dealer_hero_image = hero_image_func_dealer(dealer_image_url)
 
     # Embed hyperlinks in the image URLs
 

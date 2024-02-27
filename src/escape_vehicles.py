@@ -33,13 +33,12 @@ ESCAPE_DEALER_IMAGE_URL = os.getenv("ESCAPE_DEALER_IMAGE_URL")
 # ------------------------------------------
 # Get prices from ford.ca
 # ------------------------------------------
-def get_ford_mfg_escape_prices() -> List[Tuple[str, str]]:
+def get_ford_mfg_escape_prices(url: str) -> List[Tuple[str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
-    url = ESCAPE_MANUFACTURER_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -76,13 +75,12 @@ def get_ford_mfg_escape_prices() -> List[Tuple[str, str]]:
 # ------------------------------------------
 # Get prices from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_escape_prices() -> List[Tuple[str, str]]:
+def get_ford_dealer_escape_prices(url: str) -> List[Tuple[str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
-    url = ESCAPE_DEALER_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -121,13 +119,12 @@ def get_ford_dealer_escape_prices() -> List[Tuple[str, str]]:
 # ------------------------------------------
 # Get hero image from ford.ca
 # ------------------------------------------
-def get_ford_mfg_escape_hero_img() -> str:
+def get_ford_mfg_escape_hero_img(url: str) -> str:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
-    url = ESCAPE_MANUFACTURER_IMAGE_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -159,13 +156,12 @@ def get_ford_mfg_escape_hero_img() -> str:
 # ------------------------------------------
 # Get hero image from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_escape_hero_img() -> str:
+def get_ford_dealer_escape_hero_img(url: str) -> str:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
-    url = ESCAPE_DEALER_IMAGE_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -197,10 +193,10 @@ def get_ford_dealer_escape_hero_img() -> str:
 
 # Test Functions
 if __name__ == "__main__":
-    print(get_ford_mfg_escape_prices())
-    print(get_ford_dealer_escape_prices())
-    print(get_ford_mfg_escape_hero_img())
-    print(get_ford_dealer_escape_hero_img())
+    print(get_ford_mfg_escape_prices(ESCAPE_MANUFACTURER_URL))
+    print(get_ford_dealer_escape_prices(ESCAPE_DEALER_URL))
+    print(get_ford_mfg_escape_hero_img(ESCAPE_MANUFACTURER_IMAGE_URL))
+    print(get_ford_dealer_escape_hero_img(ESCAPE_DEALER_IMAGE_URL))
 
     driver = WebDriverSingleton.get_driver()
     driver.quit()

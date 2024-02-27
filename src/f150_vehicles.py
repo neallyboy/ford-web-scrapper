@@ -33,13 +33,12 @@ F150_DEALER_IMAGE_URL = os.getenv("F150_DEALER_IMAGE_URL")
 # ------------------------------------------
 # Get prices from ford.ca
 # ------------------------------------------
-def get_ford_mfg_f150_prices() -> List[Tuple[str, str]]:
+def get_ford_mfg_f150_prices(url: str) -> List[Tuple[str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
-    url = F150_MANUFACTURER_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -99,12 +98,12 @@ def get_ford_mfg_f150_prices() -> List[Tuple[str, str]]:
 # ------------------------------------------
 # Get prices from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_f150_prices() -> List[Tuple[str, str]]:
+def get_ford_dealer_f150_prices(url: str) -> List[Tuple[str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
-    url = F150_DEALER_URL
+    # Vehicle URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -165,13 +164,12 @@ def get_ford_dealer_f150_prices() -> List[Tuple[str, str]]:
 # ------------------------------------------
 # Get hero image from ford.ca
 # ------------------------------------------
-def get_ford_mfg_f150_hero_img() -> str:
+def get_ford_mfg_f150_hero_img(url: str) -> str:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
-    url = F150_MANUFACTURER_IMAGE_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -203,13 +201,12 @@ def get_ford_mfg_f150_hero_img() -> str:
 # ------------------------------------------
 # Get hero image from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_f150_hero_img() -> str:
+def get_ford_dealer_f150_hero_img(url: str) -> str:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
 
     # Vehicle URL
-    url = F150_DEALER_IMAGE_URL
     driver.get(url)
     time.sleep(3)  # Allow time for the page to load
 
@@ -241,10 +238,10 @@ def get_ford_dealer_f150_hero_img() -> str:
 
 # Test Functions
 if __name__ == "__main__":
-    print(get_ford_mfg_f150_prices())
-    print(get_ford_dealer_f150_prices())
-    print(get_ford_mfg_f150_hero_img())
-    print(get_ford_dealer_f150_hero_img())
+    print(get_ford_mfg_f150_prices(F150_MANUFACTURER_URL))
+    print(get_ford_dealer_f150_prices(F150_DEALER_URL))
+    print(get_ford_mfg_f150_hero_img(F150_MANUFACTURER_IMAGE_URL))
+    print(get_ford_dealer_f150_hero_img(F150_DEALER_IMAGE_URL))
 
     driver = WebDriverSingleton.get_driver()
     driver.quit()
