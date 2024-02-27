@@ -10,11 +10,14 @@ ENV PYTHONUNBUFFERED=1
 # Install Firefox browser and driver
 RUN apt-get update && apt-get install -y firefox-esr
 
-# Copy the local code into the container
-COPY . .
+# Copy only the requirements file
+COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the local code into the container
+COPY . .
 
 # Entry point - run your script
 CMD ["python", "main.py"]

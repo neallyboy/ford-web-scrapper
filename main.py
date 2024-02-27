@@ -71,13 +71,17 @@ def get_vehicle_data(
     global all_model_images_df
 
     if skip_flag == "false":
-        print(f"{vehicle_name} pricing started...")
+        print(f"{vehicle_name} pricing scraping started...")
+
         func_start_time = start_timer()
 
         # Capture Prices
         vehicle_prices_df = create_vehicle_prices_df(
             mfg_prices_func, dealer_prices_func, mfg_price_url, dealer_price_url
         )
+
+        print(f"{vehicle_name} pricing scraping completed.")
+        print(f"{vehicle_name} image scraping started...")
 
         # Capture Hero Images
         vehicle_image_df = create_vehicle_image_df(
@@ -87,6 +91,8 @@ def get_vehicle_data(
             mfg_image_url,
             dealer_image_url,
         )
+
+        print(f"{vehicle_name} image scraping completed.")
 
         # Append Prices to single list
         vehicles_list_html.append(
@@ -98,7 +104,9 @@ def get_vehicle_data(
             [all_model_images_df, vehicle_image_df], ignore_index=True
         )
 
-        print_elapsed_time(func_start_time, f"{vehicle_name} pricing completed time")
+        print_elapsed_time(
+            func_start_time, f"{vehicle_name} pricing and image scraping completed time"
+        )
         print_elapsed_time(start_time, "Elapased Time")
         print("")
     else:
