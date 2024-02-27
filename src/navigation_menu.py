@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 
 # Built-in Packages
 import time
+from typing import List, Tuple
 import os
 import re
 import sys
@@ -32,7 +33,7 @@ NAVIGATION_MODEL_LIST = os.getenv("NAVIGATION_MODEL_LIST", "")
 # ------------------------------------------
 # Get prices from ford.ca
 # ------------------------------------------
-def get_ford_mfg_nav_prices():
+def get_ford_mfg_nav_prices() -> List[Tuple[str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
@@ -113,7 +114,7 @@ def get_ford_mfg_nav_prices():
         vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
-        vehicle_prices = [("Ford.ca Error", e)]
+        vehicle_prices = [("Ford.ca Error", str(e))]
 
     return vehicle_prices
 
@@ -121,7 +122,7 @@ def get_ford_mfg_nav_prices():
 # ------------------------------------------
 # Get prices from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_nav_prices():
+def get_ford_dealer_nav_prices() -> List[Tuple[str, str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
@@ -190,7 +191,7 @@ def get_ford_dealer_nav_prices():
         vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
-        vehicle_prices = [("Fordtodealers.ca Error", e)]
+        vehicle_prices = [("Fordtodealers.ca Error", str(e))]
 
     return vehicle_prices
 
@@ -198,7 +199,7 @@ def get_ford_dealer_nav_prices():
 # ------------------------------------------
 # Create Model Prices data frame
 # ------------------------------------------
-def create_navigation_prices_df():
+def create_navigation_prices_df() -> pd.DataFrame:
 
     # Get Vehicle Data
     ford_mfr_nav_prices = get_ford_mfg_nav_prices()

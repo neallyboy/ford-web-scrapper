@@ -9,6 +9,7 @@ from pandas.io.formats.style import Styler
 # Built-in Packages
 import datetime
 import time
+from typing import Callable
 import sys
 import smtplib
 import os
@@ -56,15 +57,15 @@ all_model_images_df = pd.DataFrame()
 
 # Process Vehicle data
 def get_vehicle_data(
-    vehicle_name,
-    skip_flag,
-    mfg_prices_func,
-    dealer_prices_func,
-    mfg_image_func,
-    dealer_image_func,
-    mfg_image_url,
-    dealer_image_url,
-):
+    vehicle_name: str,
+    skip_flag: str,
+    mfg_prices_func: Callable,
+    dealer_prices_func: Callable,
+    mfg_image_func: Callable,
+    dealer_image_func: Callable,
+    mfg_image_url: str,
+    dealer_image_url: str,
+) -> None:
     global all_model_images_df
 
     if skip_flag == "false":

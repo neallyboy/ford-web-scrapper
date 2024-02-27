@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 
 # Built-in Packages
 import time
+from typing import List, Tuple
 import os
 import sys
 
@@ -32,7 +33,7 @@ EXPLORER_DEALER_IMAGE_URL = os.getenv("EXPLORER_DEALER_IMAGE_URL")
 # ------------------------------------------
 # Get prices from ford.ca
 # ------------------------------------------
-def get_ford_mfg_explorer_prices():
+def get_ford_mfg_explorer_prices() -> List[Tuple[str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
@@ -90,7 +91,7 @@ def get_ford_mfg_explorer_prices():
         vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
-        vehicle_prices = [("Ford.ca Error", e)]
+        vehicle_prices = [("Ford.ca Error", str(e))]
 
     return vehicle_prices
 
@@ -98,7 +99,7 @@ def get_ford_mfg_explorer_prices():
 # ------------------------------------------
 # Get prices from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_explorer_prices():
+def get_ford_dealer_explorer_prices() -> List[Tuple[str, str]]:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
@@ -135,7 +136,7 @@ def get_ford_dealer_explorer_prices():
             vehicle_prices.append((model_name, price_value))
 
     except Exception as e:
-        vehicle_prices = [("Fordtodealers.ca Error", e)]
+        vehicle_prices = [("Fordtodealers.ca Error", str(e))]
 
     return vehicle_prices
 
@@ -143,7 +144,7 @@ def get_ford_dealer_explorer_prices():
 # ------------------------------------------
 # Get hero image from ford.ca
 # ------------------------------------------
-def get_ford_mfg_explorer_hero_img():
+def get_ford_mfg_explorer_hero_img() -> str:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
@@ -173,7 +174,7 @@ def get_ford_mfg_explorer_hero_img():
             vehicle_image = "No image filename found"
 
     except Exception as e:
-        vehicle_image = e
+        vehicle_image = str(e)
 
     return vehicle_image
 
@@ -181,7 +182,7 @@ def get_ford_mfg_explorer_hero_img():
 # ------------------------------------------
 # Get hero image from fordtodealers.ca
 # ------------------------------------------
-def get_ford_dealer_explorer_hero_img():
+def get_ford_dealer_explorer_hero_img() -> str:
 
     # Set up the Web driver
     driver = WebDriverSingleton.get_driver()
@@ -212,7 +213,7 @@ def get_ford_dealer_explorer_hero_img():
             vehicle_image = "No image filename found"
 
     except Exception as e:
-        vehicle_image = e
+        vehicle_image = str(e)
 
     return vehicle_image
 

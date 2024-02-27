@@ -6,7 +6,7 @@ import pandas as pd
 import os
 import re
 import time
-from typing import Optional
+from typing import Callable, Optional
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
@@ -15,14 +15,14 @@ load_dotenv(override=True)
 # ----------------------------------------------------------------------
 # Start Timer
 # ----------------------------------------------------------------------
-def start_timer():
+def start_timer() -> float:
     return time.time()
 
 
 # ----------------------------------------------------------------------
 # Return Elasped Time
 # ----------------------------------------------------------------------
-def print_elapsed_time(start_time, process_name):
+def print_elapsed_time(start_time: float, process_name: str) -> None:
     elapsed_time_seconds = time.time() - start_time
     hours, remainder = divmod(elapsed_time_seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
@@ -35,7 +35,7 @@ def print_elapsed_time(start_time, process_name):
 # ----------------------------------------------------------------------
 # Change the colour background to Red if found the word Mismatch.
 # ----------------------------------------------------------------------
-def redden(x):
+def redden(x: str) -> str:
     if x == "Mismatch":
         return f'<span style="background-color: red; color: white; padding: 2px 5px; border-radius: 3px;">{x}</span>'
     return str(x)
@@ -44,7 +44,9 @@ def redden(x):
 # ------------------------------------------
 # Create Model-Prices data frame
 # ------------------------------------------
-def create_vehicle_prices_df(price_func_mfr, price_func_dealer):
+def create_vehicle_prices_df(
+    price_func_mfr: Callable[[], list], price_func_dealer: Callable[[], list]
+) -> pd.DataFrame:
 
     # Get Vehicle Prices
     vehicle_mfr_prices = price_func_mfr()
@@ -109,8 +111,12 @@ def create_vehicle_prices_df(price_func_mfr, price_func_dealer):
 # Create Model-Image data frame
 # ------------------------------------------
 def create_vehicle_image_df(
-    hero_image_func_mfr, hero_image_func_dealer, model, mfr_image_url, dealer_image_url
-):
+    hero_image_func_mfr: Callable[[], str],
+    hero_image_func_dealer: Callable[[], str],
+    model: str,
+    mfr_image_url: str,
+    dealer_image_url: str,
+) -> pd.DataFrame:
 
     # Get Vehicle Images
     vehicle_mfr_hero_image = hero_image_func_mfr()
