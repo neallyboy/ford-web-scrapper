@@ -27,6 +27,7 @@ from src.maverick_vehicles import *
 from src.mustang_vehicles import *
 from src.mustang_mach_e_vehicles import *
 from src.ranger_vehicles import *
+from src.transit_vehicles import *
 from src.transit_connect_vehicles import *
 from src.navigation_menu import *
 from src.utilities.utilities import *
@@ -56,6 +57,7 @@ MUSTANG_SKIP_FLAG = os.getenv("MUSTANG_SKIP_FLAG", "").lower()
 MUSTANG_MACH_E_SKIP_FLAG = os.getenv("MUSTANG_MACH_E_SKIP_FLAG", "").lower()
 NAVIGATION_SKIP_FLAG = os.getenv("NAVIGATION_SKIP_FLAG", "").lower()
 RANGER_SKIP_FLAG = os.getenv("RANGER_SKIP_FLAG", "").lower()
+TRANSIT_SKIP_FLAG = os.getenv("TRANSIT_SKIP_FLAG", "").lower()
 TRANSIT_CONNECT_SKIP_FLAG = os.getenv("TRANSIT_CONNECT_SKIP_FLAG", "").lower()
 
 # Initialize variables for Email
@@ -304,6 +306,19 @@ if __name__ == "__main__":
         RANGER_DEALER_URL,
         RANGER_MANUFACTURER_IMAGE_URL,
         RANGER_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
+        "TRANSIT",
+        TRANSIT_SKIP_FLAG,
+        get_ford_mfg_transit_prices,
+        get_ford_dealer_transit_prices,
+        get_ford_mfg_transit_hero_img,
+        get_ford_dealer_transit_hero_img,
+        TRANSIT_MANUFACTURER_URL,
+        TRANSIT_DEALER_URL,
+        TRANSIT_MANUFACTURER_IMAGE_URL,
+        TRANSIT_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
