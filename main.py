@@ -20,10 +20,14 @@ from src.bronco_sport_vehicles import *
 from src.edge_vehicles import *
 from src.escape_vehicles import *
 from src.explorer_vehicles import *
+from src.expedition_vehicles import *
 from src.f150_vehicles import *
 from src.f150_lightening_vehicles import *
+from src.maverick_vehicles import *
 from src.mustang_vehicles import *
 from src.mustang_mach_e_vehicles import *
+from src.ranger_vehicles import *
+from src.transit_connect_vehicles import *
 from src.navigation_menu import *
 from src.utilities.utilities import *
 
@@ -44,11 +48,15 @@ BRONCO_SPORT_SKIP_FLAG = os.getenv("BRONCO_SPORT_SKIP_FLAG", "").lower()
 EDGE_SKIP_FLAG = os.getenv("EDGE_SKIP_FLAG", "").lower()
 ESCAPE_SKIP_FLAG = os.getenv("ESCAPE_SKIP_FLAG", "").lower()
 EXPLORER_SKIP_FLAG = os.getenv("EXPLORER_SKIP_FLAG", "").lower()
+EXPEDITION_SKIP_FLAG = os.getenv("EXPEDITION_SKIP_FLAG", "").lower()
 F150_SKIP_FLAG = os.getenv("F150_SKIP_FLAG", "").lower()
 F150_LIGHTENING_SKIP_FLAG = os.getenv("F150_LIGHTENING_SKIP_FLAG", "").lower()
+MAVERICK_SKIP_FLAG = os.getenv("MAVERICK_SKIP_FLAG", "").lower()
 MUSTANG_SKIP_FLAG = os.getenv("MUSTANG_SKIP_FLAG", "").lower()
 MUSTANG_MACH_E_SKIP_FLAG = os.getenv("MUSTANG_MACH_E_SKIP_FLAG", "").lower()
 NAVIGATION_SKIP_FLAG = os.getenv("NAVIGATION_SKIP_FLAG", "").lower()
+RANGER_SKIP_FLAG = os.getenv("RANGER_SKIP_FLAG", "").lower()
+TRANSIT_CONNECT_SKIP_FLAG = os.getenv("TRANSIT_CONNECT_SKIP_FLAG", "").lower()
 
 # Initialize variables for Email
 vehicles_list_html = []
@@ -208,6 +216,19 @@ if __name__ == "__main__":
     )
 
     get_vehicle_data(
+        "EXPEDITION®",
+        EXPEDITION_SKIP_FLAG,
+        get_ford_mfg_expedition_prices,
+        get_ford_dealer_expedition_prices,
+        get_ford_mfg_expedition_hero_img,
+        get_ford_dealer_expedition_hero_img,
+        EXPEDITION_MANUFACTURER_URL,
+        EXPEDITION_DEALER_URL,
+        EXPEDITION_MANUFACTURER_IMAGE_URL,
+        EXPEDITION_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
         "F-150®",
         F150_SKIP_FLAG,
         get_ford_mfg_f150_prices,
@@ -234,6 +255,19 @@ if __name__ == "__main__":
     )
 
     get_vehicle_data(
+        "MAVERICK®",
+        MAVERICK_SKIP_FLAG,
+        get_ford_mfg_maverick_prices,
+        get_ford_dealer_maverick_prices,
+        get_ford_mfg_maverick_hero_img,
+        get_ford_dealer_maverick_hero_img,
+        MAVERICK_MANUFACTURER_URL,
+        MAVERICK_DEALER_URL,
+        MAVERICK_MANUFACTURER_IMAGE_URL,
+        MAVERICK_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
         "MUSTANG®",
         MUSTANG_SKIP_FLAG,
         get_ford_mfg_mustang_prices,
@@ -257,6 +291,32 @@ if __name__ == "__main__":
         MUSTANG_MACH_E_DEALER_URL,
         MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL,
         MUSTANG_MACH_E_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
+        "RANGER®",
+        RANGER_SKIP_FLAG,
+        get_ford_mfg_ranger_prices,
+        get_ford_dealer_ranger_prices,
+        get_ford_mfg_ranger_hero_img,
+        get_ford_dealer_ranger_hero_img,
+        RANGER_MANUFACTURER_URL,
+        RANGER_DEALER_URL,
+        RANGER_MANUFACTURER_IMAGE_URL,
+        RANGER_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
+        "TRANSIT CONNECT",
+        TRANSIT_CONNECT_SKIP_FLAG,
+        get_ford_mfg_transit_connect_prices,
+        get_ford_dealer_transit_connect_prices,
+        get_ford_mfg_transit_connect_hero_img,
+        get_ford_dealer_transit_connect_hero_img,
+        TRANSIT_CONNECT_MANUFACTURER_URL,
+        TRANSIT_CONNECT_DEALER_URL,
+        TRANSIT_CONNECT_MANUFACTURER_IMAGE_URL,
+        TRANSIT_CONNECT_DEALER_IMAGE_URL,
     )
 
     # Close Webdriver
