@@ -49,9 +49,7 @@ Create the .env file in the root folder. Ensure the following environment variab
 # Selenium configuration
 # BROWSER_DRIVER_TYPE options are: chrome, firefox, edge
 BROWSER_DRIVER_TYPE=firefox
-CHROME_HEADLESS_MODE=false
-EDGE_HEADLESS_MODE=false
-FIREFOX_HEADLESS_MODE=true
+HEADLESS_MODE=false
 GITHUB_TOKEN=github_pac_token
 
 # Email configuration
@@ -76,6 +74,12 @@ BRONCO_SPORT_MANUFACTURER_URL=https://www.ford.ca/suvs/bronco-sport/models/?gnav
 BRONCO_SPORT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/bronco-sport/?gnav=vhpnav-overiew
 BRONCO_SPORT_DEALER_URL=https://fordtodealers.ca/ford-bronco-sport/
 BRONCO_SPORT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-bronco-sport/
+
+E_TRANSIT_SKIP_FLAG=false
+E_TRANSIT_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/e-transit/?gnav=header-trucks-vhp
+E_TRANSIT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/e-transit/?gnav=header-trucks-vhp
+E_TRANSIT_DEALER_URL=https://fordtodealers.ca/ford-e-transit/
+E_TRANSIT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-e-transit/
 
 EDGE_SKIP_FLAG=false
 EDGE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/edge/?gnav=header-suvs-vhp
@@ -137,6 +141,12 @@ RANGER_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/ranger/?gnav=header-tru
 RANGER_DEALER_URL=https://fordtodealers.ca/ford-ranger/
 RANGER_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-ranger/
 
+SUPER_DUTY_SKIP_FLAG=false
+SUPER_DUTY_MANUFACTURER_URL=https://www.ford.ca/trucks/super-duty/?gnav=header-trucks-vhp
+SUPER_DUTY_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/super-duty/?gnav=header-trucks-vhp
+SUPER_DUTY_DEALER_URL=https://fordtodealers.ca/ford-super-duty-commercial/
+SUPER_DUTY_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-super-duty-commercial/
+
 TRANSIT_SKIP_FLAG=false
 TRANSIT_MANUFACTURER_URL=https://www.ford.ca/trucks/transit-passenger-van-wagon/?gnav=header-trucks-vhp
 TRANSIT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/transit-passenger-van-wagon/?gnav=header-trucks-vhp
@@ -154,11 +164,7 @@ TRANSIT_CONNECT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-transit-connect/
 
 - BROWSER_DRIVER_TYPE = Set this value to the browser you would like to use. Currently the supported browsers are `chrome`, `edge`, and `firefox`. These browsers need to be installed on the host machine that this application runs on.
 
-- CHROME_HEADLESS_MODE = When `BROWSER_DRIVER_TYPE=chrome` then this variable is used for enable/disable headless browsing for Chrome. The value is either `true` (enable headless browsing) or `false` (disable headless browsing).
-
-- EDGE_HEADLESS_MODE = When `BROWSER_DRIVER_TYPE=edge` then this variable is used for enable/disable headless browsing for Edge. The value is either `true` or `false` (enable headless browsing) or `false` (disable headless browsing).
-
-- FIREFOX_HEADLESS_MODE = When `BROWSER_DRIVER_TYPE=firefox` then this variable is used for enable/disable headless browsing for Firefox. The value is either `true` or `false` (enable headless browsing) or `false` (disable headless browsing).
+- HEADLESS_MODE = The value is either `true` (enable headless browsing) or `false` (disable headless browsing).
 
 - GITHUB_TOKEN = The webdriver_manager downloads some webdrivers from their official GitHub repositories but GitHub has rate limitations in place. An unauthenticated user gets 60 requests per hours. Create a PAC token in Github, and place the value here as authenticated users rate limit is 5000 requests per hour. Follow the insturctions in the [Github link](https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) to create PAC token.
 

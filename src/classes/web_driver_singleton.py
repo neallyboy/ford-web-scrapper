@@ -43,7 +43,7 @@ class WebDriverSingleton:
         chrome_service = ChromeService(ChromeDriverManager().install())
         chrome_options = ChromeOptions()
         chrome_options.add_experimental_option("detach", False)
-        headless_mode = os.getenv("CHROME_HEADLESS_MODE", "False").lower() == "true"
+        headless_mode = os.getenv("HEADLESS_MODE", "False").lower() == "true"
         if headless_mode:
             chrome_options.add_argument("--headless")
             chrome_options.add_argument("--disable-gpu")
@@ -55,7 +55,7 @@ class WebDriverSingleton:
         edge_service = EdgeService(EdgeChromiumDriverManager().install())
         edge_options = EdgeOptions()
         edge_options.add_experimental_option("detach", False)
-        headless_mode = os.getenv("EDGE_HEADLESS_MODE", "False").lower() == "true"
+        headless_mode = os.getenv("HEADLESS_MODE", "False").lower() == "true"
         if headless_mode:
             edge_options.add_argument("--headless")
         driver = webdriver.Edge(service=edge_service, options=edge_options)
@@ -69,7 +69,7 @@ class WebDriverSingleton:
         firefox_options.add_argument(
             "--disable-gpu"
         )  # Add any additional options if needed
-        headless_mode = os.getenv("FIREFOX_HEADLESS_MODE", "False").lower() == "true"
+        headless_mode = os.getenv("HEADLESS_MODE", "False").lower() == "true"
         if headless_mode:
             firefox_options.add_argument("--headless")
         driver = webdriver.Firefox(service=firefox_service, options=firefox_options)

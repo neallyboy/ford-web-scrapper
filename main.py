@@ -17,6 +17,7 @@ import os
 # Local Packages
 from src.bronco_vehicles import *
 from src.bronco_sport_vehicles import *
+from src.e_transit_vehicles import *
 from src.edge_vehicles import *
 from src.escape_vehicles import *
 from src.explorer_vehicles import *
@@ -30,6 +31,7 @@ from src.ranger_vehicles import *
 from src.super_duty_vehicles import *
 from src.transit_vehicles import *
 from src.transit_connect_vehicles import *
+from src.transit_connect_commercial_vehicles import *
 from src.navigation_menu import *
 from src.utilities.utilities import *
 
@@ -47,6 +49,7 @@ EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 # Get skip flags from environment variables
 BRONCO_SKIP_FLAG = os.getenv("BRONCO_SKIP_FLAG", "").lower()
 BRONCO_SPORT_SKIP_FLAG = os.getenv("BRONCO_SPORT_SKIP_FLAG", "").lower()
+E_TRANSIT_SKIP_FLAG = os.getenv("E_TRANSIT_SKIP_FLAG", "").lower()
 EDGE_SKIP_FLAG = os.getenv("EDGE_SKIP_FLAG", "").lower()
 ESCAPE_SKIP_FLAG = os.getenv("ESCAPE_SKIP_FLAG", "").lower()
 EXPLORER_SKIP_FLAG = os.getenv("EXPLORER_SKIP_FLAG", "").lower()
@@ -61,6 +64,7 @@ RANGER_SKIP_FLAG = os.getenv("RANGER_SKIP_FLAG", "").lower()
 SUPER_DUTY_SKIP_FLAG = os.getenv("SUPER_DUTY_SKIP_FLAG", "").lower()
 TRANSIT_SKIP_FLAG = os.getenv("TRANSIT_SKIP_FLAG", "").lower()
 TRANSIT_CONNECT_SKIP_FLAG = os.getenv("TRANSIT_CONNECT_SKIP_FLAG", "").lower()
+TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG = os.getenv("TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG", "").lower()
 
 # Initialize variables for Email
 vehicles_list_html = []
@@ -178,6 +182,19 @@ if __name__ == "__main__":
         BRONCO_SPORT_DEALER_URL,
         BRONCO_SPORT_MANUFACTURER_IMAGE_URL,
         BRONCO_SPORT_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
+        "E TRANSIT",
+        E_TRANSIT_SKIP_FLAG,
+        get_ford_mfg_e_transit_prices,
+        get_ford_dealer_e_transit_prices,
+        get_ford_mfg_e_transit_hero_img,
+        get_ford_dealer_e_transit_hero_img,
+        E_TRANSIT_MANUFACTURER_URL,
+        E_TRANSIT_DEALER_URL,
+        E_TRANSIT_MANUFACTURER_IMAGE_URL,
+        E_TRANSIT_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -347,6 +364,19 @@ if __name__ == "__main__":
         TRANSIT_CONNECT_DEALER_URL,
         TRANSIT_CONNECT_MANUFACTURER_IMAGE_URL,
         TRANSIT_CONNECT_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
+        "TRANSIT CONNECT COMMERCIAL",
+        TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG,
+        get_ford_mfg_transit_connect_commercial_prices,
+        get_ford_dealer_transit_connect_commercial_prices,
+        get_ford_mfg_transit_connect_commercial_hero_img,
+        get_ford_dealer_transit_connect_commercial_hero_img,
+        TRANSIT_CONNECT_COMMERCIAL_MANUFACTURER_URL,
+        TRANSIT_CONNECT_COMMERCIAL_DEALER_URL,
+        TRANSIT_CONNECT_COMMERCIAL_MANUFACTURER_IMAGE_URL,
+        TRANSIT_CONNECT_COMMERCIAL_DEALER_IMAGE_URL,
     )
 
     # Close Webdriver
