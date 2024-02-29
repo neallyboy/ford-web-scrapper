@@ -27,6 +27,7 @@ from src.maverick_vehicles import *
 from src.mustang_vehicles import *
 from src.mustang_mach_e_vehicles import *
 from src.ranger_vehicles import *
+from src.super_duty_vehicles import *
 from src.transit_vehicles import *
 from src.transit_connect_vehicles import *
 from src.navigation_menu import *
@@ -57,6 +58,7 @@ MUSTANG_SKIP_FLAG = os.getenv("MUSTANG_SKIP_FLAG", "").lower()
 MUSTANG_MACH_E_SKIP_FLAG = os.getenv("MUSTANG_MACH_E_SKIP_FLAG", "").lower()
 NAVIGATION_SKIP_FLAG = os.getenv("NAVIGATION_SKIP_FLAG", "").lower()
 RANGER_SKIP_FLAG = os.getenv("RANGER_SKIP_FLAG", "").lower()
+SUPER_DUTY_SKIP_FLAG = os.getenv("SUPER_DUTY_SKIP_FLAG", "").lower()
 TRANSIT_SKIP_FLAG = os.getenv("TRANSIT_SKIP_FLAG", "").lower()
 TRANSIT_CONNECT_SKIP_FLAG = os.getenv("TRANSIT_CONNECT_SKIP_FLAG", "").lower()
 
@@ -307,7 +309,20 @@ if __name__ == "__main__":
         RANGER_MANUFACTURER_IMAGE_URL,
         RANGER_DEALER_IMAGE_URL,
     )
-
+    
+    get_vehicle_data(
+        "SUPER DUTY®",
+        SUPER_DUTY_SKIP_FLAG,
+        get_ford_mfg_super_duty_prices,
+        get_ford_dealer_super_duty_prices,
+        get_ford_mfg_super_duty_hero_img,
+        get_ford_dealer_super_duty_hero_img,
+        SUPER_DUTY_MANUFACTURER_URL,
+        SUPER_DUTY_DEALER_URL,
+        SUPER_DUTY_MANUFACTURER_IMAGE_URL,
+        SUPER_DUTY_DEALER_IMAGE_URL,
+    )
+    
     get_vehicle_data(
         "TRANSIT",
         TRANSIT_SKIP_FLAG,
