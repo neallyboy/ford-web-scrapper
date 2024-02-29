@@ -23,6 +23,7 @@ from src.escape_vehicles import *
 from src.explorer_vehicles import *
 from src.expedition_vehicles import *
 from src.f150_vehicles import *
+from src.f150_commercial_vehicles import *
 from src.f150_lightening_vehicles import *
 from src.maverick_vehicles import *
 from src.mustang_vehicles import *
@@ -30,6 +31,7 @@ from src.mustang_mach_e_vehicles import *
 from src.ranger_vehicles import *
 from src.super_duty_vehicles import *
 from src.transit_vehicles import *
+from src.transit_cc_ca_vehicles import *
 from src.transit_connect_vehicles import *
 from src.transit_connect_commercial_vehicles import *
 from src.navigation_menu import *
@@ -55,6 +57,7 @@ ESCAPE_SKIP_FLAG = os.getenv("ESCAPE_SKIP_FLAG", "").lower()
 EXPLORER_SKIP_FLAG = os.getenv("EXPLORER_SKIP_FLAG", "").lower()
 EXPEDITION_SKIP_FLAG = os.getenv("EXPEDITION_SKIP_FLAG", "").lower()
 F150_SKIP_FLAG = os.getenv("F150_SKIP_FLAG", "").lower()
+F150_COMMERCIAL_SKIP_FLAG = os.getenv("F150_SKIP_FLAG", "").lower()
 F150_LIGHTENING_SKIP_FLAG = os.getenv("F150_LIGHTENING_SKIP_FLAG", "").lower()
 MAVERICK_SKIP_FLAG = os.getenv("MAVERICK_SKIP_FLAG", "").lower()
 MUSTANG_SKIP_FLAG = os.getenv("MUSTANG_SKIP_FLAG", "").lower()
@@ -63,6 +66,7 @@ NAVIGATION_SKIP_FLAG = os.getenv("NAVIGATION_SKIP_FLAG", "").lower()
 RANGER_SKIP_FLAG = os.getenv("RANGER_SKIP_FLAG", "").lower()
 SUPER_DUTY_SKIP_FLAG = os.getenv("SUPER_DUTY_SKIP_FLAG", "").lower()
 TRANSIT_SKIP_FLAG = os.getenv("TRANSIT_SKIP_FLAG", "").lower()
+TRANSIT_CC_CA_SKIP_FLAG = os.getenv("TRANSIT_CC_CA_SKIP_FLAG", "").lower()
 TRANSIT_CONNECT_SKIP_FLAG = os.getenv("TRANSIT_CONNECT_SKIP_FLAG", "").lower()
 TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG = os.getenv("TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG", "").lower()
 
@@ -185,7 +189,7 @@ if __name__ == "__main__":
     )
 
     get_vehicle_data(
-        "E TRANSIT",
+        "E-TRANSIT",
         E_TRANSIT_SKIP_FLAG,
         get_ford_mfg_e_transit_prices,
         get_ford_dealer_e_transit_prices,
@@ -260,6 +264,19 @@ if __name__ == "__main__":
         F150_DEALER_URL,
         F150_MANUFACTURER_IMAGE_URL,
         F150_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
+        "F-150® COMMERICAL",
+        F150_COMMERCIAL_SKIP_FLAG,
+        get_ford_mfg_f150_commercial_prices,
+        get_ford_dealer_f150_commercial_prices,
+        get_ford_mfg_f150_commercial_hero_img,
+        get_ford_dealer_f150_commercial_hero_img,
+        F150_COMMERCIAL_MANUFACTURER_URL,
+        F150_COMMERCIAL_DEALER_URL,
+        F150_COMMERCIAL_MANUFACTURER_IMAGE_URL,
+        F150_COMMERCIAL_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -341,7 +358,7 @@ if __name__ == "__main__":
     )
     
     get_vehicle_data(
-        "TRANSIT",
+        "TRANSIT®",
         TRANSIT_SKIP_FLAG,
         get_ford_mfg_transit_prices,
         get_ford_dealer_transit_prices,
@@ -351,6 +368,19 @@ if __name__ == "__main__":
         TRANSIT_DEALER_URL,
         TRANSIT_MANUFACTURER_IMAGE_URL,
         TRANSIT_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
+        "TRANSIT® CC-CA",
+        TRANSIT_CC_CA_SKIP_FLAG,
+        get_ford_mfg_transit_cc_ca_prices,
+        get_ford_dealer_transit_cc_ca_prices,
+        get_ford_mfg_transit_cc_ca_hero_img,
+        get_ford_dealer_transit_cc_ca_hero_img,
+        TRANSIT_CC_CA_MANUFACTURER_URL,
+        TRANSIT_CC_CA_DEALER_URL,
+        TRANSIT_CC_CA_MANUFACTURER_IMAGE_URL,
+        TRANSIT_CC_CA_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
