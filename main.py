@@ -17,6 +17,7 @@ import os
 # Local Packages
 from src.bronco_vehicles import *
 from src.bronco_sport_vehicles import *
+from src.e_series_cutaway_vehicles import *
 from src.e_transit_vehicles import *
 from src.edge_vehicles import *
 from src.escape_vehicles import *
@@ -30,8 +31,10 @@ from src.mustang_vehicles import *
 from src.mustang_mach_e_vehicles import *
 from src.ranger_vehicles import *
 from src.super_duty_vehicles import *
+from src.super_duty_commercial_vehicles import *
 from src.transit_vehicles import *
 from src.transit_cc_ca_vehicles import *
+from src.transit_commercial_vehicles import *
 from src.transit_connect_vehicles import *
 from src.transit_connect_commercial_vehicles import *
 from src.navigation_menu import *
@@ -51,6 +54,7 @@ EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 # Get skip flags from environment variables
 BRONCO_SKIP_FLAG = os.getenv("BRONCO_SKIP_FLAG", "").lower()
 BRONCO_SPORT_SKIP_FLAG = os.getenv("BRONCO_SPORT_SKIP_FLAG", "").lower()
+E_SERIES_CUTAWAY_SKIP_FLAG = os.getenv("E_SERIES_CUTAWAY_SKIP_FLAG", "").lower()
 E_TRANSIT_SKIP_FLAG = os.getenv("E_TRANSIT_SKIP_FLAG", "").lower()
 EDGE_SKIP_FLAG = os.getenv("EDGE_SKIP_FLAG", "").lower()
 ESCAPE_SKIP_FLAG = os.getenv("ESCAPE_SKIP_FLAG", "").lower()
@@ -65,8 +69,10 @@ MUSTANG_MACH_E_SKIP_FLAG = os.getenv("MUSTANG_MACH_E_SKIP_FLAG", "").lower()
 NAVIGATION_SKIP_FLAG = os.getenv("NAVIGATION_SKIP_FLAG", "").lower()
 RANGER_SKIP_FLAG = os.getenv("RANGER_SKIP_FLAG", "").lower()
 SUPER_DUTY_SKIP_FLAG = os.getenv("SUPER_DUTY_SKIP_FLAG", "").lower()
+SUPER_DUTY_COMMERCIAL_SKIP_FLAG = os.getenv("SUPER_DUTY_COMMERCIAL_SKIP_FLAG", "").lower()
 TRANSIT_SKIP_FLAG = os.getenv("TRANSIT_SKIP_FLAG", "").lower()
 TRANSIT_CC_CA_SKIP_FLAG = os.getenv("TRANSIT_CC_CA_SKIP_FLAG", "").lower()
+TRANSIT_COMMERCIAL_SKIP_FLAG = os.getenv("TRANSIT_COMMERCIAL_SKIP_FLAG", "").lower()
 TRANSIT_CONNECT_SKIP_FLAG = os.getenv("TRANSIT_CONNECT_SKIP_FLAG", "").lower()
 TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG = os.getenv("TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG", "").lower()
 
@@ -186,6 +192,19 @@ if __name__ == "__main__":
         BRONCO_SPORT_DEALER_URL,
         BRONCO_SPORT_MANUFACTURER_IMAGE_URL,
         BRONCO_SPORT_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
+        "E-SERIES CUTAWAY",
+        E_SERIES_CUTAWAY_SKIP_FLAG,
+        get_ford_mfg_e_series_cutaway_prices,
+        get_ford_dealer_e_series_cutaway_prices,
+        get_ford_mfg_e_series_cutaway_hero_img,
+        get_ford_dealer_e_series_cutaway_hero_img,
+        E_SERIES_CUTAWAY_MANUFACTURER_URL,
+        E_SERIES_CUTAWAY_DEALER_URL,
+        E_SERIES_CUTAWAY_MANUFACTURER_IMAGE_URL,
+        E_SERIES_CUTAWAY_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -356,6 +375,19 @@ if __name__ == "__main__":
         SUPER_DUTY_MANUFACTURER_IMAGE_URL,
         SUPER_DUTY_DEALER_IMAGE_URL,
     )
+
+    get_vehicle_data(
+        "SUPER DUTY® COMMERICAL",
+        SUPER_DUTY_COMMERCIAL_SKIP_FLAG,
+        get_ford_mfg_super_duty_commercial_prices,
+        get_ford_dealer_super_duty_commercial_prices,
+        get_ford_mfg_super_duty_commercial_hero_img,
+        get_ford_dealer_super_duty_commercial_hero_img,
+        SUPER_DUTY_COMMERCIAL_MANUFACTURER_URL,
+        SUPER_DUTY_COMMERCIAL_DEALER_URL,
+        SUPER_DUTY_COMMERCIAL_MANUFACTURER_IMAGE_URL,
+        SUPER_DUTY_COMMERCIAL_DEALER_IMAGE_URL,
+    )
     
     get_vehicle_data(
         "TRANSIT®",
@@ -384,7 +416,20 @@ if __name__ == "__main__":
     )
 
     get_vehicle_data(
-        "TRANSIT CONNECT",
+        "TRANSIT® COMMERCIAL",
+        TRANSIT_COMMERCIAL_SKIP_FLAG,
+        get_ford_mfg_transit_commercial_prices,
+        get_ford_dealer_transit_commercial_prices,
+        get_ford_mfg_transit_commercial_hero_img,
+        get_ford_dealer_transit_commercial_hero_img,
+        TRANSIT_COMMERCIAL_MANUFACTURER_URL,
+        TRANSIT_COMMERCIAL_DEALER_URL,
+        TRANSIT_COMMERCIAL_MANUFACTURER_IMAGE_URL,
+        TRANSIT_COMMERCIAL_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
+        "TRANSIT® CONNECT",
         TRANSIT_CONNECT_SKIP_FLAG,
         get_ford_mfg_transit_connect_prices,
         get_ford_dealer_transit_connect_prices,
@@ -397,7 +442,7 @@ if __name__ == "__main__":
     )
 
     get_vehicle_data(
-        "TRANSIT CONNECT COMMERCIAL",
+        "TRANSIT® CONNECT COMMERCIAL",
         TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG,
         get_ford_mfg_transit_connect_commercial_prices,
         get_ford_dealer_transit_connect_commercial_prices,

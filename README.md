@@ -63,101 +63,137 @@ NAVIGATION_MODEL_LIST=BRONCO SPORT,EDGE,ESCAPE,F-150,MUSTANG
 MAIN_NAVIGATION_MENU_MANUFACTURER_URL=https://www.ford.ca
 MAIN_NAVIGATION_MENU_DEALER_URL=https://fordtodealers.ca
 
-BRONCO_SKIP_FLAG=false
+BRONCO_SKIP_FLAG=true
 BRONCO_MANUFACTURER_URL=https://www.ford.ca/suvs/bronco/models/?gnav=vhpnav-specs
 BRONCO_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/bronco/?gnav=header-suvs-vhp
 BRONCO_DEALER_URL=https://fordtodealers.ca/ford-bronco/
 BRONCO_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-bronco/
 
-BRONCO_SPORT_SKIP_FLAG=false
+BRONCO_SPORT_SKIP_FLAG=true
 BRONCO_SPORT_MANUFACTURER_URL=https://www.ford.ca/suvs/bronco-sport/models/?gnav=vhpnav-specs
 BRONCO_SPORT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/bronco-sport/?gnav=vhpnav-overiew
 BRONCO_SPORT_DEALER_URL=https://fordtodealers.ca/ford-bronco-sport/
 BRONCO_SPORT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-bronco-sport/
 
-E_TRANSIT_SKIP_FLAG=false
+E_TRANSIT_SKIP_FLAG=true
 E_TRANSIT_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/e-transit/?gnav=header-trucks-vhp
 E_TRANSIT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/e-transit/?gnav=header-trucks-vhp
 E_TRANSIT_DEALER_URL=https://fordtodealers.ca/ford-e-transit/
 E_TRANSIT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-e-transit/
 
-EDGE_SKIP_FLAG=false
+E_SERIES_CUTAWAY_SKIP_FLAG=true
+E_SERIES_CUTAWAY_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/e-series-cutaway/?gnav=header-commercial-vhp
+E_SERIES_CUTAWAY_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/e-series-cutaway/?gnav=header-commercial-vhp
+E_SERIES_CUTAWAY_DEALER_URL=https://fordtodealers.ca/ford-e-series-cutaway/
+E_SERIES_CUTAWAY_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-e-series-cutaway/
+
+EDGE_SKIP_FLAG=true
 EDGE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/edge/?gnav=header-suvs-vhp
 EDGE_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs-crossovers/edge/?gnav=header-suvs-vhp
 EDGE_DEALER_URL=https://fordtodealers.ca/ford-edge/
 EDGE_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-edge/
 
-ESCAPE_SKIP_FLAG=false
+ESCAPE_SKIP_FLAG=true
 ESCAPE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/escape/?gnav=header-suvs-vhp
 ESCAPE_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs-crossovers/escape/?gnav=header-suvs-vhp
 ESCAPE_DEALER_URL=https://fordtodealers.ca/ford-escape/
 ESCAPE_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-escape/
 
-EXPEDITION_SKIP_FLAG=false
+EXPEDITION_SKIP_FLAG=true
 EXPEDITION_MANUFACTURER_URL=https://www.ford.ca/suvs/expedition/?gnav=header-suvs-vhp
 EXPEDITION_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/expedition/?gnav=header-suvs-vhp
 EXPEDITION_DEALER_URL=https://fordtodealers.ca/ford-expedition/
 EXPEDITION_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-expedition/
 
-EXPLORER_SKIP_FLAG=false
+EXPLORER_SKIP_FLAG=true
 EXPLORER_MANUFACTURER_URL=https://www.ford.ca/suvs/explorer/?gnav=header-suvs-vhp
 EXPLORER_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/explorer/?gnav=header-suvs-vhp
 EXPLORER_DEALER_URL=https://fordtodealers.ca/ford-explorer/
 EXPLORER_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-explorer/
 
-F150_SKIP_FLAG=false
+F150_SKIP_FLAG=true
 F150_MANUFACTURER_URL=https://www.ford.ca/trucks/f150/?gnav=header-trucks-vhp
 F150_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/f150/?gnav=header-trucks-vhp
 F150_DEALER_URL=https://fordtodealers.ca/ford-f-150/
 F150_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-f-150/
 
-F150_LIGHTENING_SKIP_FLAG=false
+F150_COMMERCIAL_SKIP_FLAG=true
+F150_COMMERCIAL_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/f150/?gnav=header-commercial-vhp
+F150_COMMERCIAL_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/f150/?gnav=header-commercial-vhp
+F150_COMMERCIAL_DEALER_URL=https://fordtodealers.ca/ford-f-150-commercial/
+F150_COMMERCIAL_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-f-150-commercial/
+
+F150_LIGHTENING_SKIP_FLAG=true
 F150_LIGHTENING_MANUFACTURER_URL=https://www.ford.ca/trucks/f150/f150-lightning/?gnav=header-trucks-vhp
 F150_LIGHTENING_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/f150/f150-lightning/?gnav=header-trucks-vhp
 F150_LIGHTENING_DEALER_URL=https://fordtodealers.ca/ford-f150-lightning/
 F150_LIGHTENING_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-f150-lightning/
 
-MAVERICK_SKIP_FLAG=false
+MAVERICK_SKIP_FLAG=true
 MAVERICK_MANUFACTURER_URL=https://www.ford.ca/trucks/maverick/?gnav=header-trucks-vhp
 MAVERICK_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/maverick/?gnav=header-trucks-vhp
 MAVERICK_DEALER_URL=https://fordtodealers.ca/ford-maverick/
 MAVERICK_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-maverick/
 
-MUSTANG_SKIP_FLAG=false
+MUSTANG_SKIP_FLAG=true
 MUSTANG_MANUFACTURER_URL=https://www.ford.ca/cars/mustang/?gnav=header-suvs-vhp
 MUSTANG_MANUFACTURER_IMAGE_URL=https://www.ford.ca/cars/mustang/?gnav=header-suvs-vhp
 MUSTANG_DEALER_URL=https://fordtodealers.ca/ford-mustang/
 MUSTANG_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-mustang/
 
-MUSTANG_MACH_E_SKIP_FLAG=false
+MUSTANG_MACH_E_SKIP_FLAG=true
 MUSTANG_MACH_E_MANUFACTURER_URL=https://www.ford.ca/suvs/mach-e/?gnav=vhpnav-overiew
 MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/mach-e/?gnav=vhpnav-overiew
 MUSTANG_MACH_E_DEALER_URL=https://fordtodealers.ca/ford-mustang-mach-e/
 MUSTANG_MACH_E_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-mustang-mach-e/
 
-RANGER_SKIP_FLAG=false
+RANGER_SKIP_FLAG=true
 RANGER_MANUFACTURER_URL=https://www.ford.ca/trucks/ranger/?gnav=header-trucks-vhp
 RANGER_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/ranger/?gnav=header-trucks-vhp
 RANGER_DEALER_URL=https://fordtodealers.ca/ford-ranger/
 RANGER_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-ranger/
 
-SUPER_DUTY_SKIP_FLAG=false
+SUPER_DUTY_SKIP_FLAG=true
 SUPER_DUTY_MANUFACTURER_URL=https://www.ford.ca/trucks/super-duty/?gnav=header-trucks-vhp
 SUPER_DUTY_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/super-duty/?gnav=header-trucks-vhp
 SUPER_DUTY_DEALER_URL=https://fordtodealers.ca/ford-super-duty-commercial/
 SUPER_DUTY_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-super-duty-commercial/
 
-TRANSIT_SKIP_FLAG=false
+SUPER_DUTY_COMMERCIAL_SKIP_FLAG=false
+SUPER_DUTY_COMMERCIAL_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/super-duty/?gnav=header-commercial-vhp
+SUPER_DUTY_COMMERCIAL_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/super-duty/?gnav=header-commercial-vhp
+SUPER_DUTY_COMMERCIAL_DEALER_URL=https://fordtodealers.ca/ford-super-duty-commercial/
+SUPER_DUTY_COMMERCIAL_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-super-duty-commercial/
+
+TRANSIT_SKIP_FLAG=true
 TRANSIT_MANUFACTURER_URL=https://www.ford.ca/trucks/transit-passenger-van-wagon/?gnav=header-trucks-vhp
 TRANSIT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/transit-passenger-van-wagon/?gnav=header-trucks-vhp
 TRANSIT_DEALER_URL=https://fordtodealers.ca/ford-transit/
 TRANSIT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-transit/
 
-TRANSIT_CONNECT_SKIP_FLAG=false
+TRANSIT_CC_CA_SKIP_FLAG=true
+TRANSIT_CC_CA_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/transit-chassis/?gnav=header-commercial-vhp
+TRANSIT_CC_CA_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/transit-chassis/?gnav=header-commercial-vhp
+TRANSIT_CC_CA_DEALER_URL=https://fordtodealers.ca/ford-transit-cc-ca/
+TRANSIT_CC_CA_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-transit-cc-ca/
+
+TRANSIT_COMMERCIAL_SKIP_FLAG=true
+TRANSIT_COMMERCIAL_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/transit-cargo-van/?gnav=header-commercial-vhp
+TRANSIT_COMMERCIAL_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/transit-cargo-van/?gnav=header-commercial-vhp
+TRANSIT_COMMERCIAL_DEALER_URL=https://fordtodealers.ca/ford-transit-commercial/
+TRANSIT_COMMERCIAL_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-transit-commercial/
+
+TRANSIT_CONNECT_SKIP_FLAG=true
 TRANSIT_CONNECT_MANUFACTURER_URL=https://www.ford.ca/trucks/transit-connect-passenger-van-wagon/?gnav=header-trucks-vhp
 TRANSIT_CONNECT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/transit-connect-passenger-van-wagon/?gnav=header-trucks-vhp
 TRANSIT_CONNECT_DEALER_URL=https://fordtodealers.ca/ford-transit-connect/
 TRANSIT_CONNECT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-transit-connect/
+
+TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG=true
+TRANSIT_CONNECT_COMMERCIAL_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/transit-connect-cargo-van/?gnav=header-commercial-vhp
+TRANSIT_CONNECT_COMMERCIAL_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/transit-connect-cargo-van/?gnav=header-commercial-vhp
+TRANSIT_CONNECT_COMMERCIAL_DEALER_URL=https://fordtodealers.ca/ford-transit-connect/
+TRANSIT_CONNECT_COMMERCIAL_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-transit-connect/
 ```
 
 ### Selenium configuration
