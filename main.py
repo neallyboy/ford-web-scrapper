@@ -17,15 +17,19 @@ import os
 # Local Packages
 from src.bronco_vehicles import *
 from src.bronco_sport_vehicles import *
+from src.chassis_cab_vehicles import *
 from src.e_series_cutaway_vehicles import *
+from src.e_series_stripped_chassis_vehicles import *
 from src.e_transit_vehicles import *
 from src.edge_vehicles import *
 from src.escape_vehicles import *
 from src.explorer_vehicles import *
 from src.expedition_vehicles import *
+from src.f_series_stripped_chassis_vehicles import *
 from src.f150_vehicles import *
 from src.f150_commercial_vehicles import *
 from src.f150_lightening_vehicles import *
+from src.f650_f750_vehicles import *
 from src.maverick_vehicles import *
 from src.mustang_vehicles import *
 from src.mustang_mach_e_vehicles import *
@@ -54,15 +58,19 @@ EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 # Get skip flags from environment variables
 BRONCO_SKIP_FLAG = os.getenv("BRONCO_SKIP_FLAG", "").lower()
 BRONCO_SPORT_SKIP_FLAG = os.getenv("BRONCO_SPORT_SKIP_FLAG", "").lower()
+CHASSIS_CAB_SKIP_FLAG = os.getenv("CHASSIS_CAB_SKIP_FLAG", "").lower()
 E_SERIES_CUTAWAY_SKIP_FLAG = os.getenv("E_SERIES_CUTAWAY_SKIP_FLAG", "").lower()
+E_SERIES_STRIPPED_CHASSIS_SKIP_FLAG = os.getenv("E_SERIES_STRIPPED_CHASSIS_SKIP_FLAG", "").lower()
 E_TRANSIT_SKIP_FLAG = os.getenv("E_TRANSIT_SKIP_FLAG", "").lower()
 EDGE_SKIP_FLAG = os.getenv("EDGE_SKIP_FLAG", "").lower()
 ESCAPE_SKIP_FLAG = os.getenv("ESCAPE_SKIP_FLAG", "").lower()
 EXPLORER_SKIP_FLAG = os.getenv("EXPLORER_SKIP_FLAG", "").lower()
 EXPEDITION_SKIP_FLAG = os.getenv("EXPEDITION_SKIP_FLAG", "").lower()
+F_SERIES_STRIPPED_CHASSIS_SKIP_FLAG = os.getenv("F_SERIES_STRIPPED_CHASSIS_SKIP_FLAG", "").lower()
 F150_SKIP_FLAG = os.getenv("F150_SKIP_FLAG", "").lower()
 F150_COMMERCIAL_SKIP_FLAG = os.getenv("F150_SKIP_FLAG", "").lower()
 F150_LIGHTENING_SKIP_FLAG = os.getenv("F150_LIGHTENING_SKIP_FLAG", "").lower()
+F650_F750_SKIP_FLAG = os.getenv("F650_F750_SKIP_FLAG", "").lower()
 MAVERICK_SKIP_FLAG = os.getenv("MAVERICK_SKIP_FLAG", "").lower()
 MUSTANG_SKIP_FLAG = os.getenv("MUSTANG_SKIP_FLAG", "").lower()
 MUSTANG_MACH_E_SKIP_FLAG = os.getenv("MUSTANG_MACH_E_SKIP_FLAG", "").lower()
@@ -195,6 +203,19 @@ if __name__ == "__main__":
     )
 
     get_vehicle_data(
+        "CHASSIS CAB",
+        CHASSIS_CAB_SKIP_FLAG,
+        get_ford_mfg_chassis_cab_prices,
+        get_ford_dealer_chassis_cab_prices,
+        get_ford_mfg_chassis_cab_hero_img,
+        get_ford_dealer_chassis_cab_hero_img,
+        CHASSIS_CAB_MANUFACTURER_URL,
+        CHASSIS_CAB_DEALER_URL,
+        CHASSIS_CAB_MANUFACTURER_IMAGE_URL,
+        CHASSIS_CAB_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
         "E-SERIES CUTAWAY",
         E_SERIES_CUTAWAY_SKIP_FLAG,
         get_ford_mfg_e_series_cutaway_prices,
@@ -205,6 +226,19 @@ if __name__ == "__main__":
         E_SERIES_CUTAWAY_DEALER_URL,
         E_SERIES_CUTAWAY_MANUFACTURER_IMAGE_URL,
         E_SERIES_CUTAWAY_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
+        "E-SERIES STRIPPED CHASSIS",
+        E_SERIES_STRIPPED_CHASSIS_SKIP_FLAG,
+        get_ford_mfg_e_series_stripped_chassis_prices,
+        get_ford_dealer_e_series_stripped_chassis_prices,
+        get_ford_mfg_e_series_stripped_chassis_hero_img,
+        get_ford_dealer_e_series_stripped_chassis_hero_img,
+        E_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL,
+        E_SERIES_STRIPPED_CHASSIS_DEALER_URL,
+        E_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL,
+        E_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
@@ -273,6 +307,19 @@ if __name__ == "__main__":
     )
 
     get_vehicle_data(
+        "F-SERIES STRIPPED CHASSIS",
+        F_SERIES_STRIPPED_CHASSIS_SKIP_FLAG,
+        get_ford_mfg_f_series_stripped_chassis_prices,
+        get_ford_dealer_f_series_stripped_chassis_prices,
+        get_ford_mfg_f_series_stripped_chassis_hero_img,
+        get_ford_dealer_f_series_stripped_chassis_hero_img,
+        F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL,
+        F_SERIES_STRIPPED_CHASSIS_DEALER_URL,
+        F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL,
+        F_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
         "F-150®",
         F150_SKIP_FLAG,
         get_ford_mfg_f150_prices,
@@ -309,6 +356,19 @@ if __name__ == "__main__":
         F150_LIGHTENING_DEALER_URL,
         F150_LIGHTENING_MANUFACTURER_IMAGE_URL,
         F150_LIGHTENING_DEALER_IMAGE_URL,
+    )
+
+    get_vehicle_data(
+        "F-650® F-750®",
+        F650_F750_SKIP_FLAG,
+        get_ford_mfg_f650_f750_prices,
+        get_ford_dealer_f650_f750_prices,
+        get_ford_mfg_f650_f750_hero_img,
+        get_ford_dealer_f650_f750_hero_img,
+        F650_F750_MANUFACTURER_URL,
+        F650_F750_DEALER_URL,
+        F650_F750_MANUFACTURER_IMAGE_URL,
+        F650_F750_DEALER_IMAGE_URL,
     )
 
     get_vehicle_data(
