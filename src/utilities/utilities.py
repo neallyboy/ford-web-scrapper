@@ -12,6 +12,9 @@ import smtplib
 import time
 from typing import Callable, Optional, List, Tuple
 
+# Local Packages
+from .constants import constants as const
+
 # Load environment variables from the .env file
 load_dotenv(override=True)
 
@@ -216,8 +219,8 @@ def send_dealer_email(sender_email: str, receiver_email: str, password: str, sub
         <h2>NAVIGATION MENU PRICES</h2>
         Data Sources:
         <ul>
-          <li>{os.getenv("MAIN_NAVIGATION_MENU_MANUFACTURER_URL")}</li>
-          <li>{os.getenv("MAIN_NAVIGATION_MENU_DEALER_URL")}</li>
+          <li>{const["MAIN_NAVIGATION_MENU_MANUFACTURER_URL"]}</li>
+          <li>{const["MAIN_NAVIGATION_MENU_DEALER_URL"]}</li>
         </ul>
         {nav_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
     """

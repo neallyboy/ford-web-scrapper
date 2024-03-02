@@ -17,17 +17,12 @@ sys.path.append(os.path.dirname(script_dir))
 sys.path.append(os.path.join(os.path.dirname(script_dir), "src"))
 
 # Local Packages
+from utilities.constants import constants as const
 from utilities.utilities import parse_img_filename
 from classes.web_driver_singleton import WebDriverSingleton
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
-
-# Get email configuration from environment variables
-E_SERIES_CUTAWAY_MANUFACTURER_URL = os.getenv("E_SERIES_CUTAWAY_MANUFACTURER_URL")
-E_SERIES_CUTAWAY_MANUFACTURER_IMAGE_URL = os.getenv("E_SERIES_CUTAWAY_MANUFACTURER_IMAGE_URL")
-E_SERIES_CUTAWAY_DEALER_URL = os.getenv("E_SERIES_CUTAWAY_DEALER_URL")
-E_SERIES_CUTAWAY_DEALER_IMAGE_URL = os.getenv("E_SERIES_CUTAWAY_DEALER_IMAGE_URL")
 
 
 # ------------------------------------------
@@ -40,7 +35,7 @@ def get_ford_mfg_e_series_cutaway_prices(url: str) -> List[Tuple[str, str]]:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -84,7 +79,7 @@ def get_ford_dealer_e_series_cutaway_prices(url: str) -> List[Tuple[str, str]]:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -149,7 +144,7 @@ def get_ford_mfg_e_series_cutaway_hero_img(url: str) -> str:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_image = ""
 
@@ -186,7 +181,7 @@ def get_ford_dealer_e_series_cutaway_hero_img(url: str) -> str:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_image = ""
 
@@ -216,10 +211,10 @@ def get_ford_dealer_e_series_cutaway_hero_img(url: str) -> str:
 
 # Test Functions
 if __name__ == "__main__":
-    print(get_ford_mfg_e_series_cutaway_prices(E_SERIES_CUTAWAY_MANUFACTURER_URL))
-    print(get_ford_dealer_e_series_cutaway_prices(E_SERIES_CUTAWAY_DEALER_URL))
-    print(get_ford_mfg_e_series_cutaway_hero_img(E_SERIES_CUTAWAY_MANUFACTURER_IMAGE_URL))
-    print(get_ford_dealer_e_series_cutaway_hero_img(E_SERIES_CUTAWAY_DEALER_IMAGE_URL))
+    print(get_ford_mfg_e_series_cutaway_prices(const["E_SERIES_CUTAWAY_MANUFACTURER_URL"]))
+    print(get_ford_dealer_e_series_cutaway_prices(const["E_SERIES_CUTAWAY_DEALER_URL"]))
+    print(get_ford_mfg_e_series_cutaway_hero_img(const["E_SERIES_CUTAWAY_MANUFACTURER_IMAGE_URL"]))
+    print(get_ford_dealer_e_series_cutaway_hero_img(const["E_SERIES_CUTAWAY_DEALER_IMAGE_URL"]))
 
     driver = WebDriverSingleton.get_driver()
     driver.quit()

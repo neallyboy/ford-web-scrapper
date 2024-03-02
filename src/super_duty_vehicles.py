@@ -17,17 +17,12 @@ sys.path.append(os.path.dirname(script_dir))
 sys.path.append(os.path.join(os.path.dirname(script_dir), "src"))
 
 # Local Packages
+from utilities.constants import constants as const
 from utilities.utilities import parse_img_filename
 from classes.web_driver_singleton import WebDriverSingleton
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
-
-# Get email configuration from environment variables
-SUPER_DUTY_MANUFACTURER_URL = os.getenv("SUPER_DUTY_MANUFACTURER_URL")
-SUPER_DUTY_MANUFACTURER_IMAGE_URL = os.getenv("SUPER_DUTY_MANUFACTURER_IMAGE_URL")
-SUPER_DUTY_DEALER_URL = os.getenv("SUPER_DUTY_DEALER_URL")
-SUPER_DUTY_DEALER_IMAGE_URL = os.getenv("SUPER_DUTY_DEALER_IMAGE_URL")
 
 
 # ------------------------------------------
@@ -40,7 +35,7 @@ def get_ford_mfg_super_duty_prices(url: str) -> List[Tuple[str, str]]:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     exit_count = 10  # Exit count to prevent infinite loop
     vehicle_prices = []
@@ -104,7 +99,7 @@ def get_ford_dealer_super_duty_prices(url: str) -> List[Tuple[str, str]]:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -169,7 +164,7 @@ def get_ford_mfg_super_duty_hero_img(url: str) -> str:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_image = ""
 
@@ -206,7 +201,7 @@ def get_ford_dealer_super_duty_hero_img(url: str) -> str:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_image = ""
 
@@ -236,10 +231,10 @@ def get_ford_dealer_super_duty_hero_img(url: str) -> str:
 
 # Test Functions
 if __name__ == "__main__":
-    print(get_ford_mfg_super_duty_prices(SUPER_DUTY_MANUFACTURER_URL))
-    print(get_ford_dealer_super_duty_prices(SUPER_DUTY_DEALER_URL))
-    print(get_ford_mfg_super_duty_hero_img(SUPER_DUTY_MANUFACTURER_IMAGE_URL))
-    print(get_ford_dealer_super_duty_hero_img(SUPER_DUTY_DEALER_IMAGE_URL))
+    print(get_ford_mfg_super_duty_prices(const["SUPER_DUTY_MANUFACTURER_URL"]))
+    print(get_ford_dealer_super_duty_prices(const["SUPER_DUTY_DEALER_URL"]))
+    print(get_ford_mfg_super_duty_hero_img(const["SUPER_DUTY_MANUFACTURER_IMAGE_URL"]))
+    print(get_ford_dealer_super_duty_hero_img(const["SUPER_DUTY_DEALER_IMAGE_URL"]))
 
     driver = WebDriverSingleton.get_driver()
     driver.quit()

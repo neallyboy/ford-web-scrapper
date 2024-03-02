@@ -17,17 +17,12 @@ sys.path.append(os.path.dirname(script_dir))
 sys.path.append(os.path.join(os.path.dirname(script_dir), "src"))
 
 # Local Packages
+from utilities.constants import constants as const
 from utilities.utilities import parse_img_filename
 from classes.web_driver_singleton import WebDriverSingleton
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
-
-# Get email configuration from environment variables
-F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL = os.getenv("F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL")
-F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL = os.getenv("F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL")
-F_SERIES_STRIPPED_CHASSIS_DEALER_URL = os.getenv("F_SERIES_STRIPPED_CHASSIS_DEALER_URL")
-F_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL = os.getenv("F_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL")
 
 
 # ------------------------------------------
@@ -40,7 +35,7 @@ def get_ford_mfg_f_series_stripped_chassis_prices(url: str) -> List[Tuple[str, s
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -88,7 +83,7 @@ def get_ford_dealer_f_series_stripped_chassis_prices(url: str) -> List[Tuple[str
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -153,7 +148,7 @@ def get_ford_mfg_f_series_stripped_chassis_hero_img(url: str) -> str:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_image = ""
 
@@ -190,7 +185,7 @@ def get_ford_dealer_f_series_stripped_chassis_hero_img(url: str) -> str:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_image = ""
 
@@ -220,10 +215,10 @@ def get_ford_dealer_f_series_stripped_chassis_hero_img(url: str) -> str:
 
 # Test Functions
 if __name__ == "__main__":
-    print(get_ford_mfg_f_series_stripped_chassis_prices(F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL))
-    print(get_ford_dealer_f_series_stripped_chassis_prices(F_SERIES_STRIPPED_CHASSIS_DEALER_URL))
-    print(get_ford_mfg_f_series_stripped_chassis_hero_img(F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL))
-    print(get_ford_dealer_f_series_stripped_chassis_hero_img(F_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL))
+    print(get_ford_mfg_f_series_stripped_chassis_prices(const["F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL"]))
+    print(get_ford_dealer_f_series_stripped_chassis_prices(const["F_SERIES_STRIPPED_CHASSIS_DEALER_URL"]))
+    print(get_ford_mfg_f_series_stripped_chassis_hero_img(const["F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL"]))
+    print(get_ford_dealer_f_series_stripped_chassis_hero_img(const["F_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL"]))
 
     driver = WebDriverSingleton.get_driver()
     driver.quit()

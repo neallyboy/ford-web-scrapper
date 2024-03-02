@@ -14,6 +14,9 @@ from webdriver_manager.firefox import GeckoDriverManager
 # Built-in Packages
 import os
 
+# Local Packages
+from utilities.constants import constants as const
+
 # Load environment variables from the .env file
 load_dotenv(override=True)
 
@@ -24,7 +27,7 @@ class WebDriverSingleton:
     @classmethod
     def get_driver(cls):
         if cls._driver is None:
-            driver_type = os.getenv("BROWSER_DRIVER_TYPE", "firefox").lower()
+            driver_type = const["BROWSER_DRIVER_TYPE"].lower()
 
             if driver_type == "chrome":
                 cls._driver = cls.setup_chrome_driver()
@@ -34,7 +37,7 @@ class WebDriverSingleton:
                 cls._driver = cls.setup_edge_driver()
             else:
                 raise ValueError(
-                    "Invalid DRIVER_TYPE in the .env file. Use 'chrome' or 'firefox'."
+                    "Invalid BROWSER_DRIVER_TYPE in the constants.py file. Use 'chrome', 'firefox', or 'edge'."
                 )
         return cls._driver
 
@@ -43,7 +46,7 @@ class WebDriverSingleton:
         chrome_service = ChromeService(ChromeDriverManager().install())
         chrome_options = ChromeOptions()
         chrome_options.add_experimental_option("detach", False)
-        headless_mode = os.getenv("HEADLESS_MODE", "False").lower() == "true"
+        headless_mode = const["HEADLESS_MODE"]
         if headless_mode:
             chrome_options.add_argument("--headless")
             chrome_options.add_argument("--disable-gpu")
@@ -55,7 +58,7 @@ class WebDriverSingleton:
         edge_service = EdgeService(EdgeChromiumDriverManager().install())
         edge_options = EdgeOptions()
         edge_options.add_experimental_option("detach", False)
-        headless_mode = os.getenv("HEADLESS_MODE", "False").lower() == "true"
+        headless_mode = const["HEADLESS_MODE"]
         if headless_mode:
             edge_options.add_argument("--headless")
         driver = webdriver.Edge(service=edge_service, options=edge_options)
@@ -69,7 +72,7 @@ class WebDriverSingleton:
         firefox_options.add_argument(
             "--disable-gpu"
         )  # Add any additional options if needed
-        headless_mode = os.getenv("HEADLESS_MODE", "False").lower() == "true"
+        headless_mode = const["HEADLESS_MODE"]
         if headless_mode:
             firefox_options.add_argument("--headless")
         driver = webdriver.Firefox(service=firefox_service, options=firefox_options)

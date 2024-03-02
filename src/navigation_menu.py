@@ -18,18 +18,12 @@ sys.path.append(os.path.dirname(script_dir))
 sys.path.append(os.path.join(os.path.dirname(script_dir), "src"))
 
 # Local Packages
+from utilities.constants import constants as const
 from utilities.utilities import parse_img_filename
 from classes.web_driver_singleton import WebDriverSingleton
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
-
-# Get email configuration from environment variables
-MAIN_NAVIGATION_MENU_MANUFACTURER_URL = os.getenv(
-    "MAIN_NAVIGATION_MENU_MANUFACTURER_URL"
-)
-MAIN_NAVIGATION_MENU_DEALER_URL = os.getenv("MAIN_NAVIGATION_MENU_DEALER_URL")
-NAVIGATION_MODEL_LIST = os.getenv("NAVIGATION_MODEL_LIST", "")
 
 
 # ------------------------------------------
@@ -42,7 +36,7 @@ def get_ford_mfg_nav_prices(url: str) -> List[Tuple[str, str]]:
 
     # Main URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     # Troubleshooting - Get browser console logs
     # logs = driver.get_log("browser")
@@ -130,7 +124,7 @@ def get_ford_dealer_nav_prices(url: str) -> List[Tuple[str, str, str]]:
 
     # Main URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -227,6 +221,9 @@ def create_navigation_prices_df(mfr_url: str, dealer_url: str) -> pd.DataFrame:
         {"™": "", "®": ""}, regex=True
     )
 
+    # Add a temporary 'order' column to mfr_df
+    nav_mfr_prices_df['order'] = range(len(nav_mfr_prices_df))
+
     # Merge datasets on 'Car Model'
     merged_df = pd.merge(
         nav_mfr_prices_df,
@@ -235,6 +232,10 @@ def create_navigation_prices_df(mfr_url: str, dealer_url: str) -> pd.DataFrame:
         how="outer",
         suffixes=("_ford_mfr_vehicles", "_ford_dealer_vehicles"),
     )
+
+    # Sort by the 'order' column and drop it
+    merged_df.sort_values('order', inplace=True)
+    merged_df.drop('order', axis=1, inplace=True)
 
     # Replace NaN values with $0
     merged_df.fillna("$0", inplace=True)
@@ -261,20 +262,19 @@ def create_navigation_prices_df(mfr_url: str, dealer_url: str) -> pd.DataFrame:
     ] = "Mismatch"
 
     # Filter Navigation List if needed - Reducing the list
-    if NAVIGATION_MODEL_LIST is not None and NAVIGATION_MODEL_LIST.strip() != "":
-        car_models = [model.strip() for model in NAVIGATION_MODEL_LIST.split(",")]
-        merged_df = merged_df[merged_df["Car Model"].isin(car_models)]
+    if const.get("NAVIGATION_MODEL_LIST", []):
+        merged_df = merged_df[merged_df["Car Model"].isin(const["NAVIGATION_MODEL_LIST"])]
 
     return merged_df
 
 
 # Test Functions
 if __name__ == "__main__":
-    print(get_ford_mfg_nav_prices(MAIN_NAVIGATION_MENU_MANUFACTURER_URL))
-    print(get_ford_dealer_nav_prices(MAIN_NAVIGATION_MENU_DEALER_URL))
+    print(get_ford_mfg_nav_prices(const["MAIN_NAVIGATION_MENU_MANUFACTURER_URL"]))
+    print(get_ford_dealer_nav_prices(const["MAIN_NAVIGATION_MENU_DEALER_URL"]))
     print(
         create_navigation_prices_df(
-            MAIN_NAVIGATION_MENU_MANUFACTURER_URL, MAIN_NAVIGATION_MENU_DEALER_URL
+            const["MAIN_NAVIGATION_MENU_MANUFACTURER_URL"], const["MAIN_NAVIGATION_MENU_DEALER_URL"]
         )
     )
 

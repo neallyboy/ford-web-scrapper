@@ -17,17 +17,12 @@ sys.path.append(os.path.dirname(script_dir))
 sys.path.append(os.path.join(os.path.dirname(script_dir), "src"))
 
 # Local Packages
+from utilities.constants import constants as const
 from utilities.utilities import parse_img_filename
 from classes.web_driver_singleton import WebDriverSingleton
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
-
-# Get email configuration from environment variables
-MUSTANG_MANUFACTURER_URL = os.getenv("MUSTANG_MANUFACTURER_URL")
-MUSTANG_MANUFACTURER_IMAGE_URL = os.getenv("MUSTANG_MANUFACTURER_IMAGE_URL")
-MUSTANG_DEALER_URL = os.getenv("MUSTANG_DEALER_URL")
-MUSTANG_DEALER_IMAGE_URL = os.getenv("MUSTANG_DEALER_IMAGE_URL")
 
 
 # ------------------------------------------
@@ -40,7 +35,7 @@ def get_ford_mfg_mustang_prices(url: str) -> List[Tuple[str, str]]:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -105,7 +100,7 @@ def get_ford_dealer_mustang_prices(url: str) -> List[Tuple[str, str]]:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_prices = []
 
@@ -170,7 +165,7 @@ def get_ford_mfg_mustang_hero_img(url: str) -> str:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_image = ""
 
@@ -207,7 +202,7 @@ def get_ford_dealer_mustang_hero_img(url: str) -> str:
 
     # Vehicle URL
     driver.get(url)
-    time.sleep(3)  # Allow time for the page to load
+    time.sleep(const["TIME_SLEEP"])  # Allow time for the page to load
 
     vehicle_image = ""
 
@@ -237,10 +232,10 @@ def get_ford_dealer_mustang_hero_img(url: str) -> str:
 
 # Test Functions
 if __name__ == "__main__":
-    print(get_ford_mfg_mustang_prices(MUSTANG_MANUFACTURER_URL))
-    print(get_ford_dealer_mustang_prices(MUSTANG_DEALER_URL))
-    print(get_ford_mfg_mustang_hero_img(MUSTANG_MANUFACTURER_IMAGE_URL))
-    print(get_ford_dealer_mustang_hero_img(MUSTANG_DEALER_IMAGE_URL))
+    print(get_ford_mfg_mustang_prices(const["MUSTANG_MANUFACTURER_URL"]))
+    print(get_ford_dealer_mustang_prices(const["MUSTANG_DEALER_URL"]))
+    print(get_ford_mfg_mustang_hero_img(const["MUSTANG_MANUFACTURER_IMAGE_URL"]))
+    print(get_ford_dealer_mustang_hero_img(const["MUSTANG_DEALER_IMAGE_URL"]))
 
     driver = WebDriverSingleton.get_driver()
     driver.quit()

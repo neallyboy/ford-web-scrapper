@@ -5,13 +5,11 @@ constants = {
     "TIME_SLEEP":3,
 
     # Email configuration
-    "EMAIL_SKIP_FLAG":True,
+    "EMAIL_SKIP_FLAG":False,
 
     # URL Configuration
     "NAVIGATION_SKIP_FLAG":False,
-    # "NAVIGATION_MODEL_LIST":["BRONCO SPORT","EDGE,ESCAPE","F-150","F-150 LIGHTNING","MUSTANG","MUSTANG MACH-E"],
     "NAVIGATION_MODEL_LIST":["BRONCO SPORT","EDGE","ESCAPE","F-150","MUSTANG"],
-    # "NAVIGATION_MODEL_LIST":[],
     "MAIN_NAVIGATION_MENU_MANUFACTURER_URL":"https://www.ford.ca",
     "MAIN_NAVIGATION_MENU_DEALER_URL":"https://fordtodealers.ca",
 

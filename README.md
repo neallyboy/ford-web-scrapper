@@ -46,191 +46,23 @@ pip install -r requirements.txt
 Create the .env file in the root folder. Ensure the following environment variables are set in your .env file:
 
 ```
-# Selenium configuration
-# BROWSER_DRIVER_TYPE options are: chrome, firefox, edge
-BROWSER_DRIVER_TYPE=firefox
-HEADLESS_MODE=false
+# Selenium configuration - Webdriver for Firefox via Github
 GITHUB_TOKEN=github_pac_token
-TIME_SLEEP=3
 
 # Email configuration
+EMAIL_ERROR_RECIEVER=admin@email.com
 EMAIL_SENDER=your-email@gmail.com
 EMAIL_RECIEVER=recipient-email@gmail.com
 EMAIL_PASSWORD=your-gmail-password
-EMAIL_SKIP_FLAG=true
-
-# URL Configuration
-NAVIGATION_SKIP_FLAG=false
-NAVIGATION_MODEL_LIST=BRONCO SPORT,EDGE,ESCAPE,F-150,MUSTANG
-MAIN_NAVIGATION_MENU_MANUFACTURER_URL=https://www.ford.ca
-MAIN_NAVIGATION_MENU_DEALER_URL=https://fordtodealers.ca
-
-BRONCO_SKIP_FLAG=true
-BRONCO_MANUFACTURER_URL=https://www.ford.ca/suvs/bronco/models/?gnav=vhpnav-specs
-BRONCO_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/bronco/?gnav=header-suvs-vhp
-BRONCO_DEALER_URL=https://fordtodealers.ca/ford-bronco/
-BRONCO_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-bronco/
-
-BRONCO_SPORT_SKIP_FLAG=false
-BRONCO_SPORT_MANUFACTURER_URL=https://www.ford.ca/suvs/bronco-sport/models/?gnav=vhpnav-specs
-BRONCO_SPORT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/bronco-sport/?gnav=vhpnav-overiew
-BRONCO_SPORT_DEALER_URL=https://fordtodealers.ca/ford-bronco-sport/
-BRONCO_SPORT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-bronco-sport/
-
-CHASSIS_CAB_SKIP_FLAG=true
-CHASSIS_CAB_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/chassis-cab/?gnav=header-commercial-vhp
-CHASSIS_CAB_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/chassis-cab/?gnav=header-commercial-vhp
-CHASSIS_CAB_DEALER_URL=https://fordtodealers.ca/ford-chassis-cab/
-CHASSIS_CAB_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-chassis-cab/
-
-E_TRANSIT_SKIP_FLAG=true
-E_TRANSIT_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/e-transit/?gnav=header-trucks-vhp
-E_TRANSIT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/e-transit/?gnav=header-trucks-vhp
-E_TRANSIT_DEALER_URL=https://fordtodealers.ca/ford-e-transit/
-E_TRANSIT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-e-transit/
-
-E_SERIES_CUTAWAY_SKIP_FLAG=true
-E_SERIES_CUTAWAY_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/e-series-cutaway/?gnav=header-commercial-vhp
-E_SERIES_CUTAWAY_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/e-series-cutaway/?gnav=header-commercial-vhp
-E_SERIES_CUTAWAY_DEALER_URL=https://fordtodealers.ca/ford-e-series-cutaway/
-E_SERIES_CUTAWAY_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-e-series-cutaway/
-
-E_SERIES_STRIPPED_CHASSIS_SKIP_FLAG=true
-E_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/e-series-stripped-chassis/models/?gnav=vhpnav-specs
-E_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/e-series-stripped-chassis/?gnav=header-commercial-vhp
-E_SERIES_STRIPPED_CHASSIS_DEALER_URL=https://fordtodealers.ca/ford-e-series-stripped-chasis/
-E_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-e-series-stripped-chasis/
-
-EDGE_SKIP_FLAG=false
-EDGE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/edge/?gnav=header-suvs-vhp
-EDGE_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs-crossovers/edge/?gnav=header-suvs-vhp
-EDGE_DEALER_URL=https://fordtodealers.ca/ford-edge/
-EDGE_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-edge/
-
-ESCAPE_SKIP_FLAG=false
-ESCAPE_MANUFACTURER_URL=https://www.ford.ca/suvs-crossovers/escape/?gnav=header-suvs-vhp
-ESCAPE_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs-crossovers/escape/?gnav=header-suvs-vhp
-ESCAPE_DEALER_URL=https://fordtodealers.ca/ford-escape/
-ESCAPE_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-escape/
-
-EXPEDITION_SKIP_FLAG=true
-EXPEDITION_MANUFACTURER_URL=https://www.ford.ca/suvs/expedition/?gnav=header-suvs-vhp
-EXPEDITION_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/expedition/?gnav=header-suvs-vhp
-EXPEDITION_DEALER_URL=https://fordtodealers.ca/ford-expedition/
-EXPEDITION_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-expedition/
-
-EXPLORER_SKIP_FLAG=true
-EXPLORER_MANUFACTURER_URL=https://www.ford.ca/suvs/explorer/?gnav=header-suvs-vhp
-EXPLORER_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/explorer/?gnav=header-suvs-vhp
-EXPLORER_DEALER_URL=https://fordtodealers.ca/ford-explorer/
-EXPLORER_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-explorer/
-
-F_SERIES_STRIPPED_CHASSIS_SKIP_FLAG=true
-F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/f-series-stripped-chassis/models/?gnav=vhpnav-specs
-F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/f-series-stripped-chassis/?gnav=header-commercial-vhp
-F_SERIES_STRIPPED_CHASSIS_DEALER_URL=https://fordtodealers.ca/ford-f-series-stripped-chasis/
-F_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-f-series-stripped-chasis/
-
-F150_SKIP_FLAG=false
-F150_MANUFACTURER_URL=https://www.ford.ca/trucks/f150/?gnav=header-trucks-vhp
-F150_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/f150/?gnav=header-trucks-vhp
-F150_DEALER_URL=https://fordtodealers.ca/ford-f-150/
-F150_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-f-150/
-
-F150_COMMERCIAL_SKIP_FLAG=true
-F150_COMMERCIAL_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/f150/?gnav=header-commercial-vhp
-F150_COMMERCIAL_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/f150/?gnav=header-commercial-vhp
-F150_COMMERCIAL_DEALER_URL=https://fordtodealers.ca/ford-f-150-commercial/
-F150_COMMERCIAL_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-f-150-commercial/
-
-F150_LIGHTENING_SKIP_FLAG=true
-F150_LIGHTENING_MANUFACTURER_URL=https://www.ford.ca/trucks/f150/f150-lightning/?gnav=header-trucks-vhp
-F150_LIGHTENING_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/f150/f150-lightning/?gnav=header-trucks-vhp
-F150_LIGHTENING_DEALER_URL=https://fordtodealers.ca/ford-f150-lightning/
-F150_LIGHTENING_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-f150-lightning/
-
-F650_F750_SKIP_FLAG=true
-F650_F750_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/f650-f750/?gnav=header-commercial-vhp
-F650_F750_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/f650-f750/?gnav=header-commercial-vhp
-F650_F750_DEALER_URL=https://fordtodealers.ca/ford-f-650-f-750/
-F650_F750_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-f-650-f-750/
-
-MAVERICK_SKIP_FLAG=true
-MAVERICK_MANUFACTURER_URL=https://www.ford.ca/trucks/maverick/?gnav=header-trucks-vhp
-MAVERICK_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/maverick/?gnav=header-trucks-vhp
-MAVERICK_DEALER_URL=https://fordtodealers.ca/ford-maverick/
-MAVERICK_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-maverick/
-
-MUSTANG_SKIP_FLAG=false
-MUSTANG_MANUFACTURER_URL=https://www.ford.ca/cars/mustang/?gnav=header-suvs-vhp
-MUSTANG_MANUFACTURER_IMAGE_URL=https://www.ford.ca/cars/mustang/?gnav=header-suvs-vhp
-MUSTANG_DEALER_URL=https://fordtodealers.ca/ford-mustang/
-MUSTANG_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-mustang/
-
-MUSTANG_MACH_E_SKIP_FLAG=true
-MUSTANG_MACH_E_MANUFACTURER_URL=https://www.ford.ca/suvs/mach-e/?gnav=vhpnav-overiew
-MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/mach-e/?gnav=vhpnav-overiew
-MUSTANG_MACH_E_DEALER_URL=https://fordtodealers.ca/ford-mustang-mach-e/
-MUSTANG_MACH_E_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-mustang-mach-e/
-
-RANGER_SKIP_FLAG=true
-RANGER_MANUFACTURER_URL=https://www.ford.ca/trucks/ranger/?gnav=header-trucks-vhp
-RANGER_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/ranger/?gnav=header-trucks-vhp
-RANGER_DEALER_URL=https://fordtodealers.ca/ford-ranger/
-RANGER_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-ranger/
-
-SUPER_DUTY_SKIP_FLAG=true
-SUPER_DUTY_MANUFACTURER_URL=https://www.ford.ca/trucks/super-duty/?gnav=header-trucks-vhp
-SUPER_DUTY_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/super-duty/?gnav=header-trucks-vhp
-SUPER_DUTY_DEALER_URL=https://fordtodealers.ca/ford-super-duty-commercial/
-SUPER_DUTY_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-super-duty-commercial/
-
-SUPER_DUTY_COMMERCIAL_SKIP_FLAG=true
-SUPER_DUTY_COMMERCIAL_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/super-duty/?gnav=header-commercial-vhp
-SUPER_DUTY_COMMERCIAL_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/super-duty/?gnav=header-commercial-vhp
-SUPER_DUTY_COMMERCIAL_DEALER_URL=https://fordtodealers.ca/ford-super-duty-commercial/
-SUPER_DUTY_COMMERCIAL_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-super-duty-commercial/
-
-TRANSIT_SKIP_FLAG=true
-TRANSIT_MANUFACTURER_URL=https://www.ford.ca/trucks/transit-passenger-van-wagon/?gnav=header-trucks-vhp
-TRANSIT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/transit-passenger-van-wagon/?gnav=header-trucks-vhp
-TRANSIT_DEALER_URL=https://fordtodealers.ca/ford-transit/
-TRANSIT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-transit/
-
-TRANSIT_CC_CA_SKIP_FLAG=true
-TRANSIT_CC_CA_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/transit-chassis/?gnav=header-commercial-vhp
-TRANSIT_CC_CA_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/transit-chassis/?gnav=header-commercial-vhp
-TRANSIT_CC_CA_DEALER_URL=https://fordtodealers.ca/ford-transit-cc-ca/
-TRANSIT_CC_CA_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-transit-cc-ca/
-
-TRANSIT_COMMERCIAL_SKIP_FLAG=true
-TRANSIT_COMMERCIAL_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/transit-cargo-van/?gnav=header-commercial-vhp
-TRANSIT_COMMERCIAL_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/transit-cargo-van/?gnav=header-commercial-vhp
-TRANSIT_COMMERCIAL_DEALER_URL=https://fordtodealers.ca/ford-transit-commercial/
-TRANSIT_COMMERCIAL_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-transit-commercial/
-
-TRANSIT_CONNECT_SKIP_FLAG=true
-TRANSIT_CONNECT_MANUFACTURER_URL=https://www.ford.ca/trucks/transit-connect-passenger-van-wagon/?gnav=header-trucks-vhp
-TRANSIT_CONNECT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/trucks/transit-connect-passenger-van-wagon/?gnav=header-trucks-vhp
-TRANSIT_CONNECT_DEALER_URL=https://fordtodealers.ca/ford-transit-connect/
-TRANSIT_CONNECT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-transit-connect/
-
-TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG=true
-TRANSIT_CONNECT_COMMERCIAL_MANUFACTURER_URL=https://www.ford.ca/commercial-trucks/transit-connect-cargo-van/?gnav=header-commercial-vhp
-TRANSIT_CONNECT_COMMERCIAL_MANUFACTURER_IMAGE_URL=https://www.ford.ca/commercial-trucks/transit-connect-cargo-van/?gnav=header-commercial-vhp
-TRANSIT_CONNECT_COMMERCIAL_DEALER_URL=https://fordtodealers.ca/ford-transit-connect/
-TRANSIT_CONNECT_COMMERCIAL_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-transit-connect/
 ```
 
 ### Selenium configuration
 
-- BROWSER_DRIVER_TYPE = Set this value to the browser you would like to use. Currently the supported browsers are `chrome`, `edge`, and `firefox`. These browsers need to be installed on the host machine that this application runs on.
-
-- HEADLESS_MODE = The value is either `true` (enable headless browsing) or `false` (disable headless browsing).
-
 - GITHUB_TOKEN = The webdriver_manager downloads some webdrivers from their official GitHub repositories but GitHub has rate limitations in place. An unauthenticated user gets 60 requests per hours. Create a PAC token in Github, and place the value here as authenticated users rate limit is 5000 requests per hour. Follow the insturctions in the [Github link](https://docs.github.com/en/enterprise-server@3.9/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) to create PAC token.
 
 ### Email configuration
+
+- EMAIL_ERROR_RECIEVER = These are the emails you would like to send emails to for application failures. It is a comma delimited string format that can contain a single email `recipient-email@gmail.com` or multiple `recipient1-email@gmail.com,recipient2-email@gmail.com`.
 
 - EMAIL_SENDER = This is the email you are sending the email notification from i.e. youremail@gmail.com. This is also used as the login credentials for Gmail.
 
@@ -261,6 +93,16 @@ BRONCO_SPORT_MANUFACTURER_IMAGE_URL=https://www.ford.ca/suvs/bronco-sport/?gnav=
 BRONCO_SPORT_DEALER_URL=https://fordtodealers.ca/ford-bronco-sport/
 BRONCO_SPORT_DEALER_IMAGE_URL=https://fordtodealers.ca/ford-bronco-sport/
 ```
+
+### constants.py - Vehicle URL's
+
+The `constants.py` file holds the URL's, Web Driver configs, and skip flags that enable selecting specific vehicle data to be web scrapped.
+
+- BROWSER_DRIVER_TYPE = Set this value to the browser you would like to use. Currently the supported browsers are `chrome`, `edge`, and `firefox`. These browsers need to be installed on the host machine that this application runs on.
+
+- HEADLESS_MODE = The value is either `true` (enable headless browsing) or `false` (disable headless browsing).
+
+- SKIP_FLAG = The value is either `true` (disables web scrapping) or `false` (enables web scrapping).
 
 4. **Create Python .venv for the project:**
 
@@ -294,7 +136,7 @@ This will run the script locally, and will scrape Ford vehicle models, prices, a
 
 ## Adding a new vehicle
 
-Need to add new lines in the .env file
+Add new lines in the constants.py file
 
 ```
 <vehicle_model>_SKIP_FLAG=<boolean>
@@ -304,9 +146,22 @@ Need to add new lines in the .env file
 <vehicle_model>_DEALER_IMAGE_URL=<url>
 ```
 
-Then the logic to pick out the web elements that hold the vehicle model name, price, and hero image will need to be created as a new file in the `src` folder.
+Then add the new vehicle in the following project structure:
 
-It will be easier to copy an existing file, like mustang_vehicles.py, and rename it to the new vehicle and adjusting the XPATH that target the specific information that is needed.
+```
+my_project/
+|-- src/
+|   |-- __init__.py
+|   |-- mustang_vehicles.py
+|   |-- <new_vehicles>.py
+|   |-- utilities/
+|       |-- __init__.py
+|       |-- constants.py
+```
+
+Then add the logic to pick out the web elements that hold the vehicle model name, price, and hero image within the `<new_vehicles>.py` file.
+
+It will be easier to copy an existing file, like `mustang_vehicles.py`, and rename it to the `<new_vehicles>.py` and adjusting the XPATH that target the specific information that is needed.
 
 ## Windows Scheduler - Schedule Docker Container Run
 
@@ -314,23 +169,23 @@ To schedule the docker container to run locally in a Windows machine, do the fol
 
 1. Open Task Scheduler. You can do this by searching for "Task Scheduler" in the Start menu.
 
-1. In the Task Scheduler, click on "Create Basic Task...".
+2. In the Task Scheduler, click on "Create Basic Task...".
 
-1. Enter a name and a description for the task and click "Next".
+3. Enter a name and a description for the task and click "Next".
 
-1. Choose "Daily", "Weekly", "Monthly", or "One time", depending on how often you want the task to run, and click "Next".
+4. Choose "Daily", "Weekly", "Monthly", or "One time", depending on how often you want the task to run, and click "Next".
 
-1. Set the start time and date for the task and click "Next".
+5. Set the start time and date for the task and click "Next".
 
-1. Choose "Start a program" and click "Next".
+6. Choose "Start a program" and click "Next".
 
-1. In the "Program/script" field, enter the path to your Docker Compose executable. This is typically "C:\Program Files\Docker\Docker\resources\bin\docker-compose.exe".
+7. In the "Program/script" field, enter the path to your Docker Compose executable. This is typically "C:\Program Files\Docker\Docker\resources\bin\docker-compose.exe".
 
-1. In the "Add arguments (optional)" field, enter the command you want to run. For example, to start a Docker Compose service, you might enter "up -d".
+8. In the "Add arguments (optional)" field, enter the command you want to run. For example, to start a Docker Compose service, you might enter "up -d".
 
-1. In the "Start in (optional)" field, enter the path to the directory that contains your Docker Compose file.
+9. In the "Start in (optional)" field, enter the path to the directory that contains your Docker Compose file.
 
-1. Click "Next" and then "Finish".
+10. Click "Next" and then "Finish".
 
 ## Contributing
 
