@@ -1,7 +1,5 @@
 # 3rd Party Pacakges
 from dotenv import load_dotenv
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 import matplotlib.pyplot as plt
 import pandas as pd
 from pandas.io.formats.style import Styler
@@ -11,7 +9,6 @@ import datetime
 import time
 from typing import Callable
 import sys
-import smtplib
 import os
 
 # Local Packages
@@ -68,7 +65,7 @@ EXPLORER_SKIP_FLAG = os.getenv("EXPLORER_SKIP_FLAG", "").lower()
 EXPEDITION_SKIP_FLAG = os.getenv("EXPEDITION_SKIP_FLAG", "").lower()
 F_SERIES_STRIPPED_CHASSIS_SKIP_FLAG = os.getenv("F_SERIES_STRIPPED_CHASSIS_SKIP_FLAG", "").lower()
 F150_SKIP_FLAG = os.getenv("F150_SKIP_FLAG", "").lower()
-F150_COMMERCIAL_SKIP_FLAG = os.getenv("F150_SKIP_FLAG", "").lower()
+F150_COMMERCIAL_SKIP_FLAG = os.getenv("F150_COMMERCIAL_SKIP_FLAG", "").lower()
 F150_LIGHTENING_SKIP_FLAG = os.getenv("F150_LIGHTENING_SKIP_FLAG", "").lower()
 F650_F750_SKIP_FLAG = os.getenv("F650_F750_SKIP_FLAG", "").lower()
 MAVERICK_SKIP_FLAG = os.getenv("MAVERICK_SKIP_FLAG", "").lower()
@@ -142,12 +139,12 @@ def get_vehicle_data(
             func_start_time, f"{vehicle_name} pricing and image scraping completed time"
         )
         print_elapsed_time(start_time, "Elapased Time")
-        print("")
+        print()
     else:
         print(
             f"{vehicle_name} SKIP FLAG is set to 'true'. Skipping {vehicle_name} pricing."
         )
-        print("")
+        print()
 
 
 if __name__ == "__main__":
@@ -523,88 +520,11 @@ if __name__ == "__main__":
     receiver_email = EMAIL_RECIEVER
     password = EMAIL_PASSWORD
 
-    # Split the string into a list using comma as a separator
-    receiver_emails_list = receiver_email.split(",")
-
-    # Create the message
-    msg = MIMEMultipart()
-    msg["From"] = sender_email
-    msg["To"] = (
-        ",".join(receiver_emails_list)
-        if len(receiver_emails_list) > 1
-        else receiver_emails_list[0]
-    )
-    msg["Subject"] = "Ford Vehicle Prices and Image Comparison"
-
-    # Customize HTML content for Gmail email
-    html_content = f"""
-    <html>
-      <head>
-        <style>
-          table {{
-            border-collapse: collapse;
-            width: 100%;
-          }}
-          th, td {{
-            text-align: left;
-            padding: 8px;
-            border: 1px solid #dddddd;
-          }}
-          th {{
-            background-color: #f2f2f2;
-          }}
-          td.match {{
-            background-color: green;
-            color: white;
-          }}
-          td.mismatch {{
-            background-color: red;
-            color: white;
-          }}
-        </style>
-      </head>
-      <body>
-        <p>Please review the most recent price and image comparisons between Ford.ca and Fordtodealers.ca. This email serves as an informational audit and requires verification by the recipient prior to any pricing updates.</p>
-        <h2>NAVIGATION MENU PRICES</h2>
-        Data Sources:
-        <ul>
-          <li>{MAIN_NAVIGATION_MENU_MANUFACTURER_URL}</li>
-          <li>{MAIN_NAVIGATION_MENU_DEALER_URL}</li>
-        </ul>
-        {nav_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-    """
-
-    # Loop through each vehicle and add corresponding HTML sections
-    for vehicle_name, vehicle_df, manufacturer_url, dealer_url in vehicles_list_html:
-
-        html_content += f"""
-        <h2>{vehicle_name} PRICES</h2>
-        Data Sources:
-        <ul>
-          <li>{manufacturer_url}</li>
-          <li>{dealer_url}</li>
-        </ul>
-        {vehicle_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
-        """
-
-    # Continue with the remaining HTML content
-    html_content += f"""
-        <br>
-        <hr>
-        <h2>MODEL HERO IMAGES</h2>
-        <p>The comparisons are done based on filename and not the actual image presented.</p>
-        {all_model_images_df.to_html(classes='table', escape=False, index=False, formatters={'Image Comparison': redden})}
-      </body>
-    </html>
-    """
-
-    msg.attach(MIMEText(html_content, "html"))
-
-    # Connect to the SMTP server
-    with smtplib.SMTP("smtp.gmail.com", 587) as server:
-        server.starttls()
-        server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_emails_list, msg.as_string())
+    if os.getenv("EMAIL_SKIP_FLAG", "False").lower() == "true":
+        send_email(sender_email, receiver_email, password, "Ford Vehicle Prices and Image Comparison", vehicles_list_html, all_model_images_df, nav_prices_df)
+    else:
+        print("EMAIL SKIP FLAG is set to 'true'. Email not sent.")
+        print()
 
     # Record the end time
     end_time = time.time()

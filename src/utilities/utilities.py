@@ -1,12 +1,15 @@
 # 3rd Party Pacakges
 from dotenv import load_dotenv
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import pandas as pd
 
 # Built-in Packages
 import os
 import re
+import smtplib
 import time
-from typing import Callable, Optional
+from typing import Callable, Optional, List, Tuple
 
 # Load environment variables from the .env file
 load_dotenv(override=True)
@@ -72,8 +75,14 @@ def create_vehicle_prices_df(
         suffixes=("_ford_mfr_vehicles", "_ford_dealer_vehicles"),
     )
 
-    # Sort by Manufacturer Price
-    merged_df.sort_values(by=["Ford Manufacturer Price"], inplace=True)
+    # Create a temporary column with numeric values
+    merged_df['temp'] = pd.to_numeric(merged_df['Ford Manufacturer Price'].replace("[\$,]", "", regex=True), errors='coerce')
+
+    # Sort by the temporary column
+    merged_df.sort_values(by=['temp'], inplace=True)
+
+    # Drop the temporary column
+    merged_df.drop(columns=['temp'], inplace=True)
 
     # Set the index to 'Car Model'
     merged_df.set_index("Car Model", inplace=True)
@@ -154,3 +163,92 @@ def create_vehicle_image_df(
 # ------------------------------------------------
 def parse_img_filename(img_src: str) -> Optional[re.Match]:
     return re.search(r"\/([^\/]+\.(jpe?g|png|mp4|tif|webp))", img_src)
+
+
+# ------------------------------------------------
+# Send Email
+# ------------------------------------------------
+def send_email(sender_email: str, receiver_email: str, password: str, subject: str, vehicles_list_html: List[Tuple[str, pd.DataFrame, str, str]], all_model_images_df: pd.DataFrame, nav_prices_df: pd.DataFrame) -> None:
+    
+    # Split the string into a list using comma as a separator
+    receiver_emails_list = receiver_email.split(",")
+
+    # Create the message
+    msg = MIMEMultipart()
+    msg["From"] = sender_email
+    msg["To"] = (
+        ",".join(receiver_emails_list)
+        if len(receiver_emails_list) > 1
+        else receiver_emails_list[0]
+    )
+    msg["Subject"] = subject
+
+    # Customize HTML content for Gmail email
+    html_content = f"""
+    <html>
+      <head>
+        <style>
+          table {{
+            border-collapse: collapse;
+            width: 100%;
+          }}
+          th, td {{
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #dddddd;
+          }}
+          th {{
+            background-color: #f2f2f2;
+          }}
+          td.match {{
+            background-color: green;
+            color: white;
+          }}
+          td.mismatch {{
+            background-color: red;
+            color: white;
+          }}
+        </style>
+      </head>
+      <body>
+        <p>Please review the most recent price and image comparisons between Ford.ca and Fordtodealers.ca. This email serves as an informational audit and requires verification by the recipient prior to any pricing updates.</p>
+        <h2>NAVIGATION MENU PRICES</h2>
+        Data Sources:
+        <ul>
+          <li>{os.getenv("MAIN_NAVIGATION_MENU_MANUFACTURER_URL")}</li>
+          <li>{os.getenv("MAIN_NAVIGATION_MENU_DEALER_URL")}</li>
+        </ul>
+        {nav_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+    """
+
+    # Loop through each vehicle and add corresponding HTML sections
+    for vehicle_name, vehicle_df, manufacturer_url, dealer_url in vehicles_list_html:
+
+        html_content += f"""
+        <h2>{vehicle_name} PRICES</h2>
+        Data Sources:
+        <ul>
+          <li>{manufacturer_url}</li>
+          <li>{dealer_url}</li>
+        </ul>
+        {vehicle_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+        """
+
+    # Continue with the remaining HTML content
+    html_content += f"""
+        <br>
+        <hr>
+        <h2>MODEL HERO IMAGES</h2>
+        <p>The comparisons are done based on filename and not the actual image presented.</p>
+        {all_model_images_df.to_html(classes='table', escape=False, index=False, formatters={'Image Comparison': redden})}
+      </body>
+    </html>
+    """
+
+    msg.attach(MIMEText(html_content, "html"))
+
+    # Connect to the SMTP server
+    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        server.starttls()
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_emails_list, msg.as_string())
