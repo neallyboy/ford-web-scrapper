@@ -5,6 +5,7 @@ from email.mime.multipart import MIMEMultipart
 import pandas as pd
 
 # Built-in Packages
+from datetime import datetime
 import os
 import re
 import smtplib
@@ -166,9 +167,9 @@ def parse_img_filename(img_src: str) -> Optional[re.Match]:
 
 
 # ------------------------------------------------
-# Send Email
+# Send Dealer Email
 # ------------------------------------------------
-def send_email(sender_email: str, receiver_email: str, password: str, subject: str, vehicles_list_html: List[Tuple[str, pd.DataFrame, str, str]], all_model_images_df: pd.DataFrame, nav_prices_df: pd.DataFrame) -> None:
+def send_dealer_email(sender_email: str, receiver_email: str, password: str, subject: str, vehicles_list_html: List[Tuple[str, pd.DataFrame, str, str]], all_model_images_df: pd.DataFrame, nav_prices_df: pd.DataFrame) -> None:
     
     # Split the string into a list using comma as a separator
     receiver_emails_list = receiver_email.split(",")
@@ -252,3 +253,34 @@ def send_email(sender_email: str, receiver_email: str, password: str, subject: s
         server.starttls()
         server.login(sender_email, password)
         server.sendmail(sender_email, receiver_emails_list, msg.as_string())
+        server.quit()
+
+
+# ------------------------------------------------
+# Send Error Email
+# ------------------------------------------------
+def send_error_email(sender_email: str, receiver_email: str, password: str, subject: str, error_message: str) -> None:
+    
+    # Split the string into a list using comma as a separator
+    receiver_emails_list = receiver_email.split(",")
+
+    # Create the message
+    msg = MIMEMultipart()
+    msg["From"] = sender_email
+    msg["To"] = (
+        ",".join(receiver_emails_list)
+        if len(receiver_emails_list) > 1
+        else receiver_emails_list[0]
+    )
+    msg["Subject"] = subject
+
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    body = f"An error occurred in the Ford Dealer Comparison application at {timestamp}\n\n{error_message}"
+    msg.attach(MIMEText(body, 'plain'))
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(sender_email, password)
+    text = msg.as_string()
+    server.sendmail(sender_email, receiver_email, text)
+    server.quit()
