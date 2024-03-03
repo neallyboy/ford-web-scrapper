@@ -54,35 +54,6 @@ EMAIL_RECIEVER = os.getenv("EMAIL_RECIEVER")
 EMAIL_SENDER = os.getenv("EMAIL_SENDER")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
-# Get skip flags from environment variables
-# BRONCO_SKIP_FLAG = os.getenv("BRONCO_SKIP_FLAG", "").lower()
-# BRONCO_SPORT_SKIP_FLAG = os.getenv("BRONCO_SPORT_SKIP_FLAG", "").lower()
-# CHASSIS_CAB_SKIP_FLAG = os.getenv("CHASSIS_CAB_SKIP_FLAG", "").lower()
-# E_SERIES_CUTAWAY_SKIP_FLAG = os.getenv("E_SERIES_CUTAWAY_SKIP_FLAG", "").lower()
-# E_SERIES_STRIPPED_CHASSIS_SKIP_FLAG = os.getenv("E_SERIES_STRIPPED_CHASSIS_SKIP_FLAG", "").lower()
-# E_TRANSIT_SKIP_FLAG = os.getenv("E_TRANSIT_SKIP_FLAG", "").lower()
-# EDGE_SKIP_FLAG = os.getenv("EDGE_SKIP_FLAG", "").lower()
-# ESCAPE_SKIP_FLAG = os.getenv("ESCAPE_SKIP_FLAG", "").lower()
-# EXPLORER_SKIP_FLAG = os.getenv("EXPLORER_SKIP_FLAG", "").lower()
-# EXPEDITION_SKIP_FLAG = os.getenv("EXPEDITION_SKIP_FLAG", "").lower()
-# F_SERIES_STRIPPED_CHASSIS_SKIP_FLAG = os.getenv("F_SERIES_STRIPPED_CHASSIS_SKIP_FLAG", "").lower()
-# F150_SKIP_FLAG = os.getenv("F150_SKIP_FLAG", "").lower()
-# F150_COMMERCIAL_SKIP_FLAG = os.getenv("F150_COMMERCIAL_SKIP_FLAG", "").lower()
-# F150_LIGHTENING_SKIP_FLAG = os.getenv("F150_LIGHTENING_SKIP_FLAG", "").lower()
-# F650_F750_SKIP_FLAG = os.getenv("F650_F750_SKIP_FLAG", "").lower()
-# MAVERICK_SKIP_FLAG = os.getenv("MAVERICK_SKIP_FLAG", "").lower()
-# MUSTANG_SKIP_FLAG = os.getenv("MUSTANG_SKIP_FLAG", "").lower()
-# MUSTANG_MACH_E_SKIP_FLAG = os.getenv("MUSTANG_MACH_E_SKIP_FLAG", "").lower()
-# NAVIGATION_SKIP_FLAG = os.getenv("NAVIGATION_SKIP_FLAG", "").lower()
-# RANGER_SKIP_FLAG = os.getenv("RANGER_SKIP_FLAG", "").lower()
-# SUPER_DUTY_SKIP_FLAG = os.getenv("SUPER_DUTY_SKIP_FLAG", "").lower()
-# SUPER_DUTY_COMMERCIAL_SKIP_FLAG = os.getenv("SUPER_DUTY_COMMERCIAL_SKIP_FLAG", "").lower()
-# TRANSIT_SKIP_FLAG = os.getenv("TRANSIT_SKIP_FLAG", "").lower()
-# TRANSIT_CC_CA_SKIP_FLAG = os.getenv("TRANSIT_CC_CA_SKIP_FLAG", "").lower()
-# TRANSIT_COMMERCIAL_SKIP_FLAG = os.getenv("TRANSIT_COMMERCIAL_SKIP_FLAG", "").lower()
-# TRANSIT_CONNECT_SKIP_FLAG = os.getenv("TRANSIT_CONNECT_SKIP_FLAG", "").lower()
-# TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG = os.getenv("TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG", "").lower()
-
 # Initialize variables for Email
 sender_email = EMAIL_SENDER
 receiver_email = EMAIL_RECIEVER
@@ -152,7 +123,7 @@ def get_vehicle_data(
         print()
 
 
-if __name__ == "__main__":
+def main():
 
     try:
 
@@ -551,3 +522,8 @@ if __name__ == "__main__":
         error_message = f"{exc_type.__name__} at {filename}\nline: {line_number}\n{str(e)}"
         logging.error(error_message)
         send_error_email(sender_email, os.getenv("EMAIL_ERROR_RECIEVER"), password, "FAILED: Ford Vehicle Prices and Image Comparison", error_message)
+
+        print(f"Script encountered an error. Please check the logs for more information.")
+
+if __name__ == "__main__":
+    main()
