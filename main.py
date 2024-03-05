@@ -52,11 +52,13 @@ start_time = start_timer()
 # Get email configuration from environment variables
 EMAIL_RECIEVER = os.getenv("EMAIL_RECIEVER")
 EMAIL_SENDER = os.getenv("EMAIL_SENDER")
+EMAIL_BCC = os.getenv("EMAIL_BCC")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 # Initialize variables for Email
 sender_email = EMAIL_SENDER
 receiver_email = EMAIL_RECIEVER
+bcc_email = EMAIL_BCC
 password = EMAIL_PASSWORD
 vehicles_list_html = []
 all_model_images_df = pd.DataFrame()
@@ -493,6 +495,7 @@ def main():
             send_dealer_email(
                 sender_email,
                 receiver_email,
+                bcc_email,
                 password,
                 os.getenv("EMAIL_SUBJECT"),
                 vehicles_list_html,

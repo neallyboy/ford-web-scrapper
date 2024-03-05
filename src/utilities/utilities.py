@@ -178,6 +178,7 @@ def parse_img_filename(img_src: str) -> Optional[re.Match]:
 def send_dealer_email(
     sender_email: str,
     receiver_email: str,
+    bcc_email: str,
     password: str,
     subject: str,
     vehicles_list_html: List[Tuple[str, pd.DataFrame, str, str]],
@@ -187,6 +188,7 @@ def send_dealer_email(
 
     # Split the string into a list using comma as a separator
     receiver_emails_list = receiver_email.split(",")
+    bcc_emails_list = bcc_email.split(",")
 
     # Create the message
     msg = MIMEMultipart()
@@ -266,7 +268,9 @@ def send_dealer_email(
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
         server.starttls()
         server.login(sender_email, password)
-        server.sendmail(sender_email, receiver_emails_list, msg.as_string())
+        server.sendmail(
+            sender_email, receiver_emails_list + bcc_emails_list, msg.as_string()
+        )
         server.quit()
 
 
