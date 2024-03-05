@@ -119,7 +119,8 @@ def get_vehicle_data(
         )
 
         print_elapsed_time(
-            func_start_time, f"{vehicle_name} pricing and image scraping completed time"
+            func_start_time,
+            f"{vehicle_name} pricing {'and image' if not vehicle_image_skip_flag else ''}scraping completed time",
         )
         print_elapsed_time(start_time, "Elapased Time")
         print()
