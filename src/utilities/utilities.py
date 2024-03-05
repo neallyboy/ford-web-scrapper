@@ -80,13 +80,16 @@ def create_vehicle_prices_df(
     )
 
     # Create a temporary column with numeric values
-    merged_df['temp'] = pd.to_numeric(merged_df['Ford Manufacturer Price'].replace("[\$,]", "", regex=True), errors='coerce')
+    merged_df["temp"] = pd.to_numeric(
+        merged_df["Ford Manufacturer Price"].replace("[\$,]", "", regex=True),
+        errors="coerce",
+    )
 
     # Sort by the temporary column
-    merged_df.sort_values(by=['temp'], inplace=True)
+    merged_df.sort_values(by=["temp"], inplace=True)
 
     # Drop the temporary column
-    merged_df.drop(columns=['temp'], inplace=True)
+    merged_df.drop(columns=["temp"], inplace=True)
 
     # Set the index to 'Car Model'
     merged_df.set_index("Car Model", inplace=True)
@@ -172,8 +175,16 @@ def parse_img_filename(img_src: str) -> Optional[re.Match]:
 # ------------------------------------------------
 # Send Dealer Email
 # ------------------------------------------------
-def send_dealer_email(sender_email: str, receiver_email: str, password: str, subject: str, vehicles_list_html: List[Tuple[str, pd.DataFrame, str, str]], all_model_images_df: pd.DataFrame, nav_prices_df: pd.DataFrame) -> None:
-    
+def send_dealer_email(
+    sender_email: str,
+    receiver_email: str,
+    password: str,
+    subject: str,
+    vehicles_list_html: List[Tuple[str, pd.DataFrame, str, str]],
+    all_model_images_df: pd.DataFrame,
+    nav_prices_df: pd.DataFrame,
+) -> None:
+
     # Split the string into a list using comma as a separator
     receiver_emails_list = receiver_email.split(",")
 
@@ -262,8 +273,14 @@ def send_dealer_email(sender_email: str, receiver_email: str, password: str, sub
 # ------------------------------------------------
 # Send Error Email
 # ------------------------------------------------
-def send_error_email(sender_email: str, receiver_email: str, password: str, subject: str, error_message: str) -> None:
-    
+def send_error_email(
+    sender_email: str,
+    receiver_email: str,
+    password: str,
+    subject: str,
+    error_message: str,
+) -> None:
+
     # Split the string into a list using comma as a separator
     receiver_emails_list = receiver_email.split(",")
 
@@ -277,13 +294,13 @@ def send_error_email(sender_email: str, receiver_email: str, password: str, subj
     )
     msg["Subject"] = subject
 
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     body = f"An error occurred in the Ford Dealer Comparison application at {timestamp}\n\n{error_message}"
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(body, "plain"))
 
-    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
     server.login(sender_email, password)
     text = msg.as_string()
-    server.sendmail(sender_email, receiver_email, text)
+    server.sendmail(sender_email, receiver_emails_list, text)
     server.quit()

@@ -124,408 +124,399 @@ def get_vehicle_data(
 
 
 def main():
-
-    # ---------------------------------
-    # Get Navigation Data
-    # ---------------------------------
-
-    if const["NAVIGATION_SKIP_FLAG"] == False:
-        print("Navigation pricing started...")
-        func_start_time = start_timer()
-
-        # Capture Prices
-        nav_prices_df = create_navigation_prices_df(
-            const["MAIN_NAVIGATION_MENU_MANUFACTURER_URL"],
-            const["MAIN_NAVIGATION_MENU_DEALER_URL"],
-        )
-
-        print_elapsed_time(func_start_time, "Navigation pricing completed time")
-        print_elapsed_time(start_time, "Elapased Time")
-        print("")
-    else:
-        print("NAVIGATION SKIP FLAG is set to 'true'. Skipping NAVIGATION pricing.")
-        print("")
-
-    # ---------------------------------
-    # Get vehicle data
-    # ---------------------------------
-
-    get_vehicle_data(
-        "BRONCO®",
-        const["BRONCO_SKIP_FLAG"],
-        get_ford_mfg_bronco_prices,
-        get_ford_dealer_bronco_prices,
-        get_ford_mfg_bronco_hero_img,
-        get_ford_dealer_bronco_hero_img,
-        const["BRONCO_MANUFACTURER_URL"],
-        const["BRONCO_DEALER_URL"],
-        const["BRONCO_MANUFACTURER_IMAGE_URL"],
-        const["BRONCO_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "BRONCO® SPORT",
-        const["BRONCO_SPORT_SKIP_FLAG"],
-        get_ford_mfg_bronco_sport_prices,
-        get_ford_dealer_bronco_sport_prices,
-        get_ford_mfg_bronco_sport_hero_img,
-        get_ford_dealer_bronco_sport_hero_img,
-        const["BRONCO_SPORT_MANUFACTURER_URL"],
-        const["BRONCO_SPORT_DEALER_URL"],
-        const["BRONCO_SPORT_MANUFACTURER_IMAGE_URL"],
-        const["BRONCO_SPORT_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "CHASSIS CAB",
-        const["CHASSIS_CAB_SKIP_FLAG"],
-        get_ford_mfg_chassis_cab_prices,
-        get_ford_dealer_chassis_cab_prices,
-        get_ford_mfg_chassis_cab_hero_img,
-        get_ford_dealer_chassis_cab_hero_img,
-        const["CHASSIS_CAB_MANUFACTURER_URL"],
-        const["CHASSIS_CAB_DEALER_URL"],
-        const["CHASSIS_CAB_MANUFACTURER_IMAGE_URL"],
-        const["CHASSIS_CAB_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "E-SERIES CUTAWAY",
-        const["E_SERIES_CUTAWAY_SKIP_FLAG"],
-        get_ford_mfg_e_series_cutaway_prices,
-        get_ford_dealer_e_series_cutaway_prices,
-        get_ford_mfg_e_series_cutaway_hero_img,
-        get_ford_dealer_e_series_cutaway_hero_img,
-        const["E_SERIES_CUTAWAY_MANUFACTURER_URL"],
-        const["E_SERIES_CUTAWAY_DEALER_URL"],
-        const["E_SERIES_CUTAWAY_MANUFACTURER_IMAGE_URL"],
-        const["E_SERIES_CUTAWAY_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "E-SERIES STRIPPED CHASSIS",
-        const["E_SERIES_STRIPPED_CHASSIS_SKIP_FLAG"],
-        get_ford_mfg_e_series_stripped_chassis_prices,
-        get_ford_dealer_e_series_stripped_chassis_prices,
-        get_ford_mfg_e_series_stripped_chassis_hero_img,
-        get_ford_dealer_e_series_stripped_chassis_hero_img,
-        const["E_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL"],
-        const["E_SERIES_STRIPPED_CHASSIS_DEALER_URL"],
-        const["E_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL"],
-        const["E_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "E-TRANSIT",
-        const["E_TRANSIT_SKIP_FLAG"],
-        get_ford_mfg_e_transit_prices,
-        get_ford_dealer_e_transit_prices,
-        get_ford_mfg_e_transit_hero_img,
-        get_ford_dealer_e_transit_hero_img,
-        const["E_TRANSIT_MANUFACTURER_URL"],
-        const["E_TRANSIT_DEALER_URL"],
-        const["E_TRANSIT_MANUFACTURER_IMAGE_URL"],
-        const["E_TRANSIT_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "EDGE®",
-        const["EDGE_SKIP_FLAG"],
-        get_ford_mfg_edge_prices,
-        get_ford_dealer_edge_prices,
-        get_ford_mfg_edge_hero_img,
-        get_ford_dealer_edge_hero_img,
-        const["EDGE_MANUFACTURER_URL"],
-        const["EDGE_DEALER_URL"],
-        const["EDGE_MANUFACTURER_IMAGE_URL"],
-        const["EDGE_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "ESCAPE",
-        const["ESCAPE_SKIP_FLAG"],
-        get_ford_mfg_escape_prices,
-        get_ford_dealer_escape_prices,
-        get_ford_mfg_escape_hero_img,
-        get_ford_dealer_escape_hero_img,
-        const["ESCAPE_MANUFACTURER_URL"],
-        const["ESCAPE_DEALER_URL"],
-        const["ESCAPE_MANUFACTURER_IMAGE_URL"],
-        const["ESCAPE_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "EXPLORER®",
-        const["EXPLORER_SKIP_FLAG"],
-        get_ford_mfg_explorer_prices,
-        get_ford_dealer_explorer_prices,
-        get_ford_mfg_explorer_hero_img,
-        get_ford_dealer_explorer_hero_img,
-        const["EXPLORER_MANUFACTURER_URL"],
-        const["EXPLORER_DEALER_URL"],
-        const["EXPLORER_MANUFACTURER_IMAGE_URL"],
-        const["EXPLORER_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "EXPEDITION®",
-        const["EXPEDITION_SKIP_FLAG"],
-        get_ford_mfg_expedition_prices,
-        get_ford_dealer_expedition_prices,
-        get_ford_mfg_expedition_hero_img,
-        get_ford_dealer_expedition_hero_img,
-        const["EXPEDITION_MANUFACTURER_URL"],
-        const["EXPEDITION_DEALER_URL"],
-        const["EXPEDITION_MANUFACTURER_IMAGE_URL"],
-        const["EXPEDITION_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "F-SERIES STRIPPED CHASSIS",
-        const["F_SERIES_STRIPPED_CHASSIS_SKIP_FLAG"],
-        get_ford_mfg_f_series_stripped_chassis_prices,
-        get_ford_dealer_f_series_stripped_chassis_prices,
-        get_ford_mfg_f_series_stripped_chassis_hero_img,
-        get_ford_dealer_f_series_stripped_chassis_hero_img,
-        const["F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL"],
-        const["F_SERIES_STRIPPED_CHASSIS_DEALER_URL"],
-        const["F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL"],
-        const["F_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "F-150®",
-        const["F150_SKIP_FLAG"],
-        get_ford_mfg_f150_prices,
-        get_ford_dealer_f150_prices,
-        get_ford_mfg_f150_hero_img,
-        get_ford_dealer_f150_hero_img,
-        const["F150_MANUFACTURER_URL"],
-        const["F150_DEALER_URL"],
-        const["F150_MANUFACTURER_IMAGE_URL"],
-        const["F150_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "F-150® COMMERICAL",
-        const["F150_COMMERCIAL_SKIP_FLAG"],
-        get_ford_mfg_f150_commercial_prices,
-        get_ford_dealer_f150_commercial_prices,
-        get_ford_mfg_f150_commercial_hero_img,
-        get_ford_dealer_f150_commercial_hero_img,
-        const["F150_COMMERCIAL_MANUFACTURER_URL"],
-        const["F150_COMMERCIAL_DEALER_URL"],
-        const["F150_COMMERCIAL_MANUFACTURER_IMAGE_URL"],
-        const["F150_COMMERCIAL_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "F-150® LIGHTENING®",
-        const["F150_LIGHTENING_SKIP_FLAG"],
-        get_ford_mfg_f150_lightening_prices,
-        get_ford_dealer_f150_lightening_prices,
-        get_ford_mfg_f150_lightening_hero_img,
-        get_ford_dealer_f150_lightening_hero_img,
-        const["F150_LIGHTENING_MANUFACTURER_URL"],
-        const["F150_LIGHTENING_DEALER_URL"],
-        const["F150_LIGHTENING_MANUFACTURER_IMAGE_URL"],
-        const["F150_LIGHTENING_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "F-650® F-750®",
-        const["F650_F750_SKIP_FLAG"],
-        get_ford_mfg_f650_f750_prices,
-        get_ford_dealer_f650_f750_prices,
-        get_ford_mfg_f650_f750_hero_img,
-        get_ford_dealer_f650_f750_hero_img,
-        const["F650_F750_MANUFACTURER_URL"],
-        const["F650_F750_DEALER_URL"],
-        const["F650_F750_MANUFACTURER_IMAGE_URL"],
-        const["F650_F750_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "MAVERICK®",
-        const["MAVERICK_SKIP_FLAG"],
-        get_ford_mfg_maverick_prices,
-        get_ford_dealer_maverick_prices,
-        get_ford_mfg_maverick_hero_img,
-        get_ford_dealer_maverick_hero_img,
-        const["MAVERICK_MANUFACTURER_URL"],
-        const["MAVERICK_DEALER_URL"],
-        const["MAVERICK_MANUFACTURER_IMAGE_URL"],
-        const["MAVERICK_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "MUSTANG®",
-        const["MUSTANG_SKIP_FLAG"],
-        get_ford_mfg_mustang_prices,
-        get_ford_dealer_mustang_prices,
-        get_ford_mfg_mustang_hero_img,
-        get_ford_dealer_mustang_hero_img,
-        const["MUSTANG_MANUFACTURER_URL"],
-        const["MUSTANG_DEALER_URL"],
-        const["MUSTANG_MANUFACTURER_IMAGE_URL"],
-        const["MUSTANG_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "MUSTANG MACH-E®",
-        const["MUSTANG_MACH_E_SKIP_FLAG"],
-        get_ford_mfg_mustang_mach_e_prices,
-        get_ford_dealer_mustang_mach_e_prices,
-        get_ford_mfg_mustang_mach_e_hero_img,
-        get_ford_dealer_mustang_mach_e_hero_img,
-        const["MUSTANG_MACH_E_MANUFACTURER_URL"],
-        const["MUSTANG_MACH_E_DEALER_URL"],
-        const["MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL"],
-        const["MUSTANG_MACH_E_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "RANGER®",
-        const["RANGER_SKIP_FLAG"],
-        get_ford_mfg_ranger_prices,
-        get_ford_dealer_ranger_prices,
-        get_ford_mfg_ranger_hero_img,
-        get_ford_dealer_ranger_hero_img,
-        const["RANGER_MANUFACTURER_URL"],
-        const["RANGER_DEALER_URL"],
-        const["RANGER_MANUFACTURER_IMAGE_URL"],
-        const["RANGER_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "SUPER DUTY®",
-        const["SUPER_DUTY_SKIP_FLAG"],
-        get_ford_mfg_super_duty_prices,
-        get_ford_dealer_super_duty_prices,
-        get_ford_mfg_super_duty_hero_img,
-        get_ford_dealer_super_duty_hero_img,
-        const["SUPER_DUTY_MANUFACTURER_URL"],
-        const["SUPER_DUTY_DEALER_URL"],
-        const["SUPER_DUTY_MANUFACTURER_IMAGE_URL"],
-        const["SUPER_DUTY_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "SUPER DUTY® COMMERICAL",
-        const["SUPER_DUTY_COMMERCIAL_SKIP_FLAG"],
-        get_ford_mfg_super_duty_commercial_prices,
-        get_ford_dealer_super_duty_commercial_prices,
-        get_ford_mfg_super_duty_commercial_hero_img,
-        get_ford_dealer_super_duty_commercial_hero_img,
-        const["SUPER_DUTY_COMMERCIAL_MANUFACTURER_URL"],
-        const["SUPER_DUTY_COMMERCIAL_DEALER_URL"],
-        const["SUPER_DUTY_COMMERCIAL_MANUFACTURER_IMAGE_URL"],
-        const["SUPER_DUTY_COMMERCIAL_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "TRANSIT®",
-        const["TRANSIT_SKIP_FLAG"],
-        get_ford_mfg_transit_prices,
-        get_ford_dealer_transit_prices,
-        get_ford_mfg_transit_hero_img,
-        get_ford_dealer_transit_hero_img,
-        const["TRANSIT_MANUFACTURER_URL"],
-        const["TRANSIT_DEALER_URL"],
-        const["TRANSIT_MANUFACTURER_IMAGE_URL"],
-        const["TRANSIT_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "TRANSIT® CC-CA",
-        const["TRANSIT_CC_CA_SKIP_FLAG"],
-        get_ford_mfg_transit_cc_ca_prices,
-        get_ford_dealer_transit_cc_ca_prices,
-        get_ford_mfg_transit_cc_ca_hero_img,
-        get_ford_dealer_transit_cc_ca_hero_img,
-        const["TRANSIT_CC_CA_MANUFACTURER_URL"],
-        const["TRANSIT_CC_CA_DEALER_URL"],
-        const["TRANSIT_CC_CA_MANUFACTURER_IMAGE_URL"],
-        const["TRANSIT_CC_CA_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "TRANSIT® COMMERCIAL",
-        const["TRANSIT_COMMERCIAL_SKIP_FLAG"],
-        get_ford_mfg_transit_commercial_prices,
-        get_ford_dealer_transit_commercial_prices,
-        get_ford_mfg_transit_commercial_hero_img,
-        get_ford_dealer_transit_commercial_hero_img,
-        const["TRANSIT_COMMERCIAL_MANUFACTURER_URL"],
-        const["TRANSIT_COMMERCIAL_DEALER_URL"],
-        const["TRANSIT_COMMERCIAL_MANUFACTURER_IMAGE_URL"],
-        const["TRANSIT_COMMERCIAL_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "TRANSIT® CONNECT",
-        const["TRANSIT_CONNECT_SKIP_FLAG"],
-        get_ford_mfg_transit_connect_prices,
-        get_ford_dealer_transit_connect_prices,
-        get_ford_mfg_transit_connect_hero_img,
-        get_ford_dealer_transit_connect_hero_img,
-        const["TRANSIT_CONNECT_MANUFACTURER_URL"],
-        const["TRANSIT_CONNECT_DEALER_URL"],
-        const["TRANSIT_CONNECT_MANUFACTURER_IMAGE_URL"],
-        const["TRANSIT_CONNECT_DEALER_IMAGE_URL"],
-    )
-
-    get_vehicle_data(
-        "TRANSIT® CONNECT COMMERCIAL",
-        const["TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG"],
-        get_ford_mfg_transit_connect_commercial_prices,
-        get_ford_dealer_transit_connect_commercial_prices,
-        get_ford_mfg_transit_connect_commercial_hero_img,
-        get_ford_dealer_transit_connect_commercial_hero_img,
-        const["TRANSIT_CONNECT_COMMERCIAL_MANUFACTURER_URL"],
-        const["TRANSIT_CONNECT_COMMERCIAL_DEALER_URL"],
-        const["TRANSIT_CONNECT_COMMERCIAL_MANUFACTURER_IMAGE_URL"],
-        const["TRANSIT_CONNECT_COMMERCIAL_DEALER_IMAGE_URL"],
-    )
-
-    # Close Webdriver
-    driver = WebDriverSingleton.get_driver()
-    driver.quit()
-
-    # Email the data
-    if const["EMAIL_SKIP_FLAG"] == False:
-        send_dealer_email(
-            sender_email,
-            receiver_email,
-            password,
-            "Ford Vehicle Prices and Image Comparison",
-            vehicles_list_html,
-            all_model_images_df,
-            nav_prices_df,
-        )
-    else:
-        print("EMAIL SKIP FLAG is set to 'true'. Email not sent.")
-        print()
-
-    # Record the end time
-    end_time = time.time()
-
-    # Calculate the elapsed time
-    elapsed_time_seconds = end_time - start_time
-
-    # Convert elapsed time to hours, minutes, and seconds
-    hours, remainder = divmod(elapsed_time_seconds, 3600)
-    minutes, seconds = divmod(remainder, 60)
-
-    # Print the elapsed time
-    print(
-        f"Script execution time: {int(hours)} hours, {int(minutes)} minutes, {seconds:.2f} seconds"
-    )
-
-
-if __name__ == "__main__":
     try:
-        main()
+        # ---------------------------------
+        # Get Navigation Data
+        # ---------------------------------
+
+        if const["NAVIGATION_SKIP_FLAG"] == False:
+            print("Navigation pricing started...")
+            func_start_time = start_timer()
+
+            # Capture Prices
+            nav_prices_df = create_navigation_prices_df(
+                const["MAIN_NAVIGATION_MENU_MANUFACTURER_URL"],
+                const["MAIN_NAVIGATION_MENU_DEALER_URL"],
+            )
+
+            print_elapsed_time(func_start_time, "Navigation pricing completed time")
+            print_elapsed_time(start_time, "Elapased Time")
+            print("")
+        else:
+            print("NAVIGATION SKIP FLAG is set to 'true'. Skipping NAVIGATION pricing.")
+            print("")
+
+        # ---------------------------------
+        # Get vehicle data
+        # ---------------------------------
+
+        get_vehicle_data(
+            "BRONCO®",
+            const["BRONCO_SKIP_FLAG"],
+            get_ford_mfg_bronco_prices,
+            get_ford_dealer_bronco_prices,
+            get_ford_mfg_bronco_hero_img,
+            get_ford_dealer_bronco_hero_img,
+            const["BRONCO_MANUFACTURER_URL"],
+            const["BRONCO_DEALER_URL"],
+            const["BRONCO_MANUFACTURER_IMAGE_URL"],
+            const["BRONCO_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "BRONCO® SPORT",
+            const["BRONCO_SPORT_SKIP_FLAG"],
+            get_ford_mfg_bronco_sport_prices,
+            get_ford_dealer_bronco_sport_prices,
+            get_ford_mfg_bronco_sport_hero_img,
+            get_ford_dealer_bronco_sport_hero_img,
+            const["BRONCO_SPORT_MANUFACTURER_URL"],
+            const["BRONCO_SPORT_DEALER_URL"],
+            const["BRONCO_SPORT_MANUFACTURER_IMAGE_URL"],
+            const["BRONCO_SPORT_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "CHASSIS CAB",
+            const["CHASSIS_CAB_SKIP_FLAG"],
+            get_ford_mfg_chassis_cab_prices,
+            get_ford_dealer_chassis_cab_prices,
+            get_ford_mfg_chassis_cab_hero_img,
+            get_ford_dealer_chassis_cab_hero_img,
+            const["CHASSIS_CAB_MANUFACTURER_URL"],
+            const["CHASSIS_CAB_DEALER_URL"],
+            const["CHASSIS_CAB_MANUFACTURER_IMAGE_URL"],
+            const["CHASSIS_CAB_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "E-SERIES CUTAWAY",
+            const["E_SERIES_CUTAWAY_SKIP_FLAG"],
+            get_ford_mfg_e_series_cutaway_prices,
+            get_ford_dealer_e_series_cutaway_prices,
+            get_ford_mfg_e_series_cutaway_hero_img,
+            get_ford_dealer_e_series_cutaway_hero_img,
+            const["E_SERIES_CUTAWAY_MANUFACTURER_URL"],
+            const["E_SERIES_CUTAWAY_DEALER_URL"],
+            const["E_SERIES_CUTAWAY_MANUFACTURER_IMAGE_URL"],
+            const["E_SERIES_CUTAWAY_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "E-SERIES STRIPPED CHASSIS",
+            const["E_SERIES_STRIPPED_CHASSIS_SKIP_FLAG"],
+            get_ford_mfg_e_series_stripped_chassis_prices,
+            get_ford_dealer_e_series_stripped_chassis_prices,
+            get_ford_mfg_e_series_stripped_chassis_hero_img,
+            get_ford_dealer_e_series_stripped_chassis_hero_img,
+            const["E_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL"],
+            const["E_SERIES_STRIPPED_CHASSIS_DEALER_URL"],
+            const["E_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL"],
+            const["E_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "E-TRANSIT",
+            const["E_TRANSIT_SKIP_FLAG"],
+            get_ford_mfg_e_transit_prices,
+            get_ford_dealer_e_transit_prices,
+            get_ford_mfg_e_transit_hero_img,
+            get_ford_dealer_e_transit_hero_img,
+            const["E_TRANSIT_MANUFACTURER_URL"],
+            const["E_TRANSIT_DEALER_URL"],
+            const["E_TRANSIT_MANUFACTURER_IMAGE_URL"],
+            const["E_TRANSIT_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "EDGE®",
+            const["EDGE_SKIP_FLAG"],
+            get_ford_mfg_edge_prices,
+            get_ford_dealer_edge_prices,
+            get_ford_mfg_edge_hero_img,
+            get_ford_dealer_edge_hero_img,
+            const["EDGE_MANUFACTURER_URL"],
+            const["EDGE_DEALER_URL"],
+            const["EDGE_MANUFACTURER_IMAGE_URL"],
+            const["EDGE_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "ESCAPE",
+            const["ESCAPE_SKIP_FLAG"],
+            get_ford_mfg_escape_prices,
+            get_ford_dealer_escape_prices,
+            get_ford_mfg_escape_hero_img,
+            get_ford_dealer_escape_hero_img,
+            const["ESCAPE_MANUFACTURER_URL"],
+            const["ESCAPE_DEALER_URL"],
+            const["ESCAPE_MANUFACTURER_IMAGE_URL"],
+            const["ESCAPE_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "EXPLORER®",
+            const["EXPLORER_SKIP_FLAG"],
+            get_ford_mfg_explorer_prices,
+            get_ford_dealer_explorer_prices,
+            get_ford_mfg_explorer_hero_img,
+            get_ford_dealer_explorer_hero_img,
+            const["EXPLORER_MANUFACTURER_URL"],
+            const["EXPLORER_DEALER_URL"],
+            const["EXPLORER_MANUFACTURER_IMAGE_URL"],
+            const["EXPLORER_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "EXPEDITION®",
+            const["EXPEDITION_SKIP_FLAG"],
+            get_ford_mfg_expedition_prices,
+            get_ford_dealer_expedition_prices,
+            get_ford_mfg_expedition_hero_img,
+            get_ford_dealer_expedition_hero_img,
+            const["EXPEDITION_MANUFACTURER_URL"],
+            const["EXPEDITION_DEALER_URL"],
+            const["EXPEDITION_MANUFACTURER_IMAGE_URL"],
+            const["EXPEDITION_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "F-SERIES STRIPPED CHASSIS",
+            const["F_SERIES_STRIPPED_CHASSIS_SKIP_FLAG"],
+            get_ford_mfg_f_series_stripped_chassis_prices,
+            get_ford_dealer_f_series_stripped_chassis_prices,
+            get_ford_mfg_f_series_stripped_chassis_hero_img,
+            get_ford_dealer_f_series_stripped_chassis_hero_img,
+            const["F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_URL"],
+            const["F_SERIES_STRIPPED_CHASSIS_DEALER_URL"],
+            const["F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL"],
+            const["F_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "F-150®",
+            const["F150_SKIP_FLAG"],
+            get_ford_mfg_f150_prices,
+            get_ford_dealer_f150_prices,
+            get_ford_mfg_f150_hero_img,
+            get_ford_dealer_f150_hero_img,
+            const["F150_MANUFACTURER_URL"],
+            const["F150_DEALER_URL"],
+            const["F150_MANUFACTURER_IMAGE_URL"],
+            const["F150_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "F-150® COMMERICAL",
+            const["F150_COMMERCIAL_SKIP_FLAG"],
+            get_ford_mfg_f150_commercial_prices,
+            get_ford_dealer_f150_commercial_prices,
+            get_ford_mfg_f150_commercial_hero_img,
+            get_ford_dealer_f150_commercial_hero_img,
+            const["F150_COMMERCIAL_MANUFACTURER_URL"],
+            const["F150_COMMERCIAL_DEALER_URL"],
+            const["F150_COMMERCIAL_MANUFACTURER_IMAGE_URL"],
+            const["F150_COMMERCIAL_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "F-150® LIGHTENING®",
+            const["F150_LIGHTENING_SKIP_FLAG"],
+            get_ford_mfg_f150_lightening_prices,
+            get_ford_dealer_f150_lightening_prices,
+            get_ford_mfg_f150_lightening_hero_img,
+            get_ford_dealer_f150_lightening_hero_img,
+            const["F150_LIGHTENING_MANUFACTURER_URL"],
+            const["F150_LIGHTENING_DEALER_URL"],
+            const["F150_LIGHTENING_MANUFACTURER_IMAGE_URL"],
+            const["F150_LIGHTENING_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "F-650® F-750®",
+            const["F650_F750_SKIP_FLAG"],
+            get_ford_mfg_f650_f750_prices,
+            get_ford_dealer_f650_f750_prices,
+            get_ford_mfg_f650_f750_hero_img,
+            get_ford_dealer_f650_f750_hero_img,
+            const["F650_F750_MANUFACTURER_URL"],
+            const["F650_F750_DEALER_URL"],
+            const["F650_F750_MANUFACTURER_IMAGE_URL"],
+            const["F650_F750_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "MAVERICK®",
+            const["MAVERICK_SKIP_FLAG"],
+            get_ford_mfg_maverick_prices,
+            get_ford_dealer_maverick_prices,
+            get_ford_mfg_maverick_hero_img,
+            get_ford_dealer_maverick_hero_img,
+            const["MAVERICK_MANUFACTURER_URL"],
+            const["MAVERICK_DEALER_URL"],
+            const["MAVERICK_MANUFACTURER_IMAGE_URL"],
+            const["MAVERICK_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "MUSTANG®",
+            const["MUSTANG_SKIP_FLAG"],
+            get_ford_mfg_mustang_prices,
+            get_ford_dealer_mustang_prices,
+            get_ford_mfg_mustang_hero_img,
+            get_ford_dealer_mustang_hero_img,
+            const["MUSTANG_MANUFACTURER_URL"],
+            const["MUSTANG_DEALER_URL"],
+            const["MUSTANG_MANUFACTURER_IMAGE_URL"],
+            const["MUSTANG_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "MUSTANG MACH-E®",
+            const["MUSTANG_MACH_E_SKIP_FLAG"],
+            get_ford_mfg_mustang_mach_e_prices,
+            get_ford_dealer_mustang_mach_e_prices,
+            get_ford_mfg_mustang_mach_e_hero_img,
+            get_ford_dealer_mustang_mach_e_hero_img,
+            const["MUSTANG_MACH_E_MANUFACTURER_URL"],
+            const["MUSTANG_MACH_E_DEALER_URL"],
+            const["MUSTANG_MACH_E_MANUFACTURER_IMAGE_URL"],
+            const["MUSTANG_MACH_E_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "RANGER®",
+            const["RANGER_SKIP_FLAG"],
+            get_ford_mfg_ranger_prices,
+            get_ford_dealer_ranger_prices,
+            get_ford_mfg_ranger_hero_img,
+            get_ford_dealer_ranger_hero_img,
+            const["RANGER_MANUFACTURER_URL"],
+            const["RANGER_DEALER_URL"],
+            const["RANGER_MANUFACTURER_IMAGE_URL"],
+            const["RANGER_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "SUPER DUTY®",
+            const["SUPER_DUTY_SKIP_FLAG"],
+            get_ford_mfg_super_duty_prices,
+            get_ford_dealer_super_duty_prices,
+            get_ford_mfg_super_duty_hero_img,
+            get_ford_dealer_super_duty_hero_img,
+            const["SUPER_DUTY_MANUFACTURER_URL"],
+            const["SUPER_DUTY_DEALER_URL"],
+            const["SUPER_DUTY_MANUFACTURER_IMAGE_URL"],
+            const["SUPER_DUTY_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "SUPER DUTY® COMMERICAL",
+            const["SUPER_DUTY_COMMERCIAL_SKIP_FLAG"],
+            get_ford_mfg_super_duty_commercial_prices,
+            get_ford_dealer_super_duty_commercial_prices,
+            get_ford_mfg_super_duty_commercial_hero_img,
+            get_ford_dealer_super_duty_commercial_hero_img,
+            const["SUPER_DUTY_COMMERCIAL_MANUFACTURER_URL"],
+            const["SUPER_DUTY_COMMERCIAL_DEALER_URL"],
+            const["SUPER_DUTY_COMMERCIAL_MANUFACTURER_IMAGE_URL"],
+            const["SUPER_DUTY_COMMERCIAL_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "TRANSIT®",
+            const["TRANSIT_SKIP_FLAG"],
+            get_ford_mfg_transit_prices,
+            get_ford_dealer_transit_prices,
+            get_ford_mfg_transit_hero_img,
+            get_ford_dealer_transit_hero_img,
+            const["TRANSIT_MANUFACTURER_URL"],
+            const["TRANSIT_DEALER_URL"],
+            const["TRANSIT_MANUFACTURER_IMAGE_URL"],
+            const["TRANSIT_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "TRANSIT® CC-CA",
+            const["TRANSIT_CC_CA_SKIP_FLAG"],
+            get_ford_mfg_transit_cc_ca_prices,
+            get_ford_dealer_transit_cc_ca_prices,
+            get_ford_mfg_transit_cc_ca_hero_img,
+            get_ford_dealer_transit_cc_ca_hero_img,
+            const["TRANSIT_CC_CA_MANUFACTURER_URL"],
+            const["TRANSIT_CC_CA_DEALER_URL"],
+            const["TRANSIT_CC_CA_MANUFACTURER_IMAGE_URL"],
+            const["TRANSIT_CC_CA_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "TRANSIT® COMMERCIAL",
+            const["TRANSIT_COMMERCIAL_SKIP_FLAG"],
+            get_ford_mfg_transit_commercial_prices,
+            get_ford_dealer_transit_commercial_prices,
+            get_ford_mfg_transit_commercial_hero_img,
+            get_ford_dealer_transit_commercial_hero_img,
+            const["TRANSIT_COMMERCIAL_MANUFACTURER_URL"],
+            const["TRANSIT_COMMERCIAL_DEALER_URL"],
+            const["TRANSIT_COMMERCIAL_MANUFACTURER_IMAGE_URL"],
+            const["TRANSIT_COMMERCIAL_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "TRANSIT® CONNECT",
+            const["TRANSIT_CONNECT_SKIP_FLAG"],
+            get_ford_mfg_transit_connect_prices,
+            get_ford_dealer_transit_connect_prices,
+            get_ford_mfg_transit_connect_hero_img,
+            get_ford_dealer_transit_connect_hero_img,
+            const["TRANSIT_CONNECT_MANUFACTURER_URL"],
+            const["TRANSIT_CONNECT_DEALER_URL"],
+            const["TRANSIT_CONNECT_MANUFACTURER_IMAGE_URL"],
+            const["TRANSIT_CONNECT_DEALER_IMAGE_URL"],
+        )
+
+        get_vehicle_data(
+            "TRANSIT® CONNECT COMMERCIAL",
+            const["TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG"],
+            get_ford_mfg_transit_connect_commercial_prices,
+            get_ford_dealer_transit_connect_commercial_prices,
+            get_ford_mfg_transit_connect_commercial_hero_img,
+            get_ford_dealer_transit_connect_commercial_hero_img,
+            const["TRANSIT_CONNECT_COMMERCIAL_MANUFACTURER_URL"],
+            const["TRANSIT_CONNECT_COMMERCIAL_DEALER_URL"],
+            const["TRANSIT_CONNECT_COMMERCIAL_MANUFACTURER_IMAGE_URL"],
+            const["TRANSIT_CONNECT_COMMERCIAL_DEALER_IMAGE_URL"],
+        )
+
+        # Email the data
+        if const["EMAIL_SKIP_FLAG"] == False:
+            send_dealer_email(
+                sender_email,
+                receiver_email,
+                password,
+                os.getenv("EMAIL_SUBJECT"),
+                vehicles_list_html,
+                all_model_images_df,
+                nav_prices_df,
+            )
+        else:
+            print("EMAIL SKIP FLAG is set to 'true'. Email not sent.")
+            print()
+
+        # Record the end time
+        end_time = time.time()
+
+        # Calculate the elapsed time
+        elapsed_time_seconds = end_time - start_time
+
+        # Convert elapsed time to hours, minutes, and seconds
+        hours, remainder = divmod(elapsed_time_seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+
+        # Print the elapsed time
+        print(
+            f"Script execution time: {int(hours)} hours, {int(minutes)} minutes, {seconds:.2f} seconds"
+        )
 
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -546,3 +537,16 @@ if __name__ == "__main__":
         print(
             f"Script encountered an error. Please check the logs for more information."
         )
+
+    finally:
+
+        # Close Webdriver
+        driver = WebDriverSingleton.get_driver()
+        if driver is not None:
+            driver.quit()
+            print("WebDriver closed successfully.")
+
+
+if __name__ == "__main__":
+
+    main()
