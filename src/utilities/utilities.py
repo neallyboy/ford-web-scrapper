@@ -251,16 +251,17 @@ def send_dealer_email(
         {vehicle_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
         """
 
-    # Continue with the remaining HTML content
-    html_content += f"""
-        <br>
-        <hr>
-        <h2>MODEL HERO IMAGES</h2>
-        <p>The comparisons are done based on filename and not the actual image presented.</p>
-        {all_model_images_df.to_html(classes='table', escape=False, index=False, formatters={'Image Comparison': redden})}
-      </body>
-    </html>
-    """
+    if not all_model_images_df.empty:
+        # Continue with the remaining HTML content
+        html_content += f"""
+            <br>
+            <hr>
+            <h2>MODEL HERO IMAGES</h2>
+            <p>The comparisons are done based on filename and not the actual image presented.</p>
+            {all_model_images_df.to_html(classes='table', escape=False, index=False, formatters={'Image Comparison': redden})}
+        </body>
+        </html>
+        """
 
     msg.attach(MIMEText(html_content, "html"))
 

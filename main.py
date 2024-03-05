@@ -55,6 +55,7 @@ EMAIL_SENDER = os.getenv("EMAIL_SENDER")
 EMAIL_BCC = os.getenv("EMAIL_BCC")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
+
 # Initialize variables for Email
 sender_email = EMAIL_SENDER
 receiver_email = EMAIL_RECIEVER
@@ -67,7 +68,8 @@ all_model_images_df = pd.DataFrame()
 # Process Vehicle data
 def get_vehicle_data(
     vehicle_name: str,
-    skip_flag: str,
+    vehicle_skip_flag: str,
+    vehicle_image_skip_flag: str,
     mfg_prices_func: Callable,
     dealer_prices_func: Callable,
     mfg_image_func: Callable,
@@ -79,7 +81,7 @@ def get_vehicle_data(
 ) -> None:
     global all_model_images_df
 
-    if skip_flag == False:
+    if vehicle_skip_flag == False:
         print(f"{vehicle_name} pricing scraping started...")
 
         func_start_time = start_timer()
@@ -90,27 +92,30 @@ def get_vehicle_data(
         )
 
         print(f"{vehicle_name} pricing scraping completed.")
-        print(f"{vehicle_name} image scraping started...")
 
-        # Capture Hero Images
-        vehicle_image_df = create_vehicle_image_df(
-            mfg_image_func,
-            dealer_image_func,
-            vehicle_name,
-            mfg_image_url,
-            dealer_image_url,
-        )
+        if vehicle_image_skip_flag == False:
 
-        print(f"{vehicle_name} image scraping completed.")
+            print(f"{vehicle_name} image scraping started...")
+
+            # Capture Hero Images
+            vehicle_image_df = create_vehicle_image_df(
+                mfg_image_func,
+                dealer_image_func,
+                vehicle_name,
+                mfg_image_url,
+                dealer_image_url,
+            )
+
+            # Append Images to single data frame
+            all_model_images_df = pd.concat(
+                [all_model_images_df, vehicle_image_df], ignore_index=True
+            )
+
+            print(f"{vehicle_name} image scraping completed.")
 
         # Append Prices to single list
         vehicles_list_html.append(
             (vehicle_name, vehicle_prices_df, mfg_image_url, dealer_image_url)
-        )
-
-        # Append Images to single data frame
-        all_model_images_df = pd.concat(
-            [all_model_images_df, vehicle_image_df], ignore_index=True
         )
 
         print_elapsed_time(
@@ -155,6 +160,7 @@ def main():
         get_vehicle_data(
             "BRONCO®",
             const["BRONCO_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_bronco_prices,
             get_ford_dealer_bronco_prices,
             get_ford_mfg_bronco_hero_img,
@@ -168,6 +174,7 @@ def main():
         get_vehicle_data(
             "BRONCO® SPORT",
             const["BRONCO_SPORT_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_bronco_sport_prices,
             get_ford_dealer_bronco_sport_prices,
             get_ford_mfg_bronco_sport_hero_img,
@@ -181,6 +188,7 @@ def main():
         get_vehicle_data(
             "CHASSIS CAB",
             const["CHASSIS_CAB_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_chassis_cab_prices,
             get_ford_dealer_chassis_cab_prices,
             get_ford_mfg_chassis_cab_hero_img,
@@ -194,6 +202,7 @@ def main():
         get_vehicle_data(
             "E-SERIES CUTAWAY",
             const["E_SERIES_CUTAWAY_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_e_series_cutaway_prices,
             get_ford_dealer_e_series_cutaway_prices,
             get_ford_mfg_e_series_cutaway_hero_img,
@@ -207,6 +216,7 @@ def main():
         get_vehicle_data(
             "E-SERIES STRIPPED CHASSIS",
             const["E_SERIES_STRIPPED_CHASSIS_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_e_series_stripped_chassis_prices,
             get_ford_dealer_e_series_stripped_chassis_prices,
             get_ford_mfg_e_series_stripped_chassis_hero_img,
@@ -220,6 +230,7 @@ def main():
         get_vehicle_data(
             "E-TRANSIT",
             const["E_TRANSIT_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_e_transit_prices,
             get_ford_dealer_e_transit_prices,
             get_ford_mfg_e_transit_hero_img,
@@ -233,6 +244,7 @@ def main():
         get_vehicle_data(
             "EDGE®",
             const["EDGE_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_edge_prices,
             get_ford_dealer_edge_prices,
             get_ford_mfg_edge_hero_img,
@@ -246,6 +258,7 @@ def main():
         get_vehicle_data(
             "ESCAPE",
             const["ESCAPE_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_escape_prices,
             get_ford_dealer_escape_prices,
             get_ford_mfg_escape_hero_img,
@@ -259,6 +272,7 @@ def main():
         get_vehicle_data(
             "EXPLORER®",
             const["EXPLORER_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_explorer_prices,
             get_ford_dealer_explorer_prices,
             get_ford_mfg_explorer_hero_img,
@@ -272,6 +286,7 @@ def main():
         get_vehicle_data(
             "EXPEDITION®",
             const["EXPEDITION_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_expedition_prices,
             get_ford_dealer_expedition_prices,
             get_ford_mfg_expedition_hero_img,
@@ -285,6 +300,7 @@ def main():
         get_vehicle_data(
             "F-SERIES STRIPPED CHASSIS",
             const["F_SERIES_STRIPPED_CHASSIS_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_f_series_stripped_chassis_prices,
             get_ford_dealer_f_series_stripped_chassis_prices,
             get_ford_mfg_f_series_stripped_chassis_hero_img,
@@ -298,6 +314,7 @@ def main():
         get_vehicle_data(
             "F-150®",
             const["F150_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_f150_prices,
             get_ford_dealer_f150_prices,
             get_ford_mfg_f150_hero_img,
@@ -311,6 +328,7 @@ def main():
         get_vehicle_data(
             "F-150® COMMERICAL",
             const["F150_COMMERCIAL_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_f150_commercial_prices,
             get_ford_dealer_f150_commercial_prices,
             get_ford_mfg_f150_commercial_hero_img,
@@ -324,6 +342,7 @@ def main():
         get_vehicle_data(
             "F-150® LIGHTENING®",
             const["F150_LIGHTENING_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_f150_lightening_prices,
             get_ford_dealer_f150_lightening_prices,
             get_ford_mfg_f150_lightening_hero_img,
@@ -337,6 +356,7 @@ def main():
         get_vehicle_data(
             "F-650® F-750®",
             const["F650_F750_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_f650_f750_prices,
             get_ford_dealer_f650_f750_prices,
             get_ford_mfg_f650_f750_hero_img,
@@ -350,6 +370,7 @@ def main():
         get_vehicle_data(
             "MAVERICK®",
             const["MAVERICK_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_maverick_prices,
             get_ford_dealer_maverick_prices,
             get_ford_mfg_maverick_hero_img,
@@ -363,6 +384,7 @@ def main():
         get_vehicle_data(
             "MUSTANG®",
             const["MUSTANG_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_mustang_prices,
             get_ford_dealer_mustang_prices,
             get_ford_mfg_mustang_hero_img,
@@ -376,6 +398,7 @@ def main():
         get_vehicle_data(
             "MUSTANG MACH-E®",
             const["MUSTANG_MACH_E_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_mustang_mach_e_prices,
             get_ford_dealer_mustang_mach_e_prices,
             get_ford_mfg_mustang_mach_e_hero_img,
@@ -389,6 +412,7 @@ def main():
         get_vehicle_data(
             "RANGER®",
             const["RANGER_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_ranger_prices,
             get_ford_dealer_ranger_prices,
             get_ford_mfg_ranger_hero_img,
@@ -402,6 +426,7 @@ def main():
         get_vehicle_data(
             "SUPER DUTY®",
             const["SUPER_DUTY_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_super_duty_prices,
             get_ford_dealer_super_duty_prices,
             get_ford_mfg_super_duty_hero_img,
@@ -415,6 +440,7 @@ def main():
         get_vehicle_data(
             "SUPER DUTY® COMMERICAL",
             const["SUPER_DUTY_COMMERCIAL_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_super_duty_commercial_prices,
             get_ford_dealer_super_duty_commercial_prices,
             get_ford_mfg_super_duty_commercial_hero_img,
@@ -428,6 +454,7 @@ def main():
         get_vehicle_data(
             "TRANSIT®",
             const["TRANSIT_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_transit_prices,
             get_ford_dealer_transit_prices,
             get_ford_mfg_transit_hero_img,
@@ -441,6 +468,7 @@ def main():
         get_vehicle_data(
             "TRANSIT® CC-CA",
             const["TRANSIT_CC_CA_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_transit_cc_ca_prices,
             get_ford_dealer_transit_cc_ca_prices,
             get_ford_mfg_transit_cc_ca_hero_img,
@@ -454,6 +482,7 @@ def main():
         get_vehicle_data(
             "TRANSIT® COMMERCIAL",
             const["TRANSIT_COMMERCIAL_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_transit_commercial_prices,
             get_ford_dealer_transit_commercial_prices,
             get_ford_mfg_transit_commercial_hero_img,
@@ -467,6 +496,7 @@ def main():
         get_vehicle_data(
             "TRANSIT® CONNECT",
             const["TRANSIT_CONNECT_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_transit_connect_prices,
             get_ford_dealer_transit_connect_prices,
             get_ford_mfg_transit_connect_hero_img,
@@ -480,6 +510,7 @@ def main():
         get_vehicle_data(
             "TRANSIT® CONNECT COMMERCIAL",
             const["TRANSIT_CONNECT_COMMERCIAL_SKIP_FLAG"],
+            const["EMAIL_IMG_COMPARISON_SKIP"],
             get_ford_mfg_transit_connect_commercial_prices,
             get_ford_dealer_transit_connect_commercial_prices,
             get_ford_mfg_transit_connect_commercial_hero_img,
