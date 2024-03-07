@@ -529,7 +529,10 @@ def main():
                 receiver_email,
                 bcc_email,
                 password,
-                os.getenv("EMAIL_SUBJECT"),
+                os.getenv(
+                    "EMAIL_SUBJECT",
+                    "LOCAL - Ford Vehicle Prices and Image Comparison",
+                ),
                 vehicles_list_html,
                 all_model_images_df,
                 nav_prices_df,
@@ -565,7 +568,10 @@ def main():
             sender_email,
             os.getenv("EMAIL_ERROR_RECIEVER"),
             password,
-            "FAILED: Ford Vehicle Prices and Image Comparison",
+            os.getenv(
+                "EMAIL_ERROR_SUBJECT",
+                "LOCAL - FAILED: Ford Vehicle Prices and Image Comparison",
+            ),
             error_message,
         )
 
