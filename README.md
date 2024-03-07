@@ -123,10 +123,52 @@ Install Docker desktop on the host machine. It can be [found here](https://www.d
 In your terminal run the following:
 
 ```
-docker build -t ford_data_scraping .
+docker-compose up --build -d
 ```
 
-## Run the Script
+This will build a local image using the .env file at run time to passs in environment variables.
+
+3. **Build Docker Image to push to Docker Hub**
+
+```
+docker build -t neallyboy/ford-web-scrapper .
+```
+
+This will build a new local image with the proper tag syntax in order to push properly to Docker Hub
+
+4. **Push image to Docker Hub Repo**
+
+```
+docker push neallyboy/ford-web-scrapper
+```
+
+This will build a local image, tag the image, and push to the Docker Hub repo so that it can be available in the cloud.
+
+5. **Pull the image from Docker Hub to your local machine**
+
+```
+docker pull neallyboy/ford-web-scrapper
+```
+
+This will pull the latest version from Docker Hub from the `neallyboy` repo.
+
+## Azure Cloud Instances - Optional
+
+Azure has a great free tier that allows you to trigger containers that are responsible for batch jobs. In this case, we would like to run the container on a schedule, and only have the container live for the life of the script.
+
+Azure Cloud Instances (ACI) provides the mechanism to use a docker image and execute in the cloud.
+
+```
+az container delete --resource-group <your-resource-group> --name <your-container-group>
+```
+
+Then create a new container instance in the cloud.
+
+```
+az container create --resource-group <your-resource-group> --name <your-container-group> --file <your-yaml-file>
+```
+
+## Run the Script Locally
 
 ```
 python main.py

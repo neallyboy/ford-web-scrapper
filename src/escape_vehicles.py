@@ -84,10 +84,13 @@ def get_ford_dealer_escape_prices(url: str) -> List[Tuple[str, str]]:
     try:
         # Extract vehicle models and prices
         model_elements = driver.find_elements(
-            By.XPATH, "//span[@class='modelCheckerLi']"
+            By.XPATH,
+            "//div[contains(@class,'modelChecker')]/div/ul/li/a/span",
         )
+
         price_elements = driver.find_elements(
-            By.XPATH, "//span[@class='modelCheckerLi']/label"
+            By.XPATH,
+            "//div[contains(@class,'modelChecker')]/div/ul/li/a/span/label",
         )
 
         # Check if model or price elements are not found
