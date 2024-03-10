@@ -228,7 +228,7 @@ def send_dealer_email(
         </style>
       </head>
       <body>
-        <p>Please review the most recent price and image comparisons between Ford.ca and Fordtodealers.ca. This email serves as an informational audit and requires verification by the recipient prior to any pricing updates.</p>
+        <p>Please review the most recent price {'and image' if not const["EMAIL_IMG_COMPARISON_SKIP"] else ''}comparisons between Ford.ca and Fordtodealers.ca. This email serves as an informational audit and requires verification by the recipient prior to any pricing updates.</p>
         <h2>NAVIGATION MENU PRICES</h2>
         Data Sources:
         <ul>
