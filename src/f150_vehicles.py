@@ -40,45 +40,27 @@ def get_ford_mfg_f150_prices(url: str) -> List[Tuple[str, str]]:
     vehicle_prices = []
 
     try:
-        # Get all the buttons to scroll through the vehicle models
-        buttons = driver.find_elements(
+        # Extract vehicle models and prices using Selenium
+        model_elements = driver.find_elements(
+            By.XPATH, "//*[@class='bri-txt generic-title-one ff-b']"
+        )
+        price_elements = driver.find_elements(
             By.XPATH,
-            "(//ol[@class='bds-carousel-indicators global-indicators to-fade-in  scrollable'])/li",
-        )  # Stop at the first ol instance
+            '//div[@class="model-walk-tab-price-disclosure-container"]//span[contains(@data-pricing-template, "{price}")]',
+        )
 
-        if not buttons:
+        # Check if model or price elements are not found
+        if not model_elements or not price_elements:
             raise Exception(
-                "Scrolling buttons not found. Page structure may have changed."
+                "Model or price elements not found. Page structure may have changed."
             )
 
-        # Loop through available carousel buttons
-        for i in range(len(buttons)):
-
-            # Click the current carousel button
-            # buttons[i].click()
-            driver.execute_script("arguments[0].click();", buttons[i])
-
-            # Time to load DOM
-            time.sleep(1)
-
-            # Extract vehicle models and prices using Selenium
-            model_elements = driver.find_elements(
-                By.XPATH, "//*[@class='fgx-brand-ds to-fade-in title-three ff-d']"
-            )
-            price_elements = driver.find_elements(By.XPATH, '//*[@class="price"]')
-
-            # Check if model or price elements are not found
-            if not model_elements or not price_elements:
-                raise Exception(
-                    "Model or price elements not found. Page structure may have changed."
-                )
-
-            for model, price in zip(model_elements, price_elements):
-                model_name = model.text.strip()
-                price_value = price.text.strip()
-                if model_name == "" or price_value == "":  # Ignore half captured data
-                    continue
-                vehicle_prices.append((model_name, price_value))
+        for model, price in zip(model_elements, price_elements):
+            model_name = model.text.strip()
+            price_value = price.text.strip()
+            if model_name == "" or price_value == "":  # Ignore half captured data
+                continue
+            vehicle_prices.append((model_name, price_value))
 
         # Remove possible duplicates
         vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
@@ -172,7 +154,7 @@ def get_ford_mfg_f150_hero_img(url: str) -> str:
     try:
         # Find the img tag using a more general XPath
         img_element = driver.find_element(
-            By.XPATH, '//*[@id="component01"]//picture/img'
+            By.XPATH, '//div[@class="billboard-img"]//picture/img'
         )
         img_src = img_element.get_attribute("src")
 

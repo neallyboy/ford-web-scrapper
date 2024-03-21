@@ -531,7 +531,7 @@ def main():
                 password,
                 os.getenv(
                     "EMAIL_SUBJECT",
-                    "LOCAL - Ford Vehicle Prices and Image Comparison",
+                    f'LOCAL - Ford Vehicle Prices {"and image" if not const["EMAIL_IMG_COMPARISON_SKIP"] else ""}Comparison',
                 ),
                 vehicles_list_html,
                 all_model_images_df,
@@ -570,7 +570,7 @@ def main():
             password,
             os.getenv(
                 "EMAIL_ERROR_SUBJECT",
-                "LOCAL - FAILED: Ford Vehicle Prices and Image Comparison",
+                f'LOCAL - FAILED: Ford Vehicle Prices {"and image" if not const["EMAIL_IMG_COMPARISON_SKIP"] else ""}Comparison',
             ),
             error_message,
         )
