@@ -220,9 +220,7 @@ def send_dealer_email(
         )
         summary_data.append((vehicle_link, comparison))
 
-    summary_df = pd.DataFrame(
-        summary_data, columns=["Comparison Item", "Comparison Result"]
-    )
+    summary_df = pd.DataFrame(summary_data, columns=["Section", "Comparison Result"])
 
     # Determine email subject prepend
     email_subject_prepend = (
@@ -274,7 +272,7 @@ def send_dealer_email(
       </head>
       <body>
         <p>Please review the most recent price {'and image ' if not const["EMAIL_IMG_COMPARISON_SKIP"] else ''}comparisons between Ford.ca and Fordtodealers.ca. This email serves as an informational audit and requires verification by the recipient prior to any pricing updates.</p>
-        <h2>COMPARISON SUMMARY</h2>
+        <h2><a id='summary' name='summary'>COMPARISON SUMMARY<a></h2>
         <p>This is a summary of the comparison results for the Navigation Menu Prices{', Model Hero Images,' if not const["EMAIL_IMG_COMPARISON_SKIP"] else ''} and Vehicle Prices. Click on the links to jump to the corresponding section.</p>
         {summary_df.to_html(classes="table", escape=False, index=False, formatters={"Comparison Result": redden})}
         <br>
@@ -285,6 +283,10 @@ def send_dealer_email(
           <li>{const["MAIN_NAVIGATION_MENU_DEALER_URL"]}</li>
         </ul>
         {nav_prices_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+        <br>
+        <a href='#summary'>Back to Summary</a>
+        <br>
+        <br>
     """
 
     # Loop through each vehicle and add corresponding HTML sections
@@ -300,6 +302,10 @@ def send_dealer_email(
           <li>{dealer_url}</li>
         </ul>
         {vehicle_df.to_html(classes='table', escape=False, index=False, formatters={'Price Comparison': redden})}
+        <br>
+        <a href='#summary'>Back to Summary</a>
+        <br>
+        <br>
         """
 
     if not all_model_images_df.empty:
@@ -310,6 +316,8 @@ def send_dealer_email(
             <h2><a id="hero_images" name="hero_images">MODEL HERO IMAGES</a></h2>
             <p>The comparisons are done based on filename and not the actual image presented.</p>
             {all_model_images_df.to_html(classes='table', escape=False, index=False, formatters={'Image Comparison': redden})}
+            <br>
+            <a href='#summary'>Back to Summary</a>
         </body>
         </html>
         """
