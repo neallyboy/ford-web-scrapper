@@ -2,14 +2,16 @@
 
 ## Overview
 
-This project scrapes Ford vehicle prices and hero images from Ford's official website and a dealer website, compares the prices, and sends an email notification.
+This project scrapes Ford vehicle prices and hero images from Ford's official website (www.ford.ca) and its affiliate dealer website (www.fordtodealers.ca), to compare vehicle prices and hero images in a tabular format, and sends that information in an email.
+
+This notification is meant for the recipeient to ensure that the prices on both sites are in sync.
 
 ## Prerequisites
 
-Before running the script, ensure you have the following:
+Before running the script locally, ensure you have the following:
 
 - Python 3.x installed
-- Chrome browser installed
+- Chrome, Firefox, or Edge browser installed
 - ChromeDriver downloaded and configured (see instructions below)
 - Required Python modules installed (install using `pip install -r requirements.txt`)
 - A Gmail account for sending email notifications
@@ -17,7 +19,7 @@ Before running the script, ensure you have the following:
 
 ## ChromeDriver Setup
 
-NOTE: The `webdriver_manager` package is part of this application and installs the browser driver on-demand which means downloading the drivers not neccessary.
+NOTE: The `webdriver_manager` package is part of this application and installs the browser driver on-demand which means downloading the drivers are not neccessary.
 
 1. **Download ChromeDriver:**
    Download the appropriate version of ChromeDriver for your Chrome browser version. You can download it from [ChromeDriver Downloads](https://sites.google.com/chromium.org/driver/).
@@ -142,7 +144,7 @@ This will build a new local image with the proper tag syntax in order to push pr
 docker push neallyboy/ford-web-scrapper
 ```
 
-This will build a local image, tag the image, and push to the Docker Hub repo so that it can be available in the cloud.
+This will push the `neallyboy/ford-web-scrapper` image to the Docker Hub repo so that it can be available in the cloud.
 
 5. **Pull the image from Docker Hub to your local machine**
 
@@ -154,19 +156,32 @@ This will pull the latest version from Docker Hub from the `neallyboy` repo.
 
 ## Azure Cloud Instances - Optional
 
-Azure has a great free tier that allows you to trigger containers that are responsible for batch jobs. In this case, we would like to run the container on a schedule, and only have the container live for the life of the script.
+Azure Cloud Instances (ACI) allows you to create simple containers that are responsible. In this case, we would like to run the container on a schedule, and only have the container live for the life of the script.
 
-Azure Cloud Instances (ACI) provides the mechanism to use a docker image and execute in the cloud.
+Once create, you cannot re-configure it. For example, the python application require environment variables to be passed to it. When creating the ACI, you can only set the variables at creation, it cannot be changed after that. This requires you to delete and recreate the container if you would like to change the environment variable value to something else.
 
 ```
 az container delete --resource-group <your-resource-group> --name <your-container-group>
 ```
+This command will delete the container so you can change the environment variables later.
 
-Then create a new container instance in the cloud.
+
+If if thes first time, then create a new container instance in the cloud.
 
 ```
 az container create --resource-group <your-resource-group> --name <your-container-group> --file <your-yaml-file>
 ```
+
+## Logic App - Optional
+
+The ACI does not have built-in functionality to schedule when a container can start. We need a different Azure resource to be used to schedule container runs. In this case, we use Logic App to start the Azure Container Instance. The Logic App has a scheduled trigger to that you can configure the time you would like it to start.
+
+It essentialy has just 2 stpes.
+
+1. Create an occurance trigger. This will be the first step where we can schedule a trigger to start the container. In our case, it will be daily at 7AM.
+2. Create a task for starting a container group. This step will need to be configured to connect to the ACI, so it can see the container we want to start.
+
+Now we have all we need to start run our container on a scheduled basis.
 
 ## Run the Script Locally
 
