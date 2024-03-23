@@ -185,6 +185,51 @@ def send_dealer_email(
     all_model_images_df: pd.DataFrame,
     nav_prices_df: pd.DataFrame,
 ) -> None:
+    # Check if there's any "Mismatch" value in the "Price Comparison" column for Navigation Menu Prices and Model Images
+    nav_match_status = (
+        "All Match"
+        if "Mismatch" not in nav_prices_df["Price Comparison"].values
+        else "Mismatch"
+    )
+    img_match_status = (
+        "All Match"
+        if all_model_images_df.empty
+        or "Mismatch" not in all_model_images_df["Image Comparison"].values
+        else "Mismatch"
+    )
+
+    # Create the summary DataFrame
+    summary_data = [
+        ("<a href='#nav_prices'>NAVIGATION MENU PRICES</a>", nav_match_status)
+    ]
+
+    if not all_model_images_df.empty:
+        summary_data.append(
+            ("<a href='#hero_images'>MODEL HERO IMAGES</a>", img_match_status)
+        )
+
+    for vehicle_name, vehicle_df, _, _ in vehicles_list_html:
+
+        # Create anchor tag for each vehicle_name
+        vehicle_link = f"<a href='#{vehicle_name.replace('™', '').replace('®', '').replace(' ', '_')}'>{vehicle_name}</a>"
+
+        comparison = (
+            "All Match"
+            if vehicle_df["Price Comparison"].eq("Match").all()
+            else "Mismatch"
+        )
+        summary_data.append((vehicle_link, comparison))
+
+    summary_df = pd.DataFrame(
+        summary_data, columns=["Comparison Item", "Comparison Result"]
+    )
+
+    # Determine email subject prepend
+    email_subject_prepend = (
+        "[Mismatch Found] - "
+        if "Mismatch" in summary_df["Comparison Result"].values
+        else ""
+    )
 
     # Split the string into a list using comma as a separator
     receiver_emails_list = receiver_email.split(",")
@@ -198,7 +243,7 @@ def send_dealer_email(
         if len(receiver_emails_list) > 1
         else receiver_emails_list[0]
     )
-    msg["Subject"] = subject
+    msg["Subject"] = f"{email_subject_prepend} {subject}"
 
     # Customize HTML content for Gmail email
     html_content = f"""
@@ -228,8 +273,12 @@ def send_dealer_email(
         </style>
       </head>
       <body>
-        <p>Please review the most recent price {'and image' if not const["EMAIL_IMG_COMPARISON_SKIP"] else ''}comparisons between Ford.ca and Fordtodealers.ca. This email serves as an informational audit and requires verification by the recipient prior to any pricing updates.</p>
-        <h2>NAVIGATION MENU PRICES</h2>
+        <p>Please review the most recent price {'and image ' if not const["EMAIL_IMG_COMPARISON_SKIP"] else ''}comparisons between Ford.ca and Fordtodealers.ca. This email serves as an informational audit and requires verification by the recipient prior to any pricing updates.</p>
+        <h2>COMPARISON SUMMARY</h2>
+        <p>This is a summary of the comparison results for the Navigation Menu Prices{', Model Hero Images,' if not const["EMAIL_IMG_COMPARISON_SKIP"] else ''} and Vehicle Prices. Click on the links to jump to the corresponding section.</p>
+        {summary_df.to_html(classes="table", escape=False, index=False, formatters={"Comparison Result": redden})}
+        <br>
+        <h2><a id="nav_prices" name="nav_prices">NAVIGATION MENU PRICES</a></h2>
         Data Sources:
         <ul>
           <li>{const["MAIN_NAVIGATION_MENU_MANUFACTURER_URL"]}</li>
@@ -241,8 +290,10 @@ def send_dealer_email(
     # Loop through each vehicle and add corresponding HTML sections
     for vehicle_name, vehicle_df, manufacturer_url, dealer_url in vehicles_list_html:
 
+        vehicle_id = vehicle_name.replace("™", "").replace("®", "").replace(" ", "_")
+
         html_content += f"""
-        <h2>{vehicle_name} PRICES</h2>
+        <h2><a id='{vehicle_id}' name='{vehicle_id}'>{vehicle_name} PRICES</a></h2>
         Data Sources:
         <ul>
           <li>{manufacturer_url}</li>
@@ -256,7 +307,7 @@ def send_dealer_email(
         html_content += f"""
             <br>
             <hr>
-            <h2>MODEL HERO IMAGES</h2>
+            <h2><a id="hero_images" name="hero_images">MODEL HERO IMAGES</a></h2>
             <p>The comparisons are done based on filename and not the actual image presented.</p>
             {all_model_images_df.to_html(classes='table', escape=False, index=False, formatters={'Image Comparison': redden})}
         </body>
