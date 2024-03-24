@@ -5,10 +5,15 @@ FROM python:3.11.8-slim
 WORKDIR /app
 
 # Set PYTHONUNBUFFERED to ensure immediate flushing of Python output
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
 
-# Install Firefox browser and driver
-RUN apt-get update && apt-get install -y firefox-esr
+# Install Firefox browser and driver, create a non-root user
+RUN apt-get update && apt-get install -y firefox-esr && \
+    apt-get autoremove -y && \
+    apt-get clean -y && \
+    rm -rf /var/lib/apt/lists/* && \
+    useradd -m pyuser
 
 # Copy only the requirements file
 COPY requirements.txt .
@@ -18,6 +23,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the local code into the container
 COPY . .
+
+# Set appropriate permissions
+RUN chown -R pyuser:pyuser /app/main.py && \
+    chmod +x /app/main.py
+
+# Switch to the non-root user
+USER pyuser
 
 # Entry point - run your script
 CMD ["python", "main.py"]

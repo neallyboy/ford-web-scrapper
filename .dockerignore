@@ -1,6 +1,26 @@
+# .gitignore
 .env
-**/*.log
+.env.example
+.env.local
+.env.staging
 .git/
+
+# Python-specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE-specific
+.vscode/
+.idea/
+
+# Docker-specific
+**/*.log
 Dockerfile
 docker-compose.yml
-node_modules/
