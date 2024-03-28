@@ -87,49 +87,34 @@ def get_ford_dealer_f150_prices(url: str) -> List[Tuple[str, str]]:
     vehicle_prices = []
 
     try:
-        # Get all the buttons to scroll through the vehicle models
-        buttons = driver.find_elements(
-            By.XPATH, "(//div[@class='owl-dots'])[1]/button"
-        )  # Stop at the first div instance
+        # Extract vehicle models and prices
+        model_elements = driver.find_elements(
+            By.XPATH,
+            "//div[contains(@class,'modelChecker')]/div/ul/li/a/span",
+        )
+        price_elements = driver.find_elements(
+            By.XPATH,
+            "//div[contains(@class,'modelChecker')]/div/ul/li/a/span/label",
+        )
 
-        if not buttons:
+        # Check if model or price elements are not found
+        if not model_elements or not price_elements:
             raise Exception(
-                "Scrolling buttons not found. Page structure may have changed."
+                "Model or price elements not found. Page structure may have changed."
             )
 
-        # Loop through available carousel buttons
-        for i in range(len(buttons)):
+        for model, price in zip(model_elements, price_elements):
+            model_name = model.text.strip().split("\n")[
+                0
+            ]  # Strip everything after '\n'
+            price_value = price.text.strip()
+            if model_name == "" or price_value == "":
+                continue
+            vehicle_prices.append((model_name, price_value))
 
-            # Click the current carousel button
-            buttons[i].click()
-
-            # Time to load DOM
-            time.sleep(1)
-
-            # Extract vehicle models and prices
-            model_elements = driver.find_elements(
-                By.XPATH, "//*[contains(@class,'modelChecker')]"
-            )
-            price_elements = driver.find_elements(
-                By.XPATH, "//*[contains(@class,'priceChecker')]"
-            )
-
-            # Check if model or price elements are not found
-            if not model_elements or not price_elements:
-                raise Exception(
-                    "Model or price elements not found. Page structure may have changed."
-                )
-
-            for model, price in zip(model_elements, price_elements):
-                model_name = model.text.strip()
-                price_value = price.text.strip()
-                if model_name == "" or price_value == "":  # Ignore half captured data
-                    continue
-                vehicle_prices.append((model_name, price_value))
-
-            # Remove possible duplicates
-            vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
-            vehicle_prices = vehicle_prices_sorted
+        # Remove possible duplicates
+        vehicle_prices_sorted = list(dict.fromkeys(vehicle_prices).keys())
+        vehicle_prices = vehicle_prices_sorted
 
     except Exception as e:
         vehicle_prices = [("Fordtodealers.ca Error", str(e))]

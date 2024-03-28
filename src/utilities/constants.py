@@ -14,7 +14,7 @@ constants = {
     # Navigation Configuration
     # ----------------------------------------------------------------
     "NAVIGATION_SKIP_FLAG": False,
-    "NAVIGATION_MODEL_LIST": ["BRONCO SPORT", "EDGE", "ESCAPE", "MUSTANG"],
+    "NAVIGATION_MODEL_LIST": ["BRONCO SPORT", "EDGE", "ESCAPE", "F-150", "MUSTANG"],
     "MAIN_NAVIGATION_MENU_MANUFACTURER_URL": "https://www.ford.ca",
     "MAIN_NAVIGATION_MENU_DEALER_URL": "https://fordtodealers.ca",
     # ----------------------------------------------------------------
@@ -75,11 +75,11 @@ constants = {
     "F_SERIES_STRIPPED_CHASSIS_MANUFACTURER_IMAGE_URL": "https://www.ford.ca/commercial-trucks/f-series-stripped-chassis/?gnav=header-commercial-vhp",
     "F_SERIES_STRIPPED_CHASSIS_DEALER_URL": "https://fordtodealers.ca/ford-f-series-stripped-chasis/",
     "F_SERIES_STRIPPED_CHASSIS_DEALER_IMAGE_URL": "https://fordtodealers.ca/ford-f-series-stripped-chasis/",
-    "F150_SKIP_FLAG": True,
+    "F150_SKIP_FLAG": False,
     "F150_MANUFACTURER_URL": "https://www.ford.ca/trucks/f150/?gnav=header-trucks-vhp",
     "F150_MANUFACTURER_IMAGE_URL": "https://www.ford.ca/trucks/f150/?gnav=header-trucks-vhp",
-    "F150_DEALER_URL": "https://fordtodealers.ca/ford-f-150/",
-    "F150_DEALER_IMAGE_URL": "https://fordtodealers.ca/ford-f-150/",
+    "F150_DEALER_URL": "https://fordtodealers.ca/2024-f150/",
+    "F150_DEALER_IMAGE_URL": "https://fordtodealers.ca/2024-f150/",
     "F150_COMMERCIAL_SKIP_FLAG": True,
     "F150_COMMERCIAL_MANUFACTURER_URL": "https://www.ford.ca/commercial-trucks/f150/?gnav=header-commercial-vhp",
     "F150_COMMERCIAL_MANUFACTURER_IMAGE_URL": "https://www.ford.ca/commercial-trucks/f150/?gnav=header-commercial-vhp",
