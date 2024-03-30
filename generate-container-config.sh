@@ -35,7 +35,7 @@ properties:
       - name: GITHUB_TOKEN
         secureValue: $FIREFOX_GITHUB_TOKEN
       - name: EMAIL_PASSWORD
-        secureValue: $EMAIL_PASSWORD
+        secureValue: "$EMAIL_PASSWORD"
   osType: Linux
   restartPolicy: Never
 EOF
