@@ -66,7 +66,7 @@ jobs:
       id: delete_container  
       if: steps.check_container.outputs.container_exists == 'true'
       run: |
-        az container delete --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --yes && echo "name=container_exists::false" >> "$GITHUB_OUTPUT"
+        az container delete --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --yes && echo "container_exists=false" >> "$GITHUB_OUTPUT"
 
     - name: Output container_exists
       run: |
