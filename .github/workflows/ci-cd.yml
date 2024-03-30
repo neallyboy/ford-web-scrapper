@@ -45,7 +45,7 @@ jobs:
     - name: Check if Azure Container Instance exists
       id: check_container
       run: |
-        result=$(az container show --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --query "name" -o tsv 2>&1)
+        result=$(az container show --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --query "name" -o tsv 2>/dev/null || echo "")
         echo "::set-output name=container_exists::$(test -z "$result" && echo false || echo true)"
   
     - name: Delete Azure Container Instance
