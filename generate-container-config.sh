@@ -39,3 +39,4 @@ properties:
   osType: Linux
   restartPolicy: Never
 EOF
+cat container-config.yaml
