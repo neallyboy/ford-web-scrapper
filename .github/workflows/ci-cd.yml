@@ -37,6 +37,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: Development
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
     - name: Login to Azure
       uses: azure/login@v1
       with:
