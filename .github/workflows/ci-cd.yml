@@ -61,6 +61,10 @@ jobs:
         result=$(az container show --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --query "name" -o tsv 2>/dev/null || echo "")
         echo "container_exists=$(test -z "$result" && echo false || echo true)" >> $GITHUB_STATE
   
+    - name: Output container_exists
+      run: |
+        echo "Container exists: ${{ steps.check_container.outputs.container_exists }}"
+
     - name: Delete Azure Container Instance
       if: steps.check_container.outputs.container_exists == 'true'
       run: |
