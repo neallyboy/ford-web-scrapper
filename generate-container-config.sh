@@ -1,15 +1,16 @@
 #!/bin/bash
 
-EMAIL_ERROR_RECIEVER=$1
-EMAIL_ERROR_SUBJECT=$2
-EMAIL_SUBJECT=$3
-EMAIL_RECIEVER=$4
-EMAIL_SENDER=$5
-EMAIL_BCC=$6
+AZURE_CONTAINER_INSTANCE_GROUP=$1
+EMAIL_ERROR_RECIEVER=$2
+EMAIL_ERROR_SUBJECT=$3
+EMAIL_SUBJECT=$4
+EMAIL_RECIEVER=$5
+EMAIL_SENDER=$6
+EMAIL_BCC=$7
 
 cat << EOF > container-config.yaml
 location: canadacentral
-name: ford-web-scrapper
+name: "$AZURE_CONTAINER_INSTANCE_GROUP"
 properties:
   containers:
   - name: ford-web-scrapper
