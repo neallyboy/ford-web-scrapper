@@ -32,16 +32,6 @@ jobs:
         push: true
         tags: ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-    # - name: Get Docker image URL
-    #   id: get_image_url
-    #   run: |
-    #     echo "image_url=ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" >> $GITHUB_STATE
-        
-    # - name: Set Docker image URL output
-    #   run: |
-    #     echo "image_url=${{ steps.get_image_url.outputs.image_url }}" >> $GITHUB_OUTPUT
-
-
   deploy_dev:
     needs: build
     runs-on: ubuntu-latest
@@ -78,7 +68,7 @@ jobs:
       run: |
         az container delete --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --yes && echo "name=container_deleted::true" >> "$GITHUB_OUTPUT"
 
-    - name: Generate config file
+    - name: Generate container config file
       run: |
         chmod +x generate-container-config.sh
         GITHUB_TOKEN="${{ secrets.FIREFOX_GITHUB_TOKEN }}" EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}" ./generate-container-config.sh "${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }}" "ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" "${{ vars.EMAIL_ERROR_RECIEVER }}" "${{ vars.EMAIL_ERROR_SUBJECT }}" "${{ vars.EMAIL_SUBJECT }}" "${{ vars.EMAIL_RECIEVER }}" "${{ vars.EMAIL_SENDER }}" "${{ vars.EMAIL_BCC }}"
@@ -86,7 +76,7 @@ jobs:
     - name: Deploy to Azure Container Instances (ACI) - Dev
       if: steps.check_container.outputs.container_exists == 'false' || steps.delete_container.outputs.container_deleted == 'true'
       run: |
-        az container create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --file container-config.yaml
+        az container create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }}  --command-line "Container created - Shut down." --file container-config.yaml
 
 #   deploy_staging:
 #     needs: deploy_dev
