@@ -21,17 +21,17 @@ properties:
           memoryInGb: 1.5
       environmentVariables:
       - name: EMAIL_ERROR_RECIEVER
-        value: $EMAIL_ERROR_RECIEVER
+        value: "$EMAIL_ERROR_RECIEVER"
       - name: EMAIL_ERROR_SUBJECT
-        value: $EMAIL_ERROR_SUBJECT
+        value: "$EMAIL_ERROR_SUBJECT"
       - name: EMAIL_SUBJECT
-        value: $EMAIL_SUBJECT
+        value: "$EMAIL_SUBJECT"
       - name: EMAIL_RECIEVER
-        value: $EMAIL_RECIEVER
+        value: "$EMAIL_RECIEVER"
       - name: EMAIL_SENDER
-        value: $EMAIL_SENDER
+        value: "$EMAIL_SENDER"
       - name: EMAIL_BCC
-        value: $EMAIL_BCC
+        value: "$EMAIL_BCC"
       - name: GITHUB_TOKEN
         secureValue: "$FIREFOX_GITHUB_TOKEN"
       - name: EMAIL_PASSWORD
