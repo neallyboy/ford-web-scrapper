@@ -82,30 +82,30 @@ jobs:
       run: |
         az container create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }}  --command-line "Container created - Shut down." --file container-config.yaml
 
-  deploy_staging:
-    needs: deploy_dev
-    runs-on: ubuntu-latest
-    environment: Staging
-    steps:
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+  # deploy_staging:
+  #   needs: deploy_dev
+  #   runs-on: ubuntu-latest
+  #   environment: Staging
+  #   steps:
+  #   - name: Login to Azure
+  #     uses: azure/login@v1
+  #     with:
+  #       creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy to Azure Container Instances (ACI) - Staging
-      run: |
-        az container create --resource-group stagingResourceGroup --name stagingContainerGroup --image ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --dns-name-label stagingContainerGroup --ports 80
+  #   - name: Deploy to Azure Container Instances (ACI) - Staging
+  #     run: |
+  #       az container create --resource-group stagingResourceGroup --name stagingContainerGroup --image ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --dns-name-label stagingContainerGroup --ports 80
 
-  deploy_prod:
-    needs: deploy_staging
-    runs-on: ubuntu-latest
-    environment: Production
-    steps:
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+  # deploy_prod:
+  #   needs: deploy_staging
+  #   runs-on: ubuntu-latest
+  #   environment: Production
+  #   steps:
+  #   - name: Login to Azure
+  #     uses: azure/login@v1
+  #     with:
+  #       creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy to Azure Container Instances (ACI) - Production
-      run: |
-        az container create --resource-group prodResourceGroup --name prodContainerGroup --image ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --dns-name-label prodContainerGroup --ports 80
+  #   - name: Deploy to Azure Container Instances (ACI) - Production
+  #     run: |
+  #       az container create --resource-group prodResourceGroup --name prodContainerGroup --image ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --dns-name-label prodContainerGroup --ports 80
