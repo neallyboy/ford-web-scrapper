@@ -21,29 +21,21 @@ properties:
           memoryInGb: 1.5
       environmentVariables:
       - name: EMAIL_ERROR_RECIEVER
-        secureValue: null
         value: $EMAIL_ERROR_RECIEVER
       - name: EMAIL_ERROR_SUBJECT
-        secureValue: null
         value: $EMAIL_ERROR_SUBJECT
       - name: EMAIL_SUBJECT
-        secureValue: null
         value: $EMAIL_SUBJECT
       - name: EMAIL_RECIEVER
-        secureValue: null
         value: $EMAIL_RECIEVER
       - name: EMAIL_SENDER
-        secureValue: null
         value: $EMAIL_SENDER
       - name: EMAIL_BCC
-        secureValue: null
         value: $EMAIL_BCC
       - name: GITHUB_TOKEN
         secureValue: $FIREFOX_GITHUB_TOKEN
-        value: null
       - name: EMAIL_PASSWORD
         secureValue: $EMAIL_PASSWORD
-        value: null
   osType: Linux
   restartPolicy: Never
 EOF
