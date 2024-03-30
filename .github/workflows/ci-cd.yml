@@ -66,9 +66,10 @@ jobs:
         echo "Container exists: ${{ steps.check_container.outputs.container_exists }}"
 
     - name: Delete Azure Container Instance
+      id: delete_container  
       if: steps.check_container.outputs.container_exists == 'true'
       run: |
-        az container delete --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --yes
+        az container delete --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --yes && echo "name=container_deleted::true" >> "$GITHUB_OUTPUT"
 
     - name: Generate config file
       run: |
@@ -76,7 +77,7 @@ jobs:
         GITHUB_TOKEN="${{ secrets.FIREFOX_GITHUB_TOKEN }}" EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}" ./generate-container-config.sh "${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }}" "${{ vars.EMAIL_ERROR_RECIEVER }}" "${{ vars.EMAIL_ERROR_SUBJECT }}" "${{ vars.EMAIL_SUBJECT }}" "${{ vars.EMAIL_RECIEVER }}" "${{ vars.EMAIL_SENDER }}" "${{ vars.EMAIL_BCC }}"
   
     - name: Deploy to Azure Container Instances (ACI) - Dev
-      if: steps.check_container.outputs.container_exists == 'false'
+      if: steps.check_container.outputs.container_exists == 'false' || steps.delete_container.outputs.container_deleted == 'true'
       run: |
         az container create --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --image ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --file container-config.yaml
 
