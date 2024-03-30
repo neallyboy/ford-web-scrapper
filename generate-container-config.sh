@@ -15,7 +15,6 @@ properties:
   containers:
   - name: ford-web-scrapper
     properties:
-      image: neallyboy/ford-web-scrapper
       resources:
         requests:
           cpu: 1.0
