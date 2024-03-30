@@ -59,7 +59,7 @@ jobs:
       id: check_container
       run: |
         result=$(az container show --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --query "name" -o tsv 2>/dev/null || echo "")
-        echo "container_exists=$(test -z "$result" && echo false || echo true)"
+        echo "container_exists=$(test -z "$result" && echo false || echo true)" >> "$GITHUB_OUTPUT"
   
     - name: Output container_exists
       run: |
