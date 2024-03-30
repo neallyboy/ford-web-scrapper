@@ -1,12 +1,13 @@
 #!/bin/bash
 
 AZURE_CONTAINER_INSTANCE_GROUP=$1
-EMAIL_ERROR_RECIEVER=$2
-EMAIL_ERROR_SUBJECT=$3
-EMAIL_SUBJECT=$4
-EMAIL_RECIEVER=$5
-EMAIL_SENDER=$6
-EMAIL_BCC=$7
+DOCKER_IMAGE_URL=$2
+EMAIL_ERROR_RECIEVER=$3
+EMAIL_ERROR_SUBJECT=$4
+EMAIL_SUBJECT=$5
+EMAIL_RECIEVER=$6
+EMAIL_SENDER=$7
+EMAIL_BCC=$8
 
 cat << EOF > container-config.yaml
 location: canadacentral
@@ -15,6 +16,7 @@ properties:
   containers:
   - name: ford-web-scrapper
     properties:
+      image: "$DOCKER_IMAGE_URL"
       resources:
         requests:
           cpu: 1.0

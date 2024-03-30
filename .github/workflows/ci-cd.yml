@@ -74,7 +74,7 @@ jobs:
     - name: Generate config file
       run: |
         chmod +x generate-container-config.sh
-        GITHUB_TOKEN="${{ secrets.FIREFOX_GITHUB_TOKEN }}" EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}" ./generate-container-config.sh "${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }}" "${{ vars.EMAIL_ERROR_RECIEVER }}" "${{ vars.EMAIL_ERROR_SUBJECT }}" "${{ vars.EMAIL_SUBJECT }}" "${{ vars.EMAIL_RECIEVER }}" "${{ vars.EMAIL_SENDER }}" "${{ vars.EMAIL_BCC }}"
+        GITHUB_TOKEN="${{ secrets.FIREFOX_GITHUB_TOKEN }}" EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}" ./generate-container-config.sh "${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }}" "ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" "${{ vars.EMAIL_ERROR_RECIEVER }}" "${{ vars.EMAIL_ERROR_SUBJECT }}" "${{ vars.EMAIL_SUBJECT }}" "${{ vars.EMAIL_RECIEVER }}" "${{ vars.EMAIL_SENDER }}" "${{ vars.EMAIL_BCC }}"
   
     - name: Deploy to Azure Container Instances (ACI) - Dev
       if: steps.check_container.outputs.container_exists == 'false' || steps.delete_container.outputs.container_deleted == 'true'
