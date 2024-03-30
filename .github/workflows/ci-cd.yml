@@ -32,6 +32,16 @@ jobs:
         push: true
         tags: ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
+    # - name: Get Docker image URL
+    #   id: get_image_url
+    #   run: |
+    #     echo "image_url=ghcr.io/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" >> $GITHUB_STATE
+        
+    # - name: Set Docker image URL output
+    #   run: |
+    #     echo "image_url=${{ steps.get_image_url.outputs.image_url }}" >> $GITHUB_OUTPUT
+
+
   deploy_dev:
     needs: build
     runs-on: ubuntu-latest
@@ -40,6 +50,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     
+
+
     - name: Login to Azure
       uses: azure/login@v1
       with:
@@ -49,7 +61,7 @@ jobs:
       id: check_container
       run: |
         result=$(az container show --resource-group ${{ vars.AZURE_RESOURCE_GROUP }} --name ${{ vars.AZURE_CONTAINER_INSTANCE_GROUP }} --query "name" -o tsv 2>/dev/null || echo "")
-        echo "::set-output name=container_exists::$(test -z "$result" && echo false || echo true)"
+        echo "container_exists=$(test -z "$result" && echo false || echo true)" >> $GITHUB_STATE
   
     - name: Delete Azure Container Instance
       if: steps.check_container.outputs.container_exists == 'true'
